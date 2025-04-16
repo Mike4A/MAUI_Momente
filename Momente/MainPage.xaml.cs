@@ -20,6 +20,11 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+
+        private void AddMomentButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
