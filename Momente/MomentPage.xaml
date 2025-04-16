@@ -10,12 +10,65 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                x:Name="IconLabel"
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="32"
+                HorizontalTextAlignment="Center"
+                Text="O"
+                VerticalTextAlignment="Center" />
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    x:Name="HeadlineLabel"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="6"
+                    Text="Headline goes here..." />
+
+                <Label
+                    x:Name="CreatedAtLabel"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Padding="6"
+                    Text="Erstellt am {Datum} um {Uhrzeit}"
+                    TextColor="{StaticResource Gray500}" />
+            </Grid>
+        </Grid>
 
         <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+            x:Name="DescriptionLabel"
+            Grid.Row="1"
+            Grid.Column="0"
+            Padding="9"
+            Text="Das ist ein Platzhalter text. Er wollte immer schon einer werden, nun hat er es geschafft. Er freut sich und strahlt derart von innen heraus, dass er einer Supernova gleicht :)" />
+    </Grid>
 
-    </VerticalStackLayout>
 </ContentPage>
