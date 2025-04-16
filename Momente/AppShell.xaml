@@ -4,12 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Momente"
-    Shell.FlyoutBehavior="Disabled"
-    Title="Momente">
+    Title="Momente"
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        Title="Moment"
+        ContentTemplate="{DataTemplate local:MomentPage}"
+        Route="MomentPage" />
 
 </Shell>
