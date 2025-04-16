@@ -12,7 +12,7 @@ namespace Momente
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
         {
             //testing
-            await Navigation.PushAsync(new MomentPage(0, false));
+            await Navigation.PushAsync(new MomentPage(0));
         }
 
         private void SwitchThemeButton_Clicked(object sender, EventArgs e)

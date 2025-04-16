@@ -3,15 +3,11 @@ namespace Momente;
 
 public partial class MomentPage : ContentPage
 {    
-    public MomentPage(int id, bool edit)
+    public MomentPage(int id)
     {
         InitializeComponent();
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
-        TrySetViewModelId(viewModel, id);
-        if (edit)
-        { 
-            //switch control visibility
-        }
+        TrySetViewModelId(viewModel, id);              
     }
 
     private async void TrySetViewModelId(MomentViewModel viewModel, int id)
@@ -38,8 +34,11 @@ public partial class MomentPage : ContentPage
     {
         Dispatcher.Dispatch(() =>
         {
-            IconLabel.CursorPosition = 0;
-            IconLabel.SelectionLength = IconLabel.Text.Length + 1;
+            if (!String.IsNullOrEmpty( IconLabel.Text))
+            {
+                IconLabel.CursorPosition = 0;
+                IconLabel.SelectionLength = IconLabel.Text.Length;
+            }
         });
     }
 

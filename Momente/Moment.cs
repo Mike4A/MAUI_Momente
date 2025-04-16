@@ -12,7 +12,7 @@ namespace Momente
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;        
-        public string Icon { get; set; } = "";
+        public string Icon { get; set; } = "🙂";
         public string Headline { get; set; } = "";
         public string Description { get; set; } = "";
     }

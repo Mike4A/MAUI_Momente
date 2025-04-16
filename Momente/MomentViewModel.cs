@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Momente
 {
-    public class MomentViewModel
+    public class MomentViewModel : INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -18,8 +19,8 @@ namespace Momente
             {
                 if (_id != value)
                 {
-                    OnPropertyChanged(nameof(Id));
                     _id = value;
+                    OnPropertyChanged(nameof(Id));
                 }
             }
         }
@@ -30,8 +31,8 @@ namespace Momente
             get => _createdAt;
             set
             {
-                OnPropertyChanged(nameof(CreatedAt));
                 _createdAt = value;
+                OnPropertyChanged(nameof(CreatedAt));
             }
         }
 
@@ -41,8 +42,8 @@ namespace Momente
             get => _icon;
             set
             {
-                OnPropertyChanged(nameof(Icon));
                 _icon = value;
+                OnPropertyChanged(nameof(Icon));
             }
         }
 
@@ -52,8 +53,8 @@ namespace Momente
             get => _headline;
             set
             {
-                OnPropertyChanged(nameof(Headline));
                 _headline = value;
+                OnPropertyChanged(nameof(Headline));
             }
         }
 
@@ -63,8 +64,8 @@ namespace Momente
             get => _description;
             set
             {
-                OnPropertyChanged(nameof(Description));
                 _description = value;
+                OnPropertyChanged(nameof(Description));
             }
         }
 
@@ -73,6 +74,26 @@ namespace Momente
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public ICommand SaveMomentCommand { get; }
+        public ICommand DeleteMomentCommand { get; }
+
+        public MomentViewModel()
+        {
+            SaveMomentCommand = new Command(async () => await SaveMomentAsync());
+            DeleteMomentCommand = new Command(async () => await DeleteMomentAsync());
+        }
+
+        private async Task SaveMomentAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task DeleteMomentAsync()
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <param name="id">0 means "load default"</param>
         public async Task<bool> TryLoadFromIdOrDefaultAsync(int id)
@@ -93,7 +114,7 @@ namespace Momente
             }
 
             Id = moment.Id;
-            CreatedAt = moment.CreatedAt;            
+            CreatedAt = moment.CreatedAt;
             Icon = moment.Icon;
             Headline = moment.Headline;
             Description = moment.Description;
