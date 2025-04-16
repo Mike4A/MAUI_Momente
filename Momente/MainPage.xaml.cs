@@ -12,7 +12,12 @@ namespace Momente
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
         {
             //testing
-            await Navigation.PushModalAsync(new MomentPage(0, false));
+            await Navigation.PushAsync(new MomentPage(0, false));
+        }
+
+        private void SwitchThemeButton_Clicked(object sender, EventArgs e)
+        {
+            Application.Current!.UserAppTheme = Application.Current!.UserAppTheme == AppTheme.Dark ? AppTheme.Light : AppTheme.Dark;
         }
     }
 }

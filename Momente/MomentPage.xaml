@@ -10,65 +10,129 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="64" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0">
+    <ScrollView>
+        <Grid Margin="3">
             <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="64" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                x:Name="IconLabel"
-                Grid.Row="0"
-                Grid.Column="0"
-                FontSize="32"
-                HorizontalTextAlignment="Center"
-                Text="O"
-                VerticalTextAlignment="Center" />
-
-            <Grid Grid.Row="0" Grid.Column="1">
+            <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label
-                    x:Name="HeadlineLabel"
+                <Frame
                     Grid.Row="0"
                     Grid.Column="0"
-                    Padding="6"
-                    Text="Headline goes here..." />
+                    Margin="3"
+                    Padding="0">
 
-                <Label
-                    x:Name="CreatedAtLabel"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Padding="6"
-                    Text="Erstellt am {Datum} um {Uhrzeit}"
-                    TextColor="{StaticResource Gray500}" />
+                    <Entry
+                        x:Name="IconLabel"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Focused="IconLabel_Focused"
+                        FontSize="32"
+                        HorizontalTextAlignment="Center"
+                        Keyboard="Chat"
+                        Text="🙃"
+                        TextChanged="IconLabel_TextChanged"
+                        VerticalTextAlignment="Center" />
+                </Frame>
+
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="3"
+                    Padding="0">
+
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="1.6*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            x:Name="CreatedAtLabel"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Padding="3"
+                            FontSize="14"
+                            Text="Erstellt am {Datum} um {Uhrzeit}"
+                            TextColor="{StaticResource Gray500}"
+                            VerticalTextAlignment="Center" />
+
+                        <Entry
+                            x:Name="HeadlineLabel"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontSize="14"
+                            Text="Headline goes here..." />
+                    </Grid>
+                </Frame>
+
             </Grid>
+
+            <Frame
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="3"
+                Padding="6">
+
+                <Editor
+                    x:Name="DescriptionLabel"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"
+                    Text="Das ist ein Platzhalter-Text. Er wollte immer schon einer werden, nun hat er es geschafft. Er freut sich und strahlt derart von innen heraus, dass er einer Supernova gleicht :)" />
+            </Frame>
+
+            <Frame
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="3"
+                Padding="6">
+
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        x:Name="DeleteButton"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="6"
+                        Clicked="DeleteButton_Clicked"
+                        Text="Löschen" />
+
+                    <Button
+                        x:Name="SaveButton"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="6"
+                        Clicked="SaveButton_Clicked"
+                        Text="Speichern" />
+                </Grid>
+            </Frame>
+
         </Grid>
-
-        <Label
-            x:Name="DescriptionLabel"
-            Grid.Row="1"
-            Grid.Column="0"
-            Padding="9"
-            Text="Das ist ein Platzhalter text. Er wollte immer schon einer werden, nun hat er es geschafft. Er freut sich und strahlt derart von innen heraus, dass er einer Supernova gleicht :)" />
-    </Grid>
-
+    </ScrollView>
 </ContentPage>
