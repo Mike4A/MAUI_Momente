@@ -115,7 +115,7 @@ namespace Momente
         /// <param name="id">0 means "load default"</param>
         public async Task<bool> TryLoadFromIdOrDefaultAsync(int id)
         {
-            Moment? moment;
+            Moment moment;
             if (id == 0)
             {
                 moment = new Moment();
