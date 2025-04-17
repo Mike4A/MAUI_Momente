@@ -30,10 +30,8 @@
             <CollectionView
                 x:Name="MomentsCollectionView"
                 ItemsSource="{Binding Moments}"
-                RemainingItemsThreshold="3"
-                RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
-                SelectionMode="Single"
-                SelectionChanged="MomentsCollectionView_SelectionChanged">
+                SelectionChanged="MomentsCollectionView_SelectionChanged"
+                SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>
 

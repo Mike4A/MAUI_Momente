@@ -87,21 +87,30 @@ namespace Momente
 
         private async Task SaveMomentAsync()
         {
-            await DatabaseService.Instance.AddMomentAsync(new Moment
+            Moment moment = new Moment
             {
                 Id = this.Id,
                 CreatedAt = this.CreatedAt,
                 Icon = this.Icon,
                 Headline = this.Headline,
                 Description = this.Description
-            });
+            };
+
+            if (DatabaseService.Instance.GetMomentByIdAsync(Id) != null)
+            {
+                await DatabaseService.Instance.UpdateMomentAsync(moment);
+            }
+            else
+            {
+                await DatabaseService.Instance.AddMomentAsync(moment);
+            }
 
             await Debugger.WriteMomentEntries();
         }
         private async Task DeleteMomentAsync()
         {
-            await Debugger.WriteMomentEntries();
-        }        
+            //await Debugger.WriteMomentEntries();
+        }
 
         /// <param name="id">0 means "load default"</param>
         public async Task<bool> TryLoadFromIdOrDefaultAsync(int id)

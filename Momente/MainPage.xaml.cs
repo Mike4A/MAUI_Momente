@@ -12,20 +12,11 @@ namespace Momente
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)
         {
-            await AddNextMoment();
-        }
-        private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
-        {
-            await AddNextMoment();
-        }
-        private async Task AddNextMoment()
-        {
-            Moment? moment = await DatabaseService.Instance.GetNextCachedAsync();
-
-            if (moment != null)
-            {
-                (BindingContext as MainViewModel)!.Moments!.Add(moment);
-            }
+            (BindingContext as MainViewModel)!.Moments!.Clear();
+            List<Moment> moments = await DatabaseService.Instance.GetMomentsAsync();
+            foreach (Moment moment in moments) {
+                (BindingContext as MainViewModel)!.Moments!.Add(moment); 
+            }            
         }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
@@ -55,7 +46,6 @@ namespace Momente
             {
                 int id = (MomentsCollectionView.SelectedItem as Moment)!.Id;
                 await Navigation.PushAsync(new MomentPage(id));
-                (BindingContext as MainViewModel)!.Moments!.Clear();
             }            
         }
     }
