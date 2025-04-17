@@ -8,6 +8,7 @@ namespace Momente
         {
             InitializeComponent();
             this.NavigatedTo += MainPage_NavigatedTo;
+            SwitchThemeButton.Text = Application.Current!.UserAppTheme == AppTheme.Dark ? "🌛" : "🌞";
         }
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)

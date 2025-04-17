@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Momente
 {
-    public class MainViewModel //: INotifyPropertyChanged
+    public class MainViewModel 
     {
         public ObservableCollection<Moment>? Moments { get; } = new ObservableCollection<Moment>();
     }

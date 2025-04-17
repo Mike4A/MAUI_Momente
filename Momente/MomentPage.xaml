@@ -34,7 +34,9 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="3"
-                Padding="0">
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                  Dark={StaticResource Black}}">
 
                 <Entry
                     x:Name="IconEntry"
@@ -53,7 +55,9 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="3"
-                Padding="0">
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                  Dark={StaticResource Black}}">
 
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -90,7 +94,9 @@
             Grid.Row="1"
             Grid.Column="0"
             Margin="3"
-            Padding="6">
+            Padding="6"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                              Dark={StaticResource Black}}">
 
             <Editor
                 x:Name="DescriptionEditor"
@@ -106,7 +112,9 @@
             Grid.Row="2"
             Grid.Column="0"
             Margin="3"
-            Padding="6">
+            Padding="6"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                              Dark={StaticResource Black}}">
 
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -123,26 +131,32 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Margin="6"
+                    Padding="0"
                     Clicked="DeleteButton_Clicked"
                     Command="{Binding DeleteMomentCommand}"
-                    Text="Löschen" />
+                    FontSize="24"
+                    Text="🚮" />
 
                 <Button
                     x:Name="CancelButton"
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="6"
+                    Padding="0"
                     Clicked="CancelButton_Clicked"
-                    Text="Abbrechen" />
+                    FontSize="24"
+                    Text="❌" />
 
                 <Button
                     x:Name="SaveButton"
                     Grid.Row="0"
                     Grid.Column="2"
                     Margin="6"
+                    Padding="0"
                     Clicked="SaveButton_Clicked"
                     Command="{Binding SaveMomentCommand}"
-                    Text="Speichern" />
+                    FontSize="24"
+                    Text="✔" />
             </Grid>
         </Frame>
 
