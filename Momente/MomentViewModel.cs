@@ -96,7 +96,7 @@ namespace Momente
                 Description = this.Description
             };
 
-            if (DatabaseService.Instance.GetMomentByIdAsync(Id) != null)
+            if (await DatabaseService.Instance.GetMomentByIdAsync(Id) != null)
             {
                 await DatabaseService.Instance.UpdateMomentAsync(moment);
             }
@@ -105,7 +105,7 @@ namespace Momente
                 await DatabaseService.Instance.AddMomentAsync(moment);
             }
 
-            await Debugger.WriteMomentEntries();
+            //await Debugger.WriteMomentEntries();
         }
         private async Task DeleteMomentAsync()
         {

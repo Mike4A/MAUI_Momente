@@ -42,12 +42,16 @@ public partial class MomentPage : ContentPage
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
-        var answer = await DisplayAlert("", "Moment löschen?", "Ja", "Nein");
-        if (answer)
+        if ((BindingContext as MomentViewModel)!.Id != 0)
         {
-            await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
-            await Navigation.PopAsync();
-        }        
+            var answer = await DisplayAlert("", "Moment löschen?", "Ja", "Nein");
+            if (answer)
+            {
+                await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
+            }
+        }
+
+        await Navigation.PopAsync();
     }
 
     private async void CancelButton_Clicked(object sender, EventArgs e)
