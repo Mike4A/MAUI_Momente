@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,14 +87,21 @@ namespace Momente
 
         private async Task SaveMomentAsync()
         {
-            throw new NotImplementedException();
-        }
+            await DatabaseService.Instance.AddMomentAsync(new Moment
+            {
+                Id = this.Id,
+                CreatedAt = this.CreatedAt,
+                Icon = this.Icon,
+                Headline = this.Headline,
+                Description = this.Description
+            });
 
+            await Debugger.WriteMomentEntries();
+        }
         private async Task DeleteMomentAsync()
         {
-            throw new NotImplementedException();
-        }
-
+            await Debugger.WriteMomentEntries();
+        }        
 
         /// <param name="id">0 means "load default"</param>
         public async Task<bool> TryLoadFromIdOrDefaultAsync(int id)

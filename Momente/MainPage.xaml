@@ -24,14 +24,24 @@
             Grid.Row="0"
             Grid.Column="0"
             Margin="3"
-            Padding="6">
+            Padding="6"
+            BackgroundColor="Transparent">
 
-            <CollectionView x:Name="MomentsCollectionView" ItemsSource="{Binding Moments}">
+            <CollectionView
+                x:Name="MomentsCollectionView"
+                ItemsSource="{Binding Moments}"
+                RemainingItemsThreshold="3"
+                RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
+                SelectionMode="Single"
+                SelectionChanged="MomentsCollectionView_SelectionChanged">
+
                 <CollectionView.ItemTemplate>
+
                     <DataTemplate>
+
                         <Grid Grid.Row="0" Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="70" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="70" />
@@ -44,16 +54,13 @@
                                 Margin="3"
                                 Padding="0">
 
-                                <Entry
+                                <Label
                                     x:Name="IconLabel"
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Focused="IconLabel_Focused"
-                                    FontSize="32"
+                                    FontSize="40"
                                     HorizontalTextAlignment="Center"
-                                    Keyboard="Chat"
                                     Text="{Binding Icon}"
-                                    TextChanged="IconLabel_TextChanged"
                                     VerticalTextAlignment="Center" />
                             </Frame>
 
@@ -66,7 +73,7 @@
                                 <Grid Grid.Row="0" Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
-                                        <RowDefinition Height="1.6*" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -76,25 +83,28 @@
                                         x:Name="CreatedAtLabel"
                                         Grid.Row="0"
                                         Grid.Column="0"
-                                        Padding="3"
+                                        Padding="6,3,6,3"
                                         FontSize="14"
                                         Text="{Binding CreatedAt}"
                                         TextColor="{StaticResource Gray500}"
-                                        VerticalTextAlignment="Center" />
+                                        VerticalTextAlignment="End" />
 
-                                    <Entry
+                                    <Label
                                         x:Name="HeadlineLabel"
                                         Grid.Row="1"
                                         Grid.Column="0"
+                                        Padding="6,3,6,3"
                                         FontSize="14"
-                                        Placeholder="Überschrift..."
-                                        Text="{Binding Headline}" />
+                                        Text="{Binding Headline}"
+                                        VerticalTextAlignment="Start" />
                                 </Grid>
                             </Frame>
 
                         </Grid>
                     </DataTemplate>
+
                 </CollectionView.ItemTemplate>
+
             </CollectionView>
 
         </Frame>
@@ -128,8 +138,10 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="6"
+                    Padding="0"
                     Clicked="SwitchThemeButton_Clicked"
-                    Text="💡" />
+                    FontSize="20"
+                    Text="🌛" />
 
                 <Button
                     x:Name="AddMomentButton"

@@ -24,12 +24,10 @@ public partial class MomentPage : ContentPage
     {
         SelectIconLabelText();
     }
-
     private void IconEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
         SelectIconLabelText();
     }
-
     private void SelectIconLabelText()
     {
         Dispatcher.Dispatch(() =>
@@ -42,14 +40,23 @@ public partial class MomentPage : ContentPage
         });
     }
 
-    private void DeleteButton_Clicked(object sender, EventArgs e)
+    private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
-
+        var answer = await DisplayAlert("", "Moment löschen?", "Ja", "Nein");
+        if (answer)
+        {
+            await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
+            await Navigation.PopAsync();
+        }        
     }
 
-    private void SaveButton_Clicked(object sender, EventArgs e)
+    private async void CancelButton_Clicked(object sender, EventArgs e)
     {
-
+        await Navigation.PopAsync();
     }
 
+    private async void SaveButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

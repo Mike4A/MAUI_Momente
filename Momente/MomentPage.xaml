@@ -115,6 +115,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Button
@@ -122,14 +123,24 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Margin="6"
+                    Clicked="DeleteButton_Clicked"
                     Command="{Binding DeleteMomentCommand}"
                     Text="Löschen" />
 
                 <Button
-                    x:Name="SaveButton"
+                    x:Name="CancelButton"
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="6"
+                    Clicked="CancelButton_Clicked"
+                    Text="Abbrechen" />
+
+                <Button
+                    x:Name="SaveButton"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="6"
+                    Clicked="SaveButton_Clicked"
                     Command="{Binding SaveMomentCommand}"
                     Text="Speichern" />
             </Grid>
