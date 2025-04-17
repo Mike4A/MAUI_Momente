@@ -37,15 +37,15 @@
                 Padding="0">
 
                 <Entry
-                    x:Name="IconLabel"
+                    x:Name="IconEntry"
                     Grid.Row="0"
                     Grid.Column="0"
-                    Focused="IconLabel_Focused"
+                    Focused="IconEntry_Focused"
                     FontSize="32"
                     HorizontalTextAlignment="Center"
                     Keyboard="Chat"
                     Text="{Binding Icon}"
-                    TextChanged="IconLabel_TextChanged"
+                    TextChanged="IconEntry_TextChanged"
                     VerticalTextAlignment="Center" />
             </Frame>
 
@@ -75,7 +75,7 @@
                         VerticalTextAlignment="Center" />
 
                     <Entry
-                        x:Name="HeadlineLabel"
+                        x:Name="HeadlineEntry"
                         Grid.Row="1"
                         Grid.Column="0"
                         FontSize="14"
@@ -93,7 +93,7 @@
             Padding="6">
 
             <Editor
-                x:Name="DescriptionLabel"
+                x:Name="DescriptionEditor"
                 Grid.Row="2"
                 Grid.Column="0"
                 FontSize="14"

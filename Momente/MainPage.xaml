@@ -3,23 +3,143 @@
     x:Class="Momente.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Momente"
     Title="MainPage"
     Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+    <ContentPage.BindingContext>
+        <local:MainViewModel />
+    </ContentPage.BindingContext>
 
-            <Button
-                x:Name="AddMomentButton"
-                Clicked="AddMomentButton_Clicked"
-                Text="Add Moment" />
+    <Grid Margin="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <Button
-                x:Name="SwitchThemeButton"
-                Clicked="SwitchThemeButton_Clicked"
-                Text="💡" />
+        <Frame
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="3"
+            Padding="6">
 
-        </VerticalStackLayout>
-    </ScrollView>
+            <CollectionView x:Name="MomentsCollectionView" ItemsSource="{Binding Moments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Grid.Row="0" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
+                            <Frame
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="3"
+                                Padding="0">
+
+                                <Entry
+                                    x:Name="IconLabel"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Focused="IconLabel_Focused"
+                                    FontSize="32"
+                                    HorizontalTextAlignment="Center"
+                                    Keyboard="Chat"
+                                    Text="{Binding Icon}"
+                                    TextChanged="IconLabel_TextChanged"
+                                    VerticalTextAlignment="Center" />
+                            </Frame>
+
+                            <Frame
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="3"
+                                Padding="0">
+
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="1.6*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        x:Name="CreatedAtLabel"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="3"
+                                        FontSize="14"
+                                        Text="{Binding CreatedAt}"
+                                        TextColor="{StaticResource Gray500}"
+                                        VerticalTextAlignment="Center" />
+
+                                    <Entry
+                                        x:Name="HeadlineLabel"
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontSize="14"
+                                        Placeholder="Überschrift..."
+                                        Text="{Binding Headline}" />
+                                </Grid>
+                            </Frame>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Frame>
+
+        <Frame
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="3"
+            Padding="6">
+
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    x:Name="QuitButton"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="6"
+                    Clicked="QuitButton_Clicked"
+                    Text="Beenden" />
+
+                <Button
+                    x:Name="SwitchThemeButton"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="6"
+                    Clicked="SwitchThemeButton_Clicked"
+                    Text="💡" />
+
+                <Button
+                    x:Name="AddMomentButton"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="6"
+                    Clicked="AddMomentButton_Clicked"
+                    Text="Erstellen" />
+            </Grid>
+        </Frame>
+
+    </Grid>
 </ContentPage>

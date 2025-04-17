@@ -2,12 +2,12 @@
 namespace Momente;
 
 public partial class MomentPage : ContentPage
-{    
+{
     public MomentPage(int id)
     {
         InitializeComponent();
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
-        TrySetViewModelId(viewModel, id);              
+        TrySetViewModelId(viewModel, id);
     }
 
     private async void TrySetViewModelId(MomentViewModel viewModel, int id)
@@ -20,12 +20,12 @@ public partial class MomentPage : ContentPage
         }
     }
 
-    private void IconLabel_Focused(object sender, FocusEventArgs e)
+    private void IconEntry_Focused(object sender, FocusEventArgs e)
     {
-        SelectIconLabelText();  
+        SelectIconLabelText();
     }
 
-    private void IconLabel_TextChanged(object sender, TextChangedEventArgs e)
+    private void IconEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
         SelectIconLabelText();
     }
@@ -34,10 +34,10 @@ public partial class MomentPage : ContentPage
     {
         Dispatcher.Dispatch(() =>
         {
-            if (!String.IsNullOrEmpty( IconLabel.Text))
+            if (!String.IsNullOrEmpty(IconEntry.Text))
             {
-                IconLabel.CursorPosition = 0;
-                IconLabel.SelectionLength = IconLabel.Text.Length;
+                IconEntry.CursorPosition = 0;
+                IconEntry.SelectionLength = IconEntry.Text.Length;
             }
         });
     }
@@ -51,4 +51,5 @@ public partial class MomentPage : ContentPage
     {
 
     }
+
 }
