@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 using SQLite;
 using System.IO;
 using System.Numerics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Momente
 {
     public class DatabaseService
     {
+        private DatabaseService()
+        {
+            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
+            _database = new SQLiteAsyncConnection(dbPath);
+            _database.CreateTableAsync<Moment>().Wait();
+
+            ApplyIdCounter();
+        }
+
         private static DatabaseService? _instance;
         public static DatabaseService Instance
         {
@@ -29,12 +39,15 @@ namespace Momente
         }
 
         private readonly SQLiteAsyncConnection _database;
+        private int _idCounter;
 
-        private DatabaseService()
+        private async void ApplyIdCounter()
         {
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
-            _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<Moment>().Wait();
+            Moment lastMoment = await GetLastMomentAsync();
+            if (lastMoment != null)
+            {
+                _idCounter = lastMoment.Id;
+            }            
         }
 
         public async Task<int> AddMomentAsync(Moment moment)
@@ -69,6 +82,22 @@ namespace Momente
             {
                 await DeleteMomentAsync(moment);
             }
+        }
+        
+        public async Task<Moment> GetPreviousMomentAsync()
+        {
+            Moment moment;         
+            do
+            {
+                _idCounter--;
+                moment = await GetMomentByIdAsync(_idCounter);
+            } while (_idCounter > 1 && moment == null);            
+            return moment;
+        }
+
+        public async Task<Moment> GetLastMomentAsync()
+        {
+            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstAsync();            
         }
     }
 }

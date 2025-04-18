@@ -3,22 +3,19 @@ namespace Momente;
 
 public partial class MomentPage : ContentPage
 {
-    public MomentPage(int id)
+    public MomentPage(Moment moment)
     {
         InitializeComponent();
-        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
-        TrySetViewModelId(viewModel, id);
+        _moment = moment;
+        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;        
+        viewModel.Id = moment.Id;
+        viewModel.CreatedAt = moment.CreatedAt;
+        viewModel.Icon = moment.Icon;
+        viewModel.Headline = moment.Headline;
+        viewModel.Description = moment.Description;       
     }
 
-    private async void TrySetViewModelId(MomentViewModel viewModel, int id)
-    {
-        bool result = await viewModel.TryLoadFromIdOrDefaultAsync(id);
-        if (!result)
-        {
-            await DisplayAlert("", $"Es wurde kein Moment mit der Id {id} gefunden.", "Ok");
-            await Navigation.PopAsync();
-        }
-    }
+    private Moment _moment;
 
     private void IconEntry_Focused(object sender, FocusEventArgs e)
     {
@@ -61,6 +58,23 @@ public partial class MomentPage : ContentPage
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
     {
+        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
+        _moment.Id = viewModel.Id;
+        _moment.CreatedAt = viewModel.CreatedAt;
+        _moment.Icon = viewModel.Icon;
+        _moment.Headline = viewModel.Headline;
+        _moment.Description = viewModel.Description;
+
+        if (await DatabaseService.Instance.GetMomentByIdAsync(_moment.Id) != null)
+        {
+            await DatabaseService.Instance.UpdateMomentAsync(_moment);
+        }
+        else
+        {
+            await DatabaseService.Instance.AddMomentAsync(_moment);
+        }
+
         await Navigation.PopAsync();
+        await Debugger.WriteMomentEntries();
     }
 }

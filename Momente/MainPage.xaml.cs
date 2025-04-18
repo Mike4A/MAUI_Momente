@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Momente
@@ -14,18 +15,50 @@ namespace Momente
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)
         {
-            (BindingContext as MainViewModel)!.Moments!.Clear();
-            List<Moment> moments = await DatabaseService.Instance.GetMomentsAsync();
-            foreach (Moment moment in moments) {
-                (BindingContext as MainViewModel)!.Moments!.Add(moment);
+            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+
+            //Handle deleted and updated moments in collection view
+            if (MomentsCollectionView.SelectedItem != null)
+            {
+                Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
+                
+                int selectedIndex = moments.IndexOf(selectedMoment);
+
+                //remove happens in both cases: When moment was deleted and when moment was updated
+                moments.Remove(selectedMoment);
+
+                //Insert moment back into collection if it wasn't deleted to update collection view                
+                if (await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id) != null)
+                {
+                    moments.Insert(selectedIndex, selectedMoment);
+                }
+
+                MomentsCollectionView.SelectedItem = null;
             }
-            //Scroll to saved (before navigated) moment
-            //collectionView.ScrollTo(monkey, position: ScrollToPosition.MakeVisible);
+            //or try to add last added moment
+            else
+            {
+               Moment lastMoment = await DatabaseService.Instance.GetLastMomentAsync();
+                if (lastMoment != null && (moments.Count == 0 || moments[0].Id != lastMoment.Id))
+                {
+                    (BindingContext as MainViewModel)!.Moments!.Insert(0, lastMoment);
+                }
+            }
+        }
+
+        private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
+        {
+            Moment previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
+            if (previousMoment != null)
+            {
+                (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+            }
         }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MomentPage(0));
+            MomentsCollectionView.SelectedItem = null;
+            await Navigation.PushAsync(new MomentPage(new Moment()));
         }
 
         private void SwitchThemeButton_Clicked(object sender, EventArgs e)
@@ -48,9 +81,8 @@ namespace Momente
         {
             if (MomentsCollectionView.SelectedItem != null)
             {
-                int id = (MomentsCollectionView.SelectedItem as Moment)!.Id;
-                await Navigation.PushAsync(new MomentPage(id));
-            }            
+                await Navigation.PushAsync(new MomentPage((MomentsCollectionView.SelectedItem as Moment)!));
+            }
         }
     }
 }

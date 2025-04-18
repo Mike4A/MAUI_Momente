@@ -133,7 +133,6 @@
                     Margin="6"
                     Padding="0"
                     Clicked="DeleteButton_Clicked"
-                    Command="{Binding DeleteMomentCommand}"
                     FontSize="24"
                     Text="🚮" />
 

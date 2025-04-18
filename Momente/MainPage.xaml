@@ -30,6 +30,8 @@
             <CollectionView
                 x:Name="MomentsCollectionView"
                 ItemsSource="{Binding Moments}"
+                RemainingItemsThreshold="1"
+                RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Rotation="180"
                 SelectionChanged="MomentsCollectionView_SelectionChanged"
                 SelectionMode="Single">
@@ -42,7 +44,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Rotation="180">
-                            
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="64" />
                             </Grid.RowDefinitions>

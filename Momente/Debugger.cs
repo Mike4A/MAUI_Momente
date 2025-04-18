@@ -15,7 +15,7 @@ namespace Momente
 
             foreach (Moment moment in moments)
             {
-                Debug.WriteLine($"Moment {moment.Id}: \"{moment.Headline}\"");
+                Debug.WriteLine($"{moment.CreatedAt} | {moment.Id} | {moment.Icon} | {moment.Headline} | {moment.Description}");
             }
         }
     }
