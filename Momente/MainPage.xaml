@@ -30,18 +30,24 @@
             <CollectionView
                 x:Name="MomentsCollectionView"
                 ItemsSource="{Binding Moments}"
+                Rotation="180"
                 SelectionChanged="MomentsCollectionView_SelectionChanged"
                 SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>
 
                     <DataTemplate>
-                        <Grid Grid.Row="0" Grid.Column="0">
+
+                        <Grid
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Rotation="180">
+                            
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="70" />
+                                <RowDefinition Height="64" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="64" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
@@ -72,7 +78,7 @@
                                 Grid.Column="1"
                                 Margin="3"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                             Dark={StaticResource Black}}"
+                                                                  Dark={StaticResource Black}}"
                                 StrokeThickness="0">
 
                                 <Border.StrokeShape>

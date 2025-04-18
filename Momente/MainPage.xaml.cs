@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Maui.Controls;
+using System.Threading.Tasks;
 
 namespace Momente
 {
@@ -16,8 +17,10 @@ namespace Momente
             (BindingContext as MainViewModel)!.Moments!.Clear();
             List<Moment> moments = await DatabaseService.Instance.GetMomentsAsync();
             foreach (Moment moment in moments) {
-                (BindingContext as MainViewModel)!.Moments!.Add(moment); 
-            }            
+                (BindingContext as MainViewModel)!.Moments!.Add(moment);
+            }
+            //Scroll to saved (before navigated) moment
+            //collectionView.ScrollTo(monkey, position: ScrollToPosition.MakeVisible);
         }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
