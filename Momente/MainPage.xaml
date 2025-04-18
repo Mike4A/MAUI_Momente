@@ -44,7 +44,6 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Rotation="180">
-
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="64" />
                             </Grid.RowDefinitions>
