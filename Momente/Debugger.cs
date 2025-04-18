@@ -12,7 +12,6 @@ namespace Momente
         public static async Task WriteMomentEntries()
         {
             List<Moment> moments = await DatabaseService.Instance.GetMomentsAsync();
-
             foreach (Moment moment in moments)
             {
                 Debug.WriteLine($"{moment.CreatedAt} | {moment.Id} | {moment.Icon} | {moment.Headline} | {moment.Description}");

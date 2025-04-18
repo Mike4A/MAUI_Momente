@@ -69,7 +69,7 @@
                                     x:Name="IconLabel"
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    FontSize="40"
+                                    FontSize="36"
                                     HorizontalTextAlignment="Center"
                                     Text="{Binding Icon}"
                                     VerticalTextAlignment="Center" />

@@ -39,6 +39,7 @@ public partial class MomentPage : ContentPage
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
+        AnimationService.AnimateButton(DeleteButton);
         if ((BindingContext as MomentViewModel)!.Id != 0)
         {
             var answer = await DisplayAlert("", "Moment löschen?", "Ja", "Nein");
@@ -47,24 +48,24 @@ public partial class MomentPage : ContentPage
                 await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
             }
         }
-
         await Navigation.PopAsync();
     }
 
     private async void CancelButton_Clicked(object sender, EventArgs e)
     {
+        AnimationService.AnimateButton(CancelButton);
         await Navigation.PopAsync();
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
     {
+        AnimationService.AnimateButton(SaveButton);
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         _moment.Id = viewModel.Id;
         _moment.CreatedAt = viewModel.CreatedAt;
         _moment.Icon = viewModel.Icon;
         _moment.Headline = viewModel.Headline;
         _moment.Description = viewModel.Description;
-
         if (await DatabaseService.Instance.GetMomentByIdAsync(_moment.Id) != null)
         {
             await DatabaseService.Instance.UpdateMomentAsync(_moment);
@@ -73,8 +74,6 @@ public partial class MomentPage : ContentPage
         {
             await DatabaseService.Instance.AddMomentAsync(_moment);
         }
-
         await Navigation.PopAsync();
-        await Debugger.WriteMomentEntries();
     }
 }

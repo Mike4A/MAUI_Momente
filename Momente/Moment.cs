@@ -15,7 +15,5 @@ namespace Momente
         public string Icon { get; set; } = "🙂";
         public string Headline { get; set; } = "";
         public string Description { get; set; } = "";
-
-        public Moment() { }
     }
 }

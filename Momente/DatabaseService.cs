@@ -17,7 +17,6 @@ namespace Momente
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<Moment>().Wait();
-
             ApplyIdCounter();
         }
 
@@ -97,7 +96,7 @@ namespace Momente
 
         public async Task<Moment> GetLastMomentAsync()
         {
-            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstAsync();            
+            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();            
         }
     }
 }
