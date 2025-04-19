@@ -24,8 +24,7 @@
             Grid.Row="0"
             Grid.Column="0"
             Margin="3"
-            Padding="6"
-            BackgroundColor="Transparent">
+            Padding="6">
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -55,10 +54,7 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                Margin="3"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                                  Dark={StaticResource Black}}"
-                                StrokeThickness="0">
+                                Margin="3">
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12" />
@@ -77,10 +73,7 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Margin="3"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                                  Dark={StaticResource Black}}"
-                                StrokeThickness="0">
+                                Margin="3">
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12" />
@@ -102,7 +95,7 @@
                                         Padding="6,3,6,3"
                                         FontSize="14"
                                         Text="{Binding CreatedAt}"
-                                        TextColor="{StaticResource Gray500}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
                                         VerticalTextAlignment="End" />
 
                                     <Label
@@ -161,7 +154,7 @@
                     Padding="0"
                     Clicked="QuitButton_Clicked"
                     FontSize="24"
-                    Text="❌" />
+                    Text="🚪" />
 
                 <Button
                     x:Name="AddMomentButton"
