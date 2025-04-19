@@ -1,4 +1,6 @@
 
+using System.Globalization;
+
 namespace Momente;
 
 public partial class MomentPage : ContentPage
@@ -10,6 +12,7 @@ public partial class MomentPage : ContentPage
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;        
         viewModel.Id = moment.Id;
         viewModel.CreatedAt = moment.CreatedAt;
+        viewModel.CreatedAtString = moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
         viewModel.Icon = moment.Icon;
         viewModel.Headline = moment.Headline;
         viewModel.Description = moment.Description;       
@@ -62,7 +65,7 @@ public partial class MomentPage : ContentPage
         AnimationService.AnimateButton(SaveButton);
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         _moment.Id = viewModel.Id;
-        _moment.CreatedAt = viewModel.CreatedAt;
+        _moment.CreatedAt = viewModel.CreatedAt; 
         _moment.Icon = viewModel.Icon;
         _moment.Headline = viewModel.Headline;
         _moment.Description = viewModel.Description;

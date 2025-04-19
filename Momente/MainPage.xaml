@@ -94,7 +94,7 @@
                                         Grid.Column="0"
                                         Padding="6,3,6,3"
                                         FontSize="14"
-                                        Text="{Binding CreatedAt}"
+                                        Text="{Binding CreatedAtString}"
                                         TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
                                         VerticalTextAlignment="End" />
 

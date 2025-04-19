@@ -72,9 +72,10 @@
                         x:Name="CreatedAtLabel"
                         Grid.Row="0"
                         Grid.Column="0"
+                        Margin="3"
                         Padding="3"
                         FontSize="14"
-                        Text="{Binding CreatedAt}"
+                        Text="{Binding CreatedAtString}"
                         TextColor="{StaticResource Gray500}"
                         VerticalTextAlignment="Center" />
 
@@ -82,6 +83,7 @@
                         x:Name="HeadlineEntry"
                         Grid.Row="1"
                         Grid.Column="0"
+                        Margin="3"
                         FontSize="14"
                         Placeholder="Überschrift..."
                         Text="{Binding Headline}" />

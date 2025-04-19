@@ -38,15 +38,17 @@ namespace Momente
         }
 
         private readonly SQLiteAsyncConnection _database;
+
         private int _idCounter;
 
         private async void ApplyIdCounter()
         {
+            
             Moment lastMoment = await GetLastMomentAsync();
             if (lastMoment != null)
             {
                 _idCounter = lastMoment.Id;
-            }            
+            }
         }
 
         public async Task<int> AddMomentAsync(Moment moment)
@@ -82,21 +84,34 @@ namespace Momente
                 await DeleteMomentAsync(moment);
             }
         }
-        
+
         public async Task<Moment> GetPreviousMomentAsync()
         {
-            Moment moment;         
+            Moment moment;
             do
             {
                 _idCounter--;
-                moment = await GetMomentByIdAsync(_idCounter);
-            } while (_idCounter > 1 && moment == null);            
+                moment = await GetMomentByIdAsync(_idCounter);                
+            } while (_idCounter > 1 && moment == null);
             return moment;
         }
 
         public async Task<Moment> GetLastMomentAsync()
         {
-            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();            
+            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+        }
+
+        internal async Task TryAddWelcomeMomentAsync()
+        {
+            if (await GetLastMomentAsync() == null)
+            {
+                await AddMomentAsync(new Moment
+                {
+                    Icon = "👋",
+                    Headline = "Willkommen",
+                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nSinn dieser App ist es Momente und Eindrücke zu sammeln.\n\nWenn du dann mal einen schlechten Tag hast (oder vielleicht auch an guten Tagen), kannst du in diese Momente zurückeintauchen und dir Energie holen.\n\nViel Spaß beim ausprobieren!"
+                });
+            }
         }
     }
 }

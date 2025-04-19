@@ -37,6 +37,16 @@ namespace Momente
             }
         }
 
+        private string? _createdAtString;        
+        public string CreatedAtString
+        {
+            get => _createdAtString!; 
+            set
+            {
+                _createdAtString = value;
+                OnPropertyChanged(nameof(CreatedAtString));
+            }
+        }
         private string _icon = "";
         public string Icon
         {

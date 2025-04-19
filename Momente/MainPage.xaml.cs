@@ -15,6 +15,8 @@ namespace Momente
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)
         {
+            //ToDo find a better place for this that actually works -.-
+            await DatabaseService.Instance.TryAddWelcomeMomentAsync();
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             //Handle deleted and updated moments in collection view
             if (MomentsCollectionView.SelectedItem != null)
@@ -29,7 +31,7 @@ namespace Momente
                     moments.Insert(selectedIndex, selectedMoment);
                     MomentsCollectionView.ScrollTo(selectedMoment);
                 }
-                MomentsCollectionView.SelectedItem = null;                
+                MomentsCollectionView.SelectedItem = null;
             }
             //or try to add last added moment
             else
@@ -39,7 +41,7 @@ namespace Momente
                 {
                     (BindingContext as MainViewModel)!.Moments!.Insert(0, lastMoment);
                     MomentsCollectionView.ScrollTo(lastMoment);
-                }                
+                }
             }
         }
 
@@ -66,6 +68,9 @@ namespace Momente
             Application.Current!.UserAppTheme = theme;
             Preferences.Set("Theme", (int)theme);
             SwitchThemeButton.Text = Application.Current!.UserAppTheme == AppTheme.Dark ? "🌛" : "🌞";
+#if DEBUG
+            _ = Debugger.WriteMomentEntries();
+#endif
         }
 
         private void QuitButton_Clicked(object sender, EventArgs e)
