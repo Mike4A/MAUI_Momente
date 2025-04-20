@@ -5,13 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Momente"
     Title="MainPage"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                      Dark={StaticResource Black}}"
     Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
         <local:MainViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Margin="3" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+    <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
