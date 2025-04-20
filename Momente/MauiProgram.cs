@@ -6,6 +6,7 @@ namespace Momente
     {
         public static MauiApp CreateMauiApp()
         {
+            AddWelcomeEntry();
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -13,11 +14,16 @@ namespace Momente
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });   
+                });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
             return builder.Build();
+        }
+
+        private static async void AddWelcomeEntry()
+        {
+            await DatabaseService.Instance.TryAddWelcomeMomentAsync();
         }
     }
 }

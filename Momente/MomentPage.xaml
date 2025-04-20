@@ -62,7 +62,7 @@
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="1.7*" />
+                        <RowDefinition Height="1.6*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -74,7 +74,7 @@
                         Grid.Column="0"
                         Margin="3"
                         Padding="3"
-                        FontSize="14"
+                        FontSize="10"
                         Text="{Binding CreatedAtString}"
                         TextColor="{StaticResource Gray500}"
                         VerticalTextAlignment="Center" />

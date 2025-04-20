@@ -15,8 +15,6 @@ namespace Momente
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)
         {
-            //ToDo find a better place for this that actually works -.-
-            await DatabaseService.Instance.TryAddWelcomeMomentAsync();
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             //Handle deleted and updated moments in collection view
             if (MomentsCollectionView.SelectedItem != null)

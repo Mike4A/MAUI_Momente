@@ -11,7 +11,7 @@
         <local:MainViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Margin="3">
+    <Grid Margin="3" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
@@ -20,11 +20,19 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Frame
+        <Border
             Grid.Row="0"
             Grid.Column="0"
             Margin="3"
-            Padding="6">
+            Padding="3"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                              Dark={StaticResource Black}}"
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -93,9 +101,10 @@
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         Padding="6,3,6,3"
-                                        FontSize="14"
+                                        FontSize="10"
                                         Text="{Binding CreatedAtString}"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                                                    Dark={StaticResource Gray400}}"
                                         VerticalTextAlignment="End" />
 
                                     <Label
@@ -118,13 +127,21 @@
 
             </CollectionView>
 
-        </Frame>
+        </Border>
 
-        <Frame
+        <Border
             Grid.Row="1"
             Grid.Column="0"
             Margin="3"
-            Padding="6">
+            Padding="3"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                              Dark={StaticResource Black}}"
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24" />
+            </Border.StrokeShape>
 
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -166,7 +183,7 @@
                     FontSize="24"
                     Text="➕" />
             </Grid>
-        </Frame>
+        </Border>
 
     </Grid>
 </ContentPage>
