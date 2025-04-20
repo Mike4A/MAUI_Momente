@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="86" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="128" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -128,10 +129,28 @@
                 HorizontalTextAlignment="Center"
                 Placeholder="Beschreibung..."
                 Text="{Binding Description}" />
+            
         </Border>
 
         <Border
             Grid.Row="2"
+            Grid.Column="0"
+            Margin="3"
+            Padding="3"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                              Dark={StaticResource Gray900}}"
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            
+            <Picker Title="" />
+            
+        </Border>
+        
+        <Border
+            Grid.Row="3"
             Grid.Column="0"
             Margin="3"
             Padding="3"
