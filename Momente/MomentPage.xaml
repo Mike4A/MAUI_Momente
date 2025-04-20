@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Momente"
     Title="MomentPage"
-    Shell.NavBarIsVisible="False"
-    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                      Dark={StaticResource Black}}"
+    Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
         <local:MomentViewModel />
@@ -31,15 +32,19 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Frame
+            <Border
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="3"
-                Padding="0"
+                Padding="3"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
-                BorderColor="{AppThemeBinding Light={StaticResource Gray400},
-                                              Dark={StaticResource Gray500}}">
+                Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                         Dark={StaticResource Gray500}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16" />
+                </Border.StrokeShape>
 
                 <Entry
                     x:Name="IconEntry"
@@ -52,17 +57,21 @@
                     Text="{Binding Icon}"
                     TextChanged="IconEntry_TextChanged"
                     VerticalTextAlignment="Center" />
-            </Frame>
+            </Border>
 
-            <Frame
+            <Border
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="3"
-                Padding="0"
+                Padding="3"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
-                BorderColor="{AppThemeBinding Light={StaticResource Gray400},
-                                              Dark={StaticResource Gray500}}">
+                Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                         Dark={StaticResource Gray500}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16" />
+                </Border.StrokeShape>
 
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -93,19 +102,23 @@
                         Placeholder="Überschrift..."
                         Text="{Binding Headline}" />
                 </Grid>
-            </Frame>
+            </Border>
 
         </Grid>
 
-        <Frame
+        <Border
             Grid.Row="1"
             Grid.Column="0"
             Margin="3"
-            Padding="6"
+            Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
-            BorderColor="{AppThemeBinding Light={StaticResource Gray400},
-                                          Dark={StaticResource Gray500}}">
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
 
             <Editor
                 x:Name="DescriptionEditor"
@@ -115,18 +128,22 @@
                 HorizontalTextAlignment="Center"
                 Placeholder="Beschreibung..."
                 Text="{Binding Description}" />
-        </Frame>
+        </Border>
 
-        <Frame
+        <Border
             Grid.Row="2"
             Grid.Column="0"
             Margin="3"
-            Padding="6"
+            Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
-            BorderColor="{AppThemeBinding Light={StaticResource Gray400},
-                                          Dark={StaticResource Gray500}}">
-            
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24" />
+            </Border.StrokeShape>
+
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -168,7 +185,7 @@
                     FontSize="24"
                     Text="💾" />
             </Grid>
-        </Frame>
+        </Border>
 
     </Grid>
 </ContentPage>

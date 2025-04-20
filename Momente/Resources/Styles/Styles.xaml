@@ -67,9 +67,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="CollectionView">
-        
-    </Style>
+    <Style TargetType="CollectionView" />
 
     <Style TargetType="DatePicker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
