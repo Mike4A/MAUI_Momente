@@ -56,7 +56,7 @@ namespace Momente
         {
             AnimationService.AnimateButton(AddMomentButton);
             MomentsCollectionView.SelectedItem = null;
-            await Navigation.PushAsync(new MomentPage(new Moment()));
+            await Navigation.PushModalAsync(new MomentPage(new Moment()));
         }
 
         private void SwitchThemeButton_Clicked(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace Momente
         {
             if (MomentsCollectionView.SelectedItem != null)
             {
-                await Navigation.PushAsync(new MomentPage((MomentsCollectionView.SelectedItem as Moment)!));
+                await Navigation.PushModalAsync(new MomentPage((MomentsCollectionView.SelectedItem as Moment)!));
             }
         }
     }

@@ -48,7 +48,7 @@ public partial class MomentPage : ContentPage
             if (await DisplayAlert("", "Moment löschen?", "Ja", "Nein"))
             {
                 await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
-                await Navigation.PopAsync();
+                await Navigation.PopModalAsync();
             }
         }
     }
@@ -56,7 +56,7 @@ public partial class MomentPage : ContentPage
     private async void CancelButton_Clicked(object sender, EventArgs e)
     {
         AnimationService.AnimateButton(CancelButton);
-        await Navigation.PopAsync();
+        await Navigation.PopModalAsync();
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -81,6 +81,6 @@ public partial class MomentPage : ContentPage
         {
             await DatabaseService.Instance.AddMomentAsync(_moment);
         }
-        await Navigation.PopAsync();
+        await Navigation.PopModalAsync();
     }
 }

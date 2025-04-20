@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="86" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="128" />
+            <!--<RowDefinition Height="128" />-->
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -74,7 +74,7 @@
                     <RoundRectangle CornerRadius="16" />
                 </Border.StrokeShape>
 
-                <Grid Grid.Row="0" Grid.Column="1">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="1.6*" />
@@ -132,7 +132,7 @@
             
         </Border>
 
-        <Border
+        <!--<Border
             Grid.Row="2"
             Grid.Column="0"
             Margin="3"
@@ -147,10 +147,10 @@
             
             <Picker Title="" />
             
-        </Border>
+        </Border>-->
         
         <Border
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="0"
             Margin="3"
             Padding="3"
@@ -163,7 +163,7 @@
                 <RoundRectangle CornerRadius="24" />
             </Border.StrokeShape>
 
-            <Grid Grid.Row="2" Grid.Column="0">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
