@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Momente"
     Title="MomentPage"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
 
     <ContentPage.BindingContext>
         <local:MomentViewModel />
@@ -36,7 +37,9 @@
                 Margin="3"
                 Padding="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Black}}">
+                                                  Dark={StaticResource Gray900}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Gray400},
+                                              Dark={StaticResource Gray500}}">
 
                 <Entry
                     x:Name="IconEntry"
@@ -57,7 +60,9 @@
                 Margin="3"
                 Padding="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Black}}">
+                                                  Dark={StaticResource Gray900}}"
+                BorderColor="{AppThemeBinding Light={StaticResource Gray400},
+                                              Dark={StaticResource Gray500}}">
 
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -98,7 +103,9 @@
             Margin="3"
             Padding="6"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                              Dark={StaticResource Black}}">
+                                              Dark={StaticResource Gray900}}"
+            BorderColor="{AppThemeBinding Light={StaticResource Gray400},
+                                          Dark={StaticResource Gray500}}">
 
             <Editor
                 x:Name="DescriptionEditor"
@@ -116,8 +123,10 @@
             Margin="3"
             Padding="6"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                              Dark={StaticResource Black}}">
-
+                                              Dark={StaticResource Gray900}}"
+            BorderColor="{AppThemeBinding Light={StaticResource Gray400},
+                                          Dark={StaticResource Gray500}}">
+            
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

@@ -108,8 +108,8 @@ namespace Momente
                 await AddMomentAsync(new Moment
                 {
                     Icon = "👋",
-                    Headline = "Willkommen",
-                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nSinn dieser App ist es Momente und Eindrücke zu sammeln.\n\nWenn du dann mal einen schlechten Tag hast (oder vielleicht auch an guten Tagen), kannst du in diese Momente zurückeintauchen und dir Energie holen.\n\nViel Spaß!"
+                    Headline = "Willkommen!",
+                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nMit dieser App kannst du Momente und Eindrücke sammeln.\n\nWenn du dann mal einen schlechten Tag hast, kannst du in diese Momente zurückeintauchen und Energie aus ihnen schöpfen.\n\nIch wünsche dir viele bunte Momente!"
                 });
             }
         }

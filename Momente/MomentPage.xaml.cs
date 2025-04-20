@@ -9,13 +9,13 @@ public partial class MomentPage : ContentPage
     {
         InitializeComponent();
         _moment = moment;
-        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;        
+        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         viewModel.Id = moment.Id;
         viewModel.CreatedAt = moment.CreatedAt;
         viewModel.CreatedAtString = moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
         viewModel.Icon = moment.Icon;
         viewModel.Headline = moment.Headline;
-        viewModel.Description = moment.Description;       
+        viewModel.Description = moment.Description;
     }
 
     private Moment _moment;
@@ -45,13 +45,12 @@ public partial class MomentPage : ContentPage
         AnimationService.AnimateButton(DeleteButton);
         if ((BindingContext as MomentViewModel)!.Id != 0)
         {
-            var answer = await DisplayAlert("", "Moment löschen?", "Ja", "Nein");
-            if (answer)
+            if (await DisplayAlert("", "Moment löschen?", "Ja", "Nein"))
             {
                 await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
+                await Navigation.PopAsync();
             }
         }
-        await Navigation.PopAsync();
     }
 
     private async void CancelButton_Clicked(object sender, EventArgs e)
