@@ -9,7 +9,7 @@ namespace Momente
         public MainPage()
         {
             InitializeComponent();
-            this.NavigatedTo += MainPage_NavigatedTo;
+            NavigatedTo += MainPage_NavigatedTo;            
             SwitchThemeButton.Text = Application.Current!.UserAppTheme == AppTheme.Dark ? "🌛" : "🌞";
         }
 

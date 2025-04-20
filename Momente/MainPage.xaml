@@ -53,6 +53,7 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Rotation="180">
+                            
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="64" />
                             </Grid.RowDefinitions>
@@ -60,6 +61,18 @@
                                 <ColumnDefinition Width="64" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
+
+                            <!--<VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal"></VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightSkyBlue"></Setter>
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>-->
 
                             <Border
                                 Grid.Row="0"

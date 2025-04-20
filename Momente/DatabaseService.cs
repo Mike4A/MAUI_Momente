@@ -109,7 +109,7 @@ namespace Momente
                 {
                     Icon = "👋",
                     Headline = "Willkommen",
-                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nSinn dieser App ist es Momente und Eindrücke zu sammeln.\n\nWenn du dann mal einen schlechten Tag hast (oder vielleicht auch an guten Tagen), kannst du in diese Momente zurückeintauchen und dir Energie holen.\n\nViel Spaß beim ausprobieren!"
+                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nSinn dieser App ist es Momente und Eindrücke zu sammeln.\n\nWenn du dann mal einen schlechten Tag hast (oder vielleicht auch an guten Tagen), kannst du in diese Momente zurückeintauchen und dir Energie holen.\n\nViel Spaß!"
                 });
             }
         }

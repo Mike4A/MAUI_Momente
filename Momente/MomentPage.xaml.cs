@@ -63,9 +63,14 @@ public partial class MomentPage : ContentPage
     private async void SaveButton_Clicked(object sender, EventArgs e)
     {
         AnimationService.AnimateButton(SaveButton);
+        await SaveChanges();
+    }
+
+    private async Task SaveChanges()
+    {
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         _moment.Id = viewModel.Id;
-        _moment.CreatedAt = viewModel.CreatedAt; 
+        _moment.CreatedAt = viewModel.CreatedAt;
         _moment.Icon = viewModel.Icon;
         _moment.Headline = viewModel.Headline;
         _moment.Description = viewModel.Description;
