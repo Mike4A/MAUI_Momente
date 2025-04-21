@@ -13,39 +13,18 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Margin="3">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="86" />
-            <RowDefinition Height="*" />
-            <!--<RowDefinition Height="128" />-->
-            <RowDefinition Height="70" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Grid Margin="3" RowDefinitions="86,*,48,70">
 
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="86" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid ColumnDefinitions="86,*">
 
             <Border
-                Grid.Row="0"
-                Grid.Column="0"
                 Margin="3"
                 Padding="3"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
                 Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                         Dark={StaticResource Gray500}}">
-
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="16" />
-                </Border.StrokeShape>
+                                         Dark={StaticResource Gray500}}"
+                StrokeShape="RoundRectangle 16">
 
                 <Entry
                     x:Name="IconEntry"
@@ -58,6 +37,7 @@
                     Text="{Binding Icon}"
                     TextChanged="IconEntry_TextChanged"
                     VerticalTextAlignment="Center" />
+
             </Border>
 
             <Border
@@ -68,27 +48,14 @@
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
                 Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                         Dark={StaticResource Gray500}}">
+                                         Dark={StaticResource Gray500}}"
+                StrokeShape="RoundRectangle 16">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="16" />
-                </Border.StrokeShape>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="1.6*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid RowDefinitions="*,1.6*">
 
                     <Label
                         x:Name="CreatedAtLabel"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Margin="3"
-                        Padding="3"
+                        Margin="6"
                         FontSize="10"
                         Text="{Binding CreatedAtString}"
                         TextColor="{StaticResource Gray500}"
@@ -97,86 +64,69 @@
                     <Entry
                         x:Name="HeadlineEntry"
                         Grid.Row="1"
-                        Grid.Column="0"
                         Margin="3"
                         FontSize="14"
                         Placeholder="Überschrift..."
                         Text="{Binding Headline}" />
+
                 </Grid>
+
             </Border>
 
         </Grid>
 
         <Border
             Grid.Row="1"
-            Grid.Column="0"
             Margin="3"
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}">
-
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="16" />
-            </Border.StrokeShape>
+                                     Dark={StaticResource Gray500}}"
+            StrokeShape="RoundRectangle 16">
 
             <Editor
                 x:Name="DescriptionEditor"
                 Grid.Row="2"
-                Grid.Column="0"
                 FontSize="14"
                 HorizontalTextAlignment="Center"
                 Placeholder="Beschreibung..."
                 Text="{Binding Description}" />
-            
+
         </Border>
 
-        <!--<Border
-            Grid.Row="2"
-            Grid.Column="0"
-            Margin="3"
-            Padding="3"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                              Dark={StaticResource Gray900}}"
-            Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="16" />
-            </Border.StrokeShape>
-            
-            <Picker Title="" />
-            
-        </Border>-->
-        
         <Border
             Grid.Row="2"
+            Margin="3"
+            Padding="3"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                              Dark={StaticResource Gray900}}"
+            Stroke="{AppThemeBinding Light={StaticResource Gray400},
+                                     Dark={StaticResource Gray500}}"
+            StrokeShape="RoundRectangle 16">
+
+            <Grid ColumnDefinitions="48,*" RowDefinitions="*">
+                <Switch HorizontalOptions="Start" />
+                <Slider Grid.Column="1" Maximum="360" />
+            </Grid>
+
+        </Border>
+
+        <Border
+            Grid.Row="3"
             Grid.Column="0"
             Margin="3"
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}">
+                                     Dark={StaticResource Gray500}}"
+            StrokeShape="RoundRectangle 24">
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24" />
-            </Border.StrokeShape>
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid ColumnDefinitions="*,*,*">
 
                 <Button
                     x:Name="DeleteButton"
-                    Grid.Row="0"
-                    Grid.Column="0"
                     Margin="6"
                     Padding="0"
                     Clicked="DeleteButton_Clicked"
@@ -185,7 +135,6 @@
 
                 <Button
                     x:Name="CancelButton"
-                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="6"
                     Padding="0"
@@ -195,7 +144,6 @@
 
                 <Button
                     x:Name="SaveButton"
-                    Grid.Row="0"
                     Grid.Column="2"
                     Margin="6"
                     Padding="0"

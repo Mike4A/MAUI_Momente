@@ -13,28 +13,16 @@
         <local:MainViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Margin="3">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="70" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Grid Margin="3" RowDefinitions="*,70">
 
         <Border
-            Grid.Row="0"
-            Grid.Column="0"
             Margin="3"
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}">
-
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="16" />
-            </Border.StrokeShape>
+                                     Dark={StaticResource Gray500}}"
+            StrokeShape="RoundRectangle 16">
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -50,26 +38,11 @@
                     <DataTemplate>
 
                         <Grid
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Rotation="180">
+                            ColumnDefinitions="64,*"
+                            Rotation="180"
+                            RowDefinitions="64">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="64" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="64" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Border
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Margin="3">
-
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
+                            <Border Margin="3" StrokeShape="RoundRectangle 12">
 
                                 <Label
                                     x:Name="IconLabel"
@@ -77,30 +50,18 @@
                                     HorizontalTextAlignment="Center"
                                     Text="{Binding Icon}"
                                     VerticalTextAlignment="Center" />
+
                             </Border>
 
                             <Border
-                                Grid.Row="0"
                                 Grid.Column="1"
-                                Margin="3">
+                                Margin="3"
+                                StrokeShape="RoundRectangle 12">
 
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid RowDefinitions="*,*">
 
                                     <Label
                                         x:Name="CreatedAtLabel"
-                                        Grid.Row="0"
-                                        Grid.Column="0"
                                         Padding="6,3,6,3"
                                         FontSize="10"
                                         Text="{Binding CreatedAtString}"
@@ -111,11 +72,11 @@
                                     <Label
                                         x:Name="HeadlineLabel"
                                         Grid.Row="1"
-                                        Grid.Column="0"
                                         Padding="6,3,6,3"
                                         FontSize="14"
                                         Text="{Binding Headline}"
                                         VerticalTextAlignment="Start" />
+
                                 </Grid>
 
                             </Border>
@@ -138,26 +99,13 @@
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}">
+                                     Dark={StaticResource Gray500}}"
+            StrokeShape="RoundRectangle 24">
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24" />
-            </Border.StrokeShape>
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid ColumnDefinitions="*,*,*">
 
                 <Button
                     x:Name="SwitchThemeButton"
-                    Grid.Row="0"
-                    Grid.Column="0"
                     Margin="6"
                     Padding="0"
                     Clicked="SwitchThemeButton_Clicked"
@@ -166,7 +114,6 @@
 
                 <Button
                     x:Name="QuitButton"
-                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="6"
                     Padding="0"
@@ -176,15 +123,17 @@
 
                 <Button
                     x:Name="AddMomentButton"
-                    Grid.Row="0"
                     Grid.Column="2"
                     Margin="6"
                     Padding="0"
                     Clicked="AddMomentButton_Clicked"
                     FontSize="24"
                     Text="➕" />
+
             </Grid>
+
         </Border>
 
     </Grid>
+
 </ContentPage>
