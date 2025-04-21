@@ -93,7 +93,7 @@ public partial class MomentPage : ContentPage
         HueSlider.IsEnabled = HueSwitch.IsToggled;
         if (HueSlider.IsEnabled)
         {
-            (BindingContext as MomentViewModel)!.Color = Colors.White.WithHue((float)HueSlider.Value).WithLuminosity(0.74f).WithSaturation(1);
+            (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, 0.5f);
         }
         else
         {
