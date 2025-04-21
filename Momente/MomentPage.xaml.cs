@@ -16,6 +16,9 @@ public partial class MomentPage : ContentPage
         viewModel.Icon = moment.Icon;
         viewModel.Headline = moment.Headline;
         viewModel.Description = moment.Description;
+        viewModel.Color = moment.Color;
+        HueSwitch.IsToggled = moment.Color.ToHex() != "#808080";
+        HueSlider.Value = moment.Color.GetHue();
     }
 
     private Moment _moment;
@@ -73,6 +76,7 @@ public partial class MomentPage : ContentPage
         _moment.Icon = viewModel.Icon;
         _moment.Headline = viewModel.Headline;
         _moment.Description = viewModel.Description;
+        _moment.Color = viewModel.Color;
         if (await DatabaseService.Instance.GetMomentByIdAsync(_moment.Id) != null)
         {
             await DatabaseService.Instance.UpdateMomentAsync(_moment);
@@ -84,13 +88,22 @@ public partial class MomentPage : ContentPage
         await Navigation.PopModalAsync();
     }
 
-    private void Switch_Toggled(object sender, ToggledEventArgs e)
+    private void HueSwitch_Toggled(object sender, ToggledEventArgs e)
     {
-
+        HueSlider.IsEnabled = HueSwitch.IsToggled;
+        if (HueSlider.IsEnabled)
+        {
+            (BindingContext as MomentViewModel)!.Color = Colors.White.WithHue((float)HueSlider.Value).WithLuminosity(0.74f).WithSaturation(1);
+        }
+        else
+        {
+            (BindingContext as MomentViewModel)!.Color = Color.Parse("#808080");
+        }        
     }
 
     private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-
+        Console.WriteLine($"{(float)HueSlider.Value}");
+        (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, 0.5f);
     }
 }

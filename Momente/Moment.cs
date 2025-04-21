@@ -9,23 +9,10 @@ namespace Momente
 {
     public class Moment
     {
-        public Moment()
-        {
-            //if (App.Current!.Resources.TryGetValue("Primary01", out object colorvalue))
-            //{
-            //    Color = (Color)colorvalue;
-            //}
-            //else
-            //{
-            //    Color = Color.FromRgb(127, 127, 127);
-            //}
-        }
-
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-
         [Ignore]
         public string CreatedAtString { get => CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm"); }
 
@@ -35,6 +22,8 @@ namespace Momente
 
         public string Description { get; set; } = "";
 
-        //public Color Color { get; set; }
+        public string ColorString { get; set; } = "#808080";
+        [Ignore]
+        public Color Color { get => Color.Parse(ColorString); set => ColorString = value.ToHex(); }
     }
 }

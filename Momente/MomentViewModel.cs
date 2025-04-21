@@ -80,6 +80,17 @@ namespace Momente
             }
         }
 
+        private Color _color = Color.FromRgb(127, 127, 127);
+        public Color Color
+        {
+            get => _color;
+            set
+            {
+                _color = value;
+                OnPropertyChanged(nameof(Color));
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

@@ -13,7 +13,7 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Margin="3" RowDefinitions="86,*,48,70">
+    <Grid RowDefinitions="86,*,48,70">
 
         <Grid ColumnDefinitions="86,*">
 
@@ -22,9 +22,9 @@
                 Padding="3"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
-                Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                         Dark={StaticResource Gray500}}"
-                StrokeShape="RoundRectangle 16">
+                Stroke="{Binding Color}"
+                StrokeShape="RoundRectangle 16"
+                StrokeThickness="2">
 
                 <Entry
                     x:Name="IconEntry"
@@ -47,9 +47,9 @@
                 Padding="3"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
-                Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                         Dark={StaticResource Gray500}}"
-                StrokeShape="RoundRectangle 16">
+                Stroke="{Binding Color}"
+                StrokeShape="RoundRectangle 16"
+                StrokeThickness="2">
 
                 <Grid RowDefinitions="*,1.6*">
 
@@ -81,9 +81,9 @@
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
-            Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}"
-            StrokeShape="RoundRectangle 16">
+            Stroke="{Binding Color}"
+            StrokeShape="RoundRectangle 16"
+            StrokeThickness="2">
 
             <Editor
                 x:Name="DescriptionEditor"
@@ -101,17 +101,24 @@
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
-            Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}"
-            StrokeShape="RoundRectangle 16">
+            Stroke="{Binding Color}"
+            StrokeShape="RoundRectangle 16"
+            StrokeThickness="2">
 
             <Grid ColumnDefinitions="48,*" RowDefinitions="*">
-                <Switch HorizontalOptions="Start" Toggled="Switch_Toggled" />
+                
+                <Switch
+                    x:Name="HueSwitch"
+                    HorizontalOptions="Start"
+                    Toggled="HueSwitch_Toggled" />
+                
                 <Slider
                     x:Name="HueSlider"
                     Grid.Column="1"
+                    Maximum="1"
                     ValueChanged="HueSlider_ValueChanged"
-                    Maximum="1" />
+                    IsEnabled="False"/>
+                
             </Grid>
 
         </Border>
@@ -125,7 +132,8 @@
                                               Dark={StaticResource Gray900}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
                                      Dark={StaticResource Gray500}}"
-            StrokeShape="RoundRectangle 24">
+            StrokeShape="RoundRectangle 24"
+            StrokeThickness="2">
 
             <Grid ColumnDefinitions="*,*,*">
 

@@ -11,6 +11,6 @@ namespace Momente
 {
     public class MainViewModel 
     {
-        public ObservableCollection<Moment>? Moments { get; } = new ObservableCollection<Moment>();
+        public ObservableCollection<Moment>? Moments { get; } = [];
     }
 }
