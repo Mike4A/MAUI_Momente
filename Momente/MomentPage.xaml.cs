@@ -83,4 +83,14 @@ public partial class MomentPage : ContentPage
         }
         await Navigation.PopModalAsync();
     }
+
+    private void Switch_Toggled(object sender, ToggledEventArgs e)
+    {
+
+    }
+
+    private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+
+    }
 }

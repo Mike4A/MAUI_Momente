@@ -106,8 +106,12 @@
             StrokeShape="RoundRectangle 16">
 
             <Grid ColumnDefinitions="48,*" RowDefinitions="*">
-                <Switch HorizontalOptions="Start" />
-                <Slider Grid.Column="1" Maximum="360" />
+                <Switch HorizontalOptions="Start" Toggled="Switch_Toggled" />
+                <Slider
+                    x:Name="HueSlider"
+                    Grid.Column="1"
+                    ValueChanged="HueSlider_ValueChanged"
+                    Maximum="1" />
             </Grid>
 
         </Border>
