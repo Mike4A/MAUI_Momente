@@ -80,7 +80,7 @@
                                         <Label
                                             x:Name="HasDescriptionLabel"
                                             Grid.Column="1"
-                                            Margin="0,3,9,3"
+                                            Margin="3,3,6,3"
                                             FontSize="14"
                                             HorizontalTextAlignment="End"
                                             Text="{Binding HasDescriptonString}"
