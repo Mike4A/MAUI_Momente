@@ -22,8 +22,7 @@
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
                                      Dark={StaticResource Gray500}}"
-            StrokeShape="RoundRectangle 16"
-            StrokeThickness="2">
+            StrokeShape="RoundRectangle 16">
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -120,8 +119,7 @@
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
                                      Dark={StaticResource Gray500}}"
-            StrokeShape="RoundRectangle 24"
-            StrokeThickness="2">
+            StrokeShape="RoundRectangle 24">
 
             <Grid ColumnDefinitions="*,*,*">
 
