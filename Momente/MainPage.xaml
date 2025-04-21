@@ -44,9 +44,9 @@
                             RowDefinitions="64">
 
                             <Border
-                                Margin="3"
+                                Margin="3,3,1,3"
                                 Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 12"
+                                StrokeShape="RoundRectangle 12,3,12,3"
                                 StrokeThickness="2">
 
                                 <Label
@@ -60,21 +60,33 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="3"
+                                Margin="1,3,3,3"
                                 Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 12"
+                                StrokeShape="RoundRectangle 3,12,3,12"
                                 StrokeThickness="2">
 
                                 <Grid RowDefinitions="*,*">
-
-                                    <Label
-                                        x:Name="CreatedAtLabel"
-                                        Padding="6,3,6,3"
-                                        FontSize="10"
-                                        Text="{Binding CreatedAtString}"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500},
-                                                                    Dark={StaticResource Gray400}}"
-                                        VerticalTextAlignment="Center" />
+                                    <Grid Padding="0" ColumnDefinitions="*,0.1*">
+ 
+                                        <Label
+                                            x:Name="CreatedAtLabel"
+                                            Padding="6,3,6,3"
+                                            FontSize="10"
+                                            Text="{Binding CreatedAtString}"
+                                            TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                                                        Dark={StaticResource Gray400}}"
+                                            VerticalTextAlignment="Center" />
+                                        
+                                        <Label
+                                            x:Name="HasDescriptionLabel"
+                                            Grid.Column="1"
+                                            Margin="4"
+                                            FontSize="14"
+                                            Text="{Binding HasDescriptonString}"
+                                            TextColor="{StaticResource Gray500}"
+                                            VerticalTextAlignment="Center" />                                       
+                                        
+                                    </Grid>
 
                                     <Label
                                         x:Name="HeadlineLabel"

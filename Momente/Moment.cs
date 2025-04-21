@@ -25,5 +25,8 @@ namespace Momente
         public string ColorString { get; set; } = "#808080";
         [Ignore]
         public Color Color { get => Color.Parse(ColorString); set => ColorString = value.ToHex(); }
+
+        [Ignore]
+        public string? HasDescriptonString { get => String.IsNullOrEmpty(Description) ? null : "📎"; }
     }
 }
