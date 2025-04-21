@@ -105,7 +105,7 @@ public partial class MomentPage : ContentPage
         HueSlider.IsEnabled = HueSwitch.IsToggled;
         if (HueSlider.IsEnabled)
         {
-            (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, 0.5f);
+            (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, MauiProgram.MOMENT_COLOR_VALUE);
         }
         else
         {
@@ -116,6 +116,6 @@ public partial class MomentPage : ContentPage
     private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         Console.WriteLine($"{(float)HueSlider.Value}");
-        (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, 0.5f);
+        (BindingContext as MomentViewModel)!.Color = Color.FromHsv((float)HueSlider.Value, 1, MauiProgram.MOMENT_COLOR_VALUE);
     }
 }

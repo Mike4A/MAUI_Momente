@@ -4,6 +4,8 @@ namespace Momente
 {
     public static class MauiProgram
     {
+        public const float MOMENT_COLOR_VALUE = 0.74f;
+
         public static MauiApp CreateMauiApp()
         {
             AddWelcomeEntry();
@@ -20,7 +22,7 @@ namespace Momente
 #endif
             return builder.Build();
         }
-
+        
         private static async void AddWelcomeEntry()
         {
             await DatabaseService.Instance.TryAddWelcomeMomentAsync();
