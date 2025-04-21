@@ -9,38 +9,43 @@ namespace Momente
         public MainPage()
         {
             InitializeComponent();
-            NavigatedTo += MainPage_NavigatedTo;            
+            NavigatedTo += MainPage_NavigatedTo;
             SwitchThemeButton.Text = Application.Current!.UserAppTheme == AppTheme.Dark ? "🌛" : "🌞";
         }
 
         private async void MainPage_NavigatedTo(object? sender, NavigatedToEventArgs e)
         {
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
-            //Handle deleted and updated moments in collection view
-            if (MomentsCollectionView.SelectedItem != null)
+            if (MomentsCollectionView.SelectedItem == null)
             {
+                //Populate list if empty or handle added moment
+                if (moments.Count == 0 || _momentPageArgs.Action == MomentAction.Saved)
+                {
+                    Moment lastMoment = await DatabaseService.Instance.GetLastMomentAsync();
+                    if (lastMoment != null && (moments.Count == 0 || moments[0].Id != lastMoment.Id))
+                    {
+                        (BindingContext as MainViewModel)!.Moments!.Insert(0, lastMoment);
+                        MomentsCollectionView.ScrollTo(lastMoment);
+                    }
+                }
+            }
+            else
+            {
+                //Handle updated or deleted moment
                 Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
                 int selectedIndex = moments.IndexOf(selectedMoment);
-                //remove happens in both cases: When moment was deleted and when moment was updated
-                moments.Remove(selectedMoment);
-                //Insert moment back into collection if it wasn't deleted to update collection view                
-                if (await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id) != null)
+                MomentsCollectionView.SelectedItem = null;
+                if (_momentPageArgs.Action is MomentAction.Deleted or MomentAction.Saved)
+                {
+                    moments.Remove(selectedMoment);
+                }
+                if (_momentPageArgs.Action == MomentAction.Saved)
                 {
                     moments.Insert(selectedIndex, selectedMoment);
                     MomentsCollectionView.ScrollTo(selectedMoment);
                 }
-                MomentsCollectionView.SelectedItem = null;
             }
-            //or try to add last added moment
-            else
-            {
-                Moment lastMoment = await DatabaseService.Instance.GetLastMomentAsync();
-                if (lastMoment != null && (moments.Count == 0 || moments[0].Id != lastMoment.Id))
-                {
-                    (BindingContext as MainViewModel)!.Moments!.Insert(0, lastMoment);
-                    MomentsCollectionView.ScrollTo(lastMoment);
-                }
-            }
+            _momentPageArgs = new MomentPageArgs();
         }
 
         private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
@@ -52,16 +57,12 @@ namespace Momente
             }
         }
 
-        private async void AddMomentButton_Clicked(object sender, EventArgs e)
+        private async void SwitchThemeButton_Clicked(object sender, EventArgs e)
         {
-            AnimationService.AnimateButton(AddMomentButton);
-            MomentsCollectionView.SelectedItem = null;
-            await Navigation.PushModalAsync(new MomentPage(new Moment()));
-        }
-
-        private void SwitchThemeButton_Clicked(object sender, EventArgs e)
-        {
-            AnimationService.AnimateButton(SwitchThemeButton);
+            await SwitchThemeButton.ScaleTo(0.75, 50);
+            await SwitchThemeButton.RotateXTo(180, 100);
+            await SwitchThemeButton.RotateXTo(0, 100);
+            await SwitchThemeButton.ScaleTo(1, 50);
             AppTheme theme = Application.Current!.UserAppTheme == AppTheme.Dark ? AppTheme.Light : AppTheme.Dark;
             Application.Current!.UserAppTheme = theme;
             Preferences.Set("Theme", (int)theme);
@@ -71,17 +72,33 @@ namespace Momente
 #endif
         }
 
-        private void QuitButton_Clicked(object sender, EventArgs e)
+        private async void QuitButton_Clicked(object sender, EventArgs e)
         {
-            AnimationService.AnimateButton(QuitButton);
+            await QuitButton.ScaleTo(0.75, 50);
+            await QuitButton.RotateXTo(180, 100);
+            await QuitButton.RotateXTo(0, 100);
+            await QuitButton.ScaleTo(1, 50);
             Application.Current!.Quit();
         }
 
+        private async void AddMomentButton_Clicked(object sender, EventArgs e)
+        {
+            await AddMomentButton.ScaleTo(0.75, 50);
+            await AddMomentButton.RotateXTo(180, 100);
+            await AddMomentButton.RotateXTo(0, 100);
+            await AddMomentButton.ScaleTo(1, 50);
+            MomentsCollectionView.SelectedItem = null;
+            _momentPageArgs = (new MomentPageArgs());
+            await Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
+        }
+
+        private MomentPageArgs _momentPageArgs = new();
         private async void MomentsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MomentsCollectionView.SelectedItem != null)
             {
-                await Navigation.PushModalAsync(new MomentPage((MomentsCollectionView.SelectedItem as Moment)!));
+                _momentPageArgs = (new MomentPageArgs((MomentsCollectionView.SelectedItem as Moment)!));
+                await Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
             }
         }
     }
