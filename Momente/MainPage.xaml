@@ -66,8 +66,8 @@
                                 StrokeThickness="2">
 
                                 <Grid RowDefinitions="*,*">
-                                    <Grid Padding="0" ColumnDefinitions="*,0.1*">
- 
+                                    <Grid Padding="0" ColumnDefinitions="*,0.15*">
+
                                         <Label
                                             x:Name="CreatedAtLabel"
                                             Padding="6,3,6,3"
@@ -76,16 +76,17 @@
                                             TextColor="{AppThemeBinding Light={StaticResource Gray500},
                                                                         Dark={StaticResource Gray400}}"
                                             VerticalTextAlignment="Center" />
-                                        
+
                                         <Label
                                             x:Name="HasDescriptionLabel"
                                             Grid.Column="1"
-                                            Margin="4"
+                                            Margin="0,3,9,3"
                                             FontSize="14"
+                                            HorizontalTextAlignment="End"
                                             Text="{Binding HasDescriptonString}"
                                             TextColor="{StaticResource Gray500}"
-                                            VerticalTextAlignment="Center" />                                       
-                                        
+                                            VerticalTextAlignment="Center" />
+
                                     </Grid>
 
                                     <Label
@@ -113,7 +114,7 @@
         <Border
             Grid.Row="1"
             Grid.Column="0"
-            Margin="3"
+            Margin="3,3,3,7"
             Padding="3"
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
@@ -126,7 +127,7 @@
 
                 <Button
                     x:Name="SwitchThemeButton"
-                    Margin="6"
+                    Margin="4"
                     Padding="0"
                     BorderWidth="2"
                     Clicked="SwitchThemeButton_Clicked"
@@ -136,7 +137,7 @@
                 <Button
                     x:Name="QuitButton"
                     Grid.Column="1"
-                    Margin="6"
+                    Margin="4"
                     Padding="0"
                     BorderWidth="2"
                     Clicked="QuitButton_Clicked"
@@ -146,7 +147,7 @@
                 <Button
                     x:Name="AddMomentButton"
                     Grid.Column="2"
-                    Margin="6"
+                    Margin="4"
                     Padding="0"
                     BorderWidth="2"
                     Clicked="AddMomentButton_Clicked"
