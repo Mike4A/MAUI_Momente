@@ -51,12 +51,12 @@
                 StrokeShape="RoundRectangle 16"
                 StrokeThickness="2">
 
-                <Grid RowDefinitions="*,1.6*">
+                <Grid RowDefinitions="*,1.6*" Padding="3,6,3,1">
 
                     <Label
                         x:Name="CreatedAtLabel"
-                        Margin="6"
                         FontSize="10"
+                        Margin="4"
                         Text="{Binding CreatedAtString}"
                         TextColor="{StaticResource Gray500}"
                         VerticalTextAlignment="Center" />
@@ -64,10 +64,10 @@
                     <Entry
                         x:Name="HeadlineEntry"
                         Grid.Row="1"
-                        Margin="3"
                         FontSize="14"
                         Placeholder="Überschrift..."
-                        Text="{Binding Headline}" />
+                        Text="{Binding Headline}"
+                        VerticalTextAlignment="Center" />
 
                 </Grid>
 
@@ -106,19 +106,19 @@
             StrokeThickness="2">
 
             <Grid ColumnDefinitions="48,*" RowDefinitions="*">
-                
+
                 <Switch
                     x:Name="HueSwitch"
                     HorizontalOptions="Start"
                     Toggled="HueSwitch_Toggled" />
-                
+
                 <Slider
                     x:Name="HueSlider"
                     Grid.Column="1"
+                    IsEnabled="False"
                     Maximum="1"
-                    ValueChanged="HueSlider_ValueChanged"
-                    IsEnabled="False"/>
-                
+                    ValueChanged="HueSlider_ValueChanged" />
+
             </Grid>
 
         </Border>
@@ -141,6 +141,7 @@
                     x:Name="DeleteButton"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="DeleteButton_Clicked"
                     FontSize="24"
                     Text="🚮" />
@@ -150,6 +151,7 @@
                     Grid.Column="1"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="CancelButton_Clicked"
                     FontSize="24"
                     Text="🚪" />
@@ -159,6 +161,7 @@
                     Grid.Column="2"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="SaveButton_Clicked"
                     Command="{Binding SaveMomentCommand}"
                     FontSize="24"

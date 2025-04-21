@@ -22,8 +22,8 @@
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
                                      Dark={StaticResource Gray500}}"
-            StrokeThickness="2"
-            StrokeShape="RoundRectangle 16">
+            StrokeShape="RoundRectangle 16"
+            StrokeThickness="2">
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -74,15 +74,15 @@
                                         Text="{Binding CreatedAtString}"
                                         TextColor="{AppThemeBinding Light={StaticResource Gray500},
                                                                     Dark={StaticResource Gray400}}"
-                                        VerticalTextAlignment="End" />
+                                        VerticalTextAlignment="Center" />
 
                                     <Label
                                         x:Name="HeadlineLabel"
                                         Grid.Row="1"
-                                        Padding="6,3,6,3"
+                                        Padding="6,0,6,3"
                                         FontSize="14"
                                         Text="{Binding Headline}"
-                                        VerticalTextAlignment="Start" />
+                                        VerticalTextAlignment="Center" />
 
                                 </Grid>
 
@@ -107,8 +107,8 @@
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
                                      Dark={StaticResource Gray500}}"
-            StrokeThickness="2"
-            StrokeShape="RoundRectangle 24">
+            StrokeShape="RoundRectangle 24"
+            StrokeThickness="2">
 
             <Grid ColumnDefinitions="*,*,*">
 
@@ -116,6 +116,7 @@
                     x:Name="SwitchThemeButton"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="SwitchThemeButton_Clicked"
                     FontSize="24"
                     Text="🌛" />
@@ -125,6 +126,7 @@
                     Grid.Column="1"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="QuitButton_Clicked"
                     FontSize="24"
                     Text="🚪" />
@@ -134,6 +136,7 @@
                     Grid.Column="2"
                     Margin="6"
                     Padding="0"
+                    BorderWidth="2"
                     Clicked="AddMomentButton_Clicked"
                     FontSize="24"
                     Text="➕" />
