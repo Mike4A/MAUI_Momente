@@ -13,7 +13,7 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="86,*,48,70">
+    <Grid RowDefinitions="86,*,96,70">
 
         <Grid ColumnDefinitions="86,*">
 
@@ -105,19 +105,24 @@
             StrokeShape="RoundRectangle 4,4,16,16"
             StrokeThickness="2">
 
-            <Grid ColumnDefinitions="48,*" RowDefinitions="*">
-
-                <Switch
-                    x:Name="HueSwitch"
-                    HorizontalOptions="Start"
-                    Toggled="HueSwitch_Toggled" />
+            <Grid Grid.Column="1" RowDefinitions="*,*,*">
 
                 <Slider
                     x:Name="HueSlider"
-                    Grid.Column="1"
-                    IsEnabled="False"
                     Maximum="1"
                     ValueChanged="HueSlider_ValueChanged" />
+
+                <Slider
+                    x:Name="SaturationSlider"
+                    Grid.Row="1"
+                    Maximum="1"
+                    ValueChanged="SaturationSlider_ValueChanged" />
+
+                <Slider
+                    x:Name="LuminositySlider"
+                    Grid.Row="2"
+                    Maximum="1"
+                    ValueChanged="LuminositySlider_ValueChanged" />
 
             </Grid>
 
