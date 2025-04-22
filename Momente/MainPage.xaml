@@ -38,9 +38,9 @@
                     <DataTemplate>
 
                         <Grid
-                            ColumnDefinitions="64,*"
+                            ColumnDefinitions="70,*"
                             Rotation="180"
-                            RowDefinitions="64">
+                            RowDefinitions="70">
 
                             <Border
                                 Margin="0,6,1,0"
@@ -53,6 +53,7 @@
                                     FontSize="36"
                                     HorizontalTextAlignment="Center"
                                     Text="{Binding Icon}"
+                                    Padding="4,0,0,4"
                                     VerticalTextAlignment="Center" />
 
                             </Border>
