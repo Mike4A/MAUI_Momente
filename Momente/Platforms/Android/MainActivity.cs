@@ -9,8 +9,8 @@ namespace Momente
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            Window!.SetStatusBarColor(Android.Graphics.Color.DarkCyan);
-            Window!.SetNavigationBarColor(Android.Graphics.Color.DarkCyan);
+            Window!.SetStatusBarColor(Android.Graphics.Color.DarkGray);
+            Window!.SetNavigationBarColor(Android.Graphics.Color.DarkGray);
             base.OnCreate(savedInstanceState);
         }
     }
