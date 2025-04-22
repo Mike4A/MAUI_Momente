@@ -13,15 +13,15 @@
         <local:MainViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="*,64">
+    <Grid RowDefinitions="*,55">
 
         <Border
             Margin="3"
             Padding="0"
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
-            Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}"
+            Stroke="{AppThemeBinding Light={StaticResource White},
+                                     Dark={StaticResource Black}}"
             StrokeShape="RoundRectangle 16">
 
             <CollectionView
@@ -43,7 +43,7 @@
                             RowDefinitions="64">
 
                             <Border
-                                Margin="3,3,1,3"
+                                Margin="0,0,1,0"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 12,3,12,3"
                                 StrokeThickness="2">
@@ -59,7 +59,7 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="1,3,3,3"
+                                Margin="1,0,0,0"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 3,12,3,12"
                                 StrokeThickness="2">
@@ -113,15 +113,15 @@
         <Border
             Grid.Row="1"
             Grid.Column="0"
-            Margin="3,3,3,7"
+            Margin="3,0,3,4"
             Padding="0"
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
-            Stroke="{AppThemeBinding Light={StaticResource Gray400},
-                                     Dark={StaticResource Gray500}}"
+            Stroke="{AppThemeBinding Light={StaticResource White},
+                                     Dark={StaticResource Black}}"
             StrokeShape="RoundRectangle 24">
 
-            <Grid ColumnDefinitions="*,*,*">
+            <Grid  ColumnDefinitions="*,*,*">
 
                 <Button
                     x:Name="SwitchThemeButton"
