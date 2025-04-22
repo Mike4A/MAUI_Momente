@@ -22,7 +22,7 @@
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource White},
                                      Dark={StaticResource Black}}"
-            StrokeShape="RoundRectangle 16">
+            StrokeShape="RoundRectangle 24">
 
             <CollectionView
                 x:Name="MomentsCollectionView"
@@ -43,9 +43,9 @@
                             RowDefinitions="64">
 
                             <Border
-                                Margin="0,0,1,0"
+                                Margin="0,3,1,0"
                                 Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 12,3,12,3"
+                                StrokeShape="RoundRectangle 22,3,22,3"
                                 StrokeThickness="2">
 
                                 <Label
@@ -59,9 +59,9 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="1,0,0,0"
+                                Margin="1,3,0,0"
                                 Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 3,12,3,12"
+                                StrokeShape="RoundRectangle 3,22,3,22"
                                 StrokeThickness="2">
 
                                 <Grid RowDefinitions="*,*">
@@ -121,7 +121,7 @@
                                      Dark={StaticResource Black}}"
             StrokeShape="RoundRectangle 24">
 
-            <Grid  ColumnDefinitions="*,*,*">
+            <Grid ColumnDefinitions="*,*,*">
 
                 <Button
                     x:Name="SwitchThemeButton"

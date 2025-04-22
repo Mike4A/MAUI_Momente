@@ -23,7 +23,7 @@
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
                 Stroke="{Binding Color}"
-                StrokeShape="RoundRectangle 16,4,4,4"
+                StrokeShape="RoundRectangle 24,4,4,4"
                 StrokeThickness="2">
 
                 <Entry
@@ -48,7 +48,7 @@
                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                   Dark={StaticResource Gray900}}"
                 Stroke="{Binding Color}"
-                StrokeShape="RoundRectangle 4,16,4,4"
+                StrokeShape="RoundRectangle 4,24,4,4"
                 StrokeThickness="2">
 
                 <Grid Padding="3,6,3,1" RowDefinitions="*,1.6*">
@@ -102,7 +102,7 @@
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
             Stroke="{Binding Color}"
-            StrokeShape="RoundRectangle 4,4,16,16"
+            StrokeShape="RoundRectangle 4,4,24,24"
             StrokeThickness="2">
 
             <Grid Grid.Column="1" RowDefinitions="*,*,*">
