@@ -13,7 +13,7 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="86,*,96,70">
+    <Grid RowDefinitions="86,*,96,64">
 
         <Grid ColumnDefinitions="86,*">
 
@@ -132,7 +132,7 @@
             Grid.Row="3"
             Grid.Column="0"
             Margin="3,3,3,7"
-            Padding="3"
+            Padding="0"
             BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                               Dark={StaticResource Black}}"
             Stroke="{AppThemeBinding Light={StaticResource Gray400},
@@ -145,7 +145,6 @@
                     x:Name="DeleteButton"
                     Margin="4"
                     Padding="0"
-                    BorderWidth="2"
                     Clicked="DeleteButton_Clicked"
                     FontSize="24"
                     Text="🚮" />
@@ -155,7 +154,6 @@
                     Grid.Column="1"
                     Margin="4"
                     Padding="0"
-                    BorderWidth="2"
                     Clicked="CancelButton_Clicked"
                     FontSize="24"
                     Text="🚪" />
@@ -165,7 +163,6 @@
                     Grid.Column="2"
                     Margin="4"
                     Padding="0"
-                    BorderWidth="2"
                     Clicked="SaveButton_Clicked"
                     Command="{Binding SaveMomentCommand}"
                     FontSize="24"
