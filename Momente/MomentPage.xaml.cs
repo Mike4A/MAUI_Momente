@@ -47,7 +47,7 @@ public partial class MomentPage : ContentPage
             {
                 await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
                 _args.Action = MomentAction.Deleted;
-                await Navigation.PopModalAsync();
+                await Navigation.PopAsync();
             }
         }
     }
@@ -59,7 +59,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
         _args.Action = MomentAction.None;
-        await Navigation.PopModalAsync();
+        await Navigation.PopAsync();
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -70,7 +70,7 @@ public partial class MomentPage : ContentPage
         await SaveButton.ScaleTo(1, 50);
         await SaveChanges();
         _args.Action = MomentAction.Saved;
-        await Navigation.PopModalAsync();
+        await Navigation.PopAsync();
     }
 
     private async Task SaveChanges()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using static Microsoft.Maui.Controls.VisualStateManager;
 
 namespace Momente
 {
@@ -89,7 +90,7 @@ namespace Momente
             await AddMomentButton.ScaleTo(1, 50);
             MomentsCollectionView.SelectedItem = null;
             _momentPageArgs = (new MomentPageArgs());
-            await Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
+            await Navigation.PushAsync(new MomentPage(_momentPageArgs));
         }
 
         private MomentPageArgs _momentPageArgs = new();
@@ -97,8 +98,16 @@ namespace Momente
         {
             if (MomentsCollectionView.SelectedItem != null)
             {
-                _momentPageArgs = (new MomentPageArgs((MomentsCollectionView.SelectedItem as Moment)!));
-                await Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
+                if ((MomentsCollectionView.SelectedItem as Moment)!.Headline == "DevCheat")
+                {
+                    await DisplayAlert("DB-Path:", Path.Combine(FileSystem.AppDataDirectory, "moments.db"), "Done");
+                    MomentsCollectionView.SelectedItem = null;
+                }
+                else
+                {
+                    _momentPageArgs = (new MomentPageArgs((MomentsCollectionView.SelectedItem as Moment)!));
+                    await Navigation.PushAsync(new MomentPage(_momentPageArgs));
+                }
             }
         }
     }
