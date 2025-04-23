@@ -135,6 +135,7 @@ public partial class MomentPage : ContentPage
     }
     private void SaturationSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
+        var x = SlidedColor;
         _hueDrawable.Saturation = (float)SaturationSlider.Value;
         HueGraphicsView.Invalidate();
         _luminosityDrawable.Saturation = (float)SaturationSlider.Value;
