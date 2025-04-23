@@ -99,7 +99,7 @@ namespace Momente
             if (MomentsCollectionView.SelectedItem != null)
             {
                 Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
-                if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color == Colors.Black) 
+                if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color.ToHex() == "#000000") 
                 {
                     await DisplayAlert("DB-Path:", Path.Combine(FileSystem.AppDataDirectory, "moments.db"), "Done");
                 }
