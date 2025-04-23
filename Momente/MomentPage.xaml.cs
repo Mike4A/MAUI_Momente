@@ -1,5 +1,7 @@
 
+using Momente.Drawables;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Momente;
 
@@ -8,15 +10,21 @@ public partial class MomentPage : ContentPage
     public MomentPage(MomentPageArgs args)
     {
         InitializeComponent();
-        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         _args = args;
-        viewModel.Id = _args.Moment.Id;
-        viewModel.CreatedAt = _args.Moment.CreatedAt;
-        viewModel.CreatedAtString = _args.Moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
-        viewModel.Icon = _args.Moment.Icon;
-        viewModel.Headline = _args.Moment.Headline;
-        viewModel.Description = _args.Moment.Description;
-        viewModel.Color = SlidedColor = _args.Moment.Color;
+        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
+        float hue = args.Moment.Color.GetHue();
+        float saturation = args.Moment.Color.GetSaturation();
+        float luminosity = args.Moment.Color.GetLuminosity();
+        HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
+        SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
+        LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);
+        viewModel.Id = args.Moment.Id;
+        viewModel.CreatedAt = args.Moment.CreatedAt;
+        viewModel.CreatedAtString = args.Moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
+        viewModel.Icon = args.Moment.Icon;
+        viewModel.Headline = args.Moment.Headline;
+        viewModel.Description = args.Moment.Description;
+        viewModel.Color = SlidedColor = args.Moment.Color;
     }
 
     private MomentPageArgs _args;
@@ -25,14 +33,23 @@ public partial class MomentPage : ContentPage
     private void IconEntry_TextChanged(object sender, TextChangedEventArgs e) { SelectIconLabelText(); }
     private void SelectIconLabelText()
     {
-        Dispatcher.Dispatch(() =>
+        try
         {
-            if (!String.IsNullOrEmpty(IconEntry.Text))
+            Dispatcher.Dispatch(() =>
             {
-                IconEntry.CursorPosition = 0;
-                IconEntry.SelectionLength = IconEntry.Text.Length;
-            }
-        });
+                if (!String.IsNullOrEmpty(IconEntry.Text))
+                {
+                    IconEntry.CursorPosition = 0;
+                    IconEntry.SelectionLength = IconEntry.Text.Length;
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+
+        }
+
     }
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
@@ -102,14 +119,38 @@ public partial class MomentPage : ContentPage
                 HueSlider.Value = newColor.GetHue();
             if ((float)SaturationSlider.Value != newColor.GetSaturation())
                 SaturationSlider.Value = newColor.GetSaturation();
-            if ((float)LuminositySlider.Value != newColor.GetLuminosity()) 
+            if ((float)LuminositySlider.Value != newColor.GetLuminosity())
                 LuminositySlider.Value = newColor.GetLuminosity();
         }
     }
+    private HueDrawable _hueDrawable;
+    private SaturationDrawable _saturationDrawable;
+    private LuminosityDrawable _luminosityDrawable;
 
-    private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e) { UpdateViewModelColor(); }
-    private void SaturationSlider_ValueChanged(object sender, ValueChangedEventArgs e) { UpdateViewModelColor(); }
-    private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e) { UpdateViewModelColor(); }
+    private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        _saturationDrawable.Hue = (float)HueSlider.Value;
+        SaturationGraphicsView.Invalidate();
+        _luminosityDrawable.Hue = (float)HueSlider.Value;
+        LuminosityGraphicsView.Invalidate();
+        UpdateViewModelColor();
+    }
+    private void SaturationSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        _hueDrawable.Saturation = (float)SaturationSlider.Value;
+        HueGraphicsView.Invalidate();
+        _luminosityDrawable.Saturation = (float)SaturationSlider.Value;
+        LuminosityGraphicsView.Invalidate();
+        UpdateViewModelColor();
+    }
+    private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e) 
+    {
+        _hueDrawable.Luminosity = (float)LuminositySlider.Value;
+        HueGraphicsView.Invalidate();
+        _saturationDrawable.Luminosity = (float)LuminositySlider.Value;
+        SaturationGraphicsView.Invalidate();
+        UpdateViewModelColor(); 
+    }
     private void UpdateViewModelColor()
     {
         if ((BindingContext as MomentViewModel)!.Color != SlidedColor)

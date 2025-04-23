@@ -13,7 +13,7 @@
         <local:MomentViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="86,*,96,55">
+    <Grid RowDefinitions="86,*,128,55">
 
         <Grid ColumnDefinitions="86,*">
 
@@ -98,7 +98,7 @@
         <Border
             Grid.Row="2"
             Margin="3,1,3,3"
-            Padding="3"
+            Padding="3,6,3,6"
             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                               Dark={StaticResource Gray900}}"
             Stroke="{Binding Color}"
@@ -107,22 +107,60 @@
 
             <Grid Grid.Column="1" RowDefinitions="*,*,*">
 
-                <Slider
-                    x:Name="HueSlider"
-                    Maximum="1"
-                    ValueChanged="HueSlider_ValueChanged" />
+                <Border
+                    Grid.Row="0"
+                    Margin="6"
+                    StrokeShape="RoundRectangle 20">
 
-                <Slider
-                    x:Name="SaturationSlider"
+                    <Grid>
+
+                        <GraphicsView x:Name="HueGraphicsView" Margin="12,0,12,0" />
+
+                        <Slider
+                            x:Name="HueSlider"
+                            Margin="-4,0,-4,0"
+                            ValueChanged="HueSlider_ValueChanged" />
+
+                    </Grid>
+
+                </Border>
+
+                <Border
                     Grid.Row="1"
-                    Maximum="1"
-                    ValueChanged="SaturationSlider_ValueChanged" />
+                    Margin="6"
+                    StrokeShape="RoundRectangle 20">
 
-                <Slider
-                    x:Name="LuminositySlider"
+                    <Grid>
+
+                        <GraphicsView x:Name="SaturationGraphicsView" Margin="12,0,12,0" />
+
+                        <Slider
+                            x:Name="SaturationSlider"
+                            Margin="-4,0,-4,0"
+                            ValueChanged="SaturationSlider_ValueChanged" />
+
+                    </Grid>
+
+                </Border>
+
+
+                <Border
                     Grid.Row="2"
-                    Maximum="1"
-                    ValueChanged="LuminositySlider_ValueChanged" />
+                    Margin="6"
+                    StrokeShape="RoundRectangle 20">
+
+                    <Grid>
+
+                        <GraphicsView x:Name="LuminosityGraphicsView" Margin="12,0,12,0" />
+
+                        <Slider
+                            x:Name="LuminositySlider"
+                            Margin="-4,0,-4,0"
+                            ValueChanged="LuminositySlider_ValueChanged" />
+
+                    </Grid>
+
+                </Border>
 
             </Grid>
 
