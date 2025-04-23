@@ -98,16 +98,13 @@ namespace Momente
         {
             if (MomentsCollectionView.SelectedItem != null)
             {
-                if ((MomentsCollectionView.SelectedItem as Moment)!.Headline == "DevCheat")
+                Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
+                if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color == Colors.Black) 
                 {
                     await DisplayAlert("DB-Path:", Path.Combine(FileSystem.AppDataDirectory, "moments.db"), "Done");
-                    MomentsCollectionView.SelectedItem = null;
                 }
-                else
-                {
-                    _momentPageArgs = (new MomentPageArgs((MomentsCollectionView.SelectedItem as Moment)!));
-                    await Navigation.PushAsync(new MomentPage(_momentPageArgs));
-                }
+                _momentPageArgs = new MomentPageArgs(selectedMoment);
+                await Navigation.PushAsync(new MomentPage(_momentPageArgs));
             }
         }
     }
