@@ -89,7 +89,6 @@ public partial class MomentPage : ContentPage
         _args.Action = MomentAction.Saved;
         await Navigation.PopAsync();
     }
-
     private async Task SaveChanges()
     {
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
@@ -126,7 +125,6 @@ public partial class MomentPage : ContentPage
     private HueDrawable _hueDrawable;
     private SaturationDrawable _saturationDrawable;
     private LuminosityDrawable _luminosityDrawable;
-
     private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         _saturationDrawable.Hue = (float)HueSlider.Value;

@@ -205,7 +205,9 @@
                     Command="{Binding SaveMomentCommand}"
                     FontSize="24"
                     Text="💾" />
+                
             </Grid>
+            
         </Border>
 
     </Grid>
