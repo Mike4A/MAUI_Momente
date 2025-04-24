@@ -39,10 +39,10 @@
                         <Grid
                             ColumnDefinitions="74,*"
                             Rotation="180"
-                            RowDefinitions="78">
+                            RowDefinitions="76">
 
                             <Border
-                                Margin="0,6,1,0"
+                                Margin="0,4,1,0"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 24,6,24,6"
                                 StrokeThickness="2">
@@ -73,7 +73,7 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="1,6,0,0"
+                                Margin="0,4,0,0"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 6,24,6,24"
                                 StrokeThickness="2">
