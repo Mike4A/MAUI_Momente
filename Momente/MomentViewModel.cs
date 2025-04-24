@@ -37,10 +37,10 @@ namespace Momente
             }
         }
 
-        private string? _createdAtString;        
+        private string? _createdAtString;
         public string CreatedAtString
         {
-            get => _createdAtString!; 
+            get => _createdAtString!;
             set
             {
                 _createdAtString = value;
@@ -80,7 +80,7 @@ namespace Momente
             }
         }
 
-        private Color _color = Color.FromRgb(127, 127, 127);
+        private Color _color = MauiProgram.DEFAULT_MOMENT_COLOR;
         public Color Color
         {
             get => _color;
@@ -88,7 +88,13 @@ namespace Momente
             {
                 _color = value;
                 OnPropertyChanged(nameof(Color));
+                OnPropertyChanged(nameof(GlowColor));
             }
+        }
+
+        public Color GlowColor
+        {
+            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.LUMINOSITY_GLOW);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

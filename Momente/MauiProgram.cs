@@ -5,6 +5,7 @@ namespace Momente
     public static class MauiProgram
     {
         public static Color DEFAULT_MOMENT_COLOR { get; } = Color.FromRgb(127, 128, 128);
+        public static float LUMINOSITY_GLOW { get; } = 0.2f;
 
         public static MauiApp CreateMauiApp()
         {
