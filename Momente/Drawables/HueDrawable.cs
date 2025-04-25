@@ -19,7 +19,7 @@ namespace Momente.Drawables
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
-            int strokeSize = 3;
+            int strokeSize = (int)(dirtyRect.Width / 100);
             canvas.StrokeSize = strokeSize;
             for (int x = -12; x < dirtyRect.Width + 12; x += strokeSize)
             {

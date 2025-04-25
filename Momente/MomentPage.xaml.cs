@@ -25,6 +25,12 @@ public partial class MomentPage : ContentPage
         viewModel.Headline = args.Moment.Headline;
         viewModel.Description = args.Moment.Description;
         viewModel.Color = SlidedColor = args.Moment.Color;
+        Loaded += MomentPage_Loaded;
+    }
+
+    private void MomentPage_Loaded(object? sender, EventArgs e)
+    {
+        IconEntry.Focus();
     }
 
     private MomentPageArgs _args;
@@ -75,8 +81,15 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(180, 100);
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
-        _args.Action = MomentAction.None;
-        await Navigation.PopAsync();
+        if (await DisplayAlert("", "Speichern?", "Ja", "Nein"))
+        {
+            await SaveChangesAndPop();
+        }
+        else
+        {
+            _args.Action = MomentAction.None;
+            await Navigation.PopAsync();
+        }
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -85,11 +98,9 @@ public partial class MomentPage : ContentPage
         await SaveButton.RotateXTo(180, 100);
         await SaveButton.RotateXTo(0, 100);
         await SaveButton.ScaleTo(1, 50);
-        await SaveChanges();
-        _args.Action = MomentAction.Saved;
-        await Navigation.PopAsync();
+        await SaveChangesAndPop();
     }
-    private async Task SaveChanges()
+    private async Task SaveChangesAndPop()
     {
         MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
         _args.Moment.Id = viewModel.Id;
@@ -106,6 +117,8 @@ public partial class MomentPage : ContentPage
         {
             await DatabaseService.Instance.AddMomentAsync(_args.Moment);
         }
+        _args.Action = MomentAction.Saved;
+        await Navigation.PopAsync();
     }
 
     public Color SlidedColor
@@ -142,13 +155,13 @@ public partial class MomentPage : ContentPage
         LuminosityGraphicsView.Invalidate();
         UpdateViewModelColor();
     }
-    private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e) 
+    private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         _hueDrawable.Luminosity = (float)LuminositySlider.Value;
         HueGraphicsView.Invalidate();
         _saturationDrawable.Luminosity = (float)LuminositySlider.Value;
         SaturationGraphicsView.Invalidate();
-        UpdateViewModelColor(); 
+        UpdateViewModelColor();
     }
     private void UpdateViewModelColor()
     {

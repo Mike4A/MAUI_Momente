@@ -168,7 +168,7 @@
                     Padding="0"
                     Clicked="QuitButton_Clicked"
                     FontSize="24"
-                    Text="🚪" />
+                    Text="🔚" />
 
                 <Button
                     x:Name="AddMomentButton"

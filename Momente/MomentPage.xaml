@@ -267,7 +267,7 @@
                     Padding="0"
                     Clicked="CancelButton_Clicked"
                     FontSize="24"
-                    Text="🚪" />
+                    Text="❌" />
 
                 <Button
                     x:Name="SaveButton"
@@ -277,7 +277,7 @@
                     Clicked="SaveButton_Clicked"
                     Command="{Binding SaveMomentCommand}"
                     FontSize="24"
-                    Text="💾" />
+                    Text="✓" />
 
             </Grid>
 
