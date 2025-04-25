@@ -11,23 +11,23 @@ public partial class MomentPage : ContentPage
     {
         InitializeComponent();
         _args = args;
-        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
+        _viewModel = (BindingContext as MomentViewModel)!;
         float hue = args.Moment.Color.GetHue();
         float saturation = args.Moment.Color.GetSaturation();
         float luminosity = args.Moment.Color.GetLuminosity();
         HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
         SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
         LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);
-        viewModel.Id = args.Moment.Id;
-        viewModel.CreatedAt = args.Moment.CreatedAt;
-        viewModel.CreatedAtString = args.Moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
-        viewModel.Icon = args.Moment.Icon;
-        viewModel.Headline = args.Moment.Headline;
-        viewModel.Description = args.Moment.Description;
-        viewModel.Color = SlidedColor = args.Moment.Color;
+        _viewModel.Id = args.Moment.Id;
+        _viewModel.CreatedAt = args.Moment.CreatedAt;
+        _viewModel.CreatedAtString = args.Moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
+        _viewModel.Icon = args.Moment.Icon;
+        _viewModel.Headline = args.Moment.Headline;
+        _viewModel.Description = args.Moment.Description;
+        _viewModel.Color = SlidedColor = args.Moment.Color;
         Loaded += MomentPage_Loaded;
     }
-
+    private MomentViewModel _viewModel;
     private void MomentPage_Loaded(object? sender, EventArgs e)
     {
         IconEntry.Focus();
@@ -64,11 +64,11 @@ public partial class MomentPage : ContentPage
         await DeleteButton.RotateXTo(180, 100);
         await DeleteButton.RotateXTo(0, 100);
         await DeleteButton.ScaleTo(1, 50);
-        if ((BindingContext as MomentViewModel)!.Id != 0)
+        if (_viewModel.Id != 0)
         {
             if (await DisplayAlert("", "Moment löschen?", "Ja", "Nein"))
             {
-                await DatabaseService.Instance.DeleteMomentAsync((BindingContext as MomentViewModel)!.Id);
+                await DatabaseService.Instance.DeleteMomentAsync(_viewModel.Id);
                 _args.Action = MomentAction.Deleted;
                 await Navigation.PopAsync();
             }
@@ -81,7 +81,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(180, 100);
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
-        if (await DisplayAlert("", "Speichern?", "Ja", "Nein"))
+        if (ChangesMadeToMoment() && await DisplayAlert("", "Speichern?", "Ja", "Nein"))
         {
             await SaveChangesAndPop();
         }
@@ -90,6 +90,18 @@ public partial class MomentPage : ContentPage
             _args.Action = MomentAction.None;
             await Navigation.PopAsync();
         }
+    }
+    private bool ChangesMadeToMoment()
+    {
+        if (_args.Moment.Icon != _viewModel.Icon) 
+        { return true; }
+        if (_args.Moment.Headline != _viewModel.Headline) 
+        { return true; }
+        if (_args.Moment.Description != _viewModel.Description)
+        { return true; }
+        if (_args.Moment.Color.ToHex() != _viewModel.Color.ToHex()) 
+        { return true; }
+        return false;
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -102,13 +114,12 @@ public partial class MomentPage : ContentPage
     }
     private async Task SaveChangesAndPop()
     {
-        MomentViewModel viewModel = (BindingContext as MomentViewModel)!;
-        _args.Moment.Id = viewModel.Id;
-        _args.Moment.CreatedAt = viewModel.CreatedAt;
-        _args.Moment.Icon = viewModel.Icon;
-        _args.Moment.Headline = viewModel.Headline;
-        _args.Moment.Description = viewModel.Description;
-        _args.Moment.Color = viewModel.Color;
+        _args.Moment.Id = _viewModel.Id;
+        _args.Moment.CreatedAt = _viewModel.CreatedAt;
+        _args.Moment.Icon = _viewModel.Icon;
+        _args.Moment.Headline = _viewModel.Headline;
+        _args.Moment.Description = _viewModel.Description;
+        _args.Moment.Color = _viewModel.Color;
         if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
         {
             await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
@@ -169,5 +180,14 @@ public partial class MomentPage : ContentPage
         {
             (BindingContext as MomentViewModel)!.Color = SlidedColor;
         }
+    }
+
+    private void IconEntry_Completed(object sender, EventArgs e)
+    {
+        HeadlineEntry.Focus();
+    }
+    private void HeadlineEntry_Completed(object sender, EventArgs e)
+    {
+        DescriptionEditor.Focus();
     }
 }

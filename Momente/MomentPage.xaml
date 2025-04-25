@@ -44,6 +44,7 @@
                             x:Name="IconEntry"
                             Grid.Row="0"
                             Grid.Column="0"
+                            Completed="IconEntry_Completed"
                             Focused="IconEntry_Focused"
                             FontSize="36"
                             HorizontalTextAlignment="Center"
@@ -96,6 +97,7 @@
                             <Entry
                                 x:Name="HeadlineEntry"
                                 Grid.Row="1"
+                                Completed="HeadlineEntry_Completed"
                                 FontSize="14"
                                 Placeholder="..."
                                 Text="{Binding Headline}"
