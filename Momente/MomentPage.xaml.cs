@@ -27,6 +27,8 @@ public partial class MomentPage : ContentPage
         _viewModel.Color = SlidedColor = args.Moment.Color;
         Loaded += MomentPage_Loaded;
     }
+
+
     private MomentViewModel _viewModel;
     private void MomentPage_Loaded(object? sender, EventArgs e)
     {
@@ -81,6 +83,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(180, 100);
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
+        //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation DB sync props
         if (ChangesMadeToMoment() && await DisplayAlert("", "Speichern?", "Ja", "Nein"))
         {
             await SaveChangesAndPop();
@@ -93,13 +96,13 @@ public partial class MomentPage : ContentPage
     }
     private bool ChangesMadeToMoment()
     {
-        if (_args.Moment.Icon != _viewModel.Icon) 
+        if (_args.Moment.Icon != _viewModel.Icon)
         { return true; }
-        if (_args.Moment.Headline != _viewModel.Headline) 
+        if (_args.Moment.Headline != _viewModel.Headline)
         { return true; }
         if (_args.Moment.Description != _viewModel.Description)
         { return true; }
-        if (_args.Moment.Color.ToHex() != _viewModel.Color.ToHex()) 
+        if (_args.Moment.Color.ToHex() != _viewModel.Color.ToHex())
         { return true; }
         return false;
     }
