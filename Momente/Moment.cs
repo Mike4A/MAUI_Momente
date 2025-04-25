@@ -16,7 +16,7 @@ namespace Momente
         [Ignore]
         public string CreatedAtString { get => CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm"); }
 
-        public string Icon { get; set; } = "🙂";
+        public string Icon { get; set; } = "";
 
         public string Headline { get; set; } = "";
 

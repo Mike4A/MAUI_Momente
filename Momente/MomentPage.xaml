@@ -49,6 +49,7 @@
                             FontSize="36"
                             HorizontalTextAlignment="Center"
                             Keyboard="Chat"
+                            Placeholder="✍"
                             Text="{Binding Icon}"
                             TextChanged="IconEntry_TextChanged"
                             VerticalTextAlignment="Center" />
@@ -99,7 +100,7 @@
                                 Grid.Row="1"
                                 Completed="HeadlineEntry_Completed"
                                 FontSize="14"
-                                Placeholder="..."
+                                Placeholder="✍"
                                 Text="{Binding Headline}"
                                 VerticalTextAlignment="Center" />
 
@@ -143,7 +144,7 @@
                         Grid.Row="2"
                         FontSize="14"
                         HorizontalTextAlignment="Center"
-                        Placeholder="..."
+                        Placeholder="✍"
                         Text="{Binding Description}" />
 
                 </Border>

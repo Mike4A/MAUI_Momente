@@ -117,7 +117,7 @@
                                                 x:Name="HeadlineLabel"
                                                 Grid.Row="1"
                                                 Padding="6,0,6,3"
-                                                FontSize="14"
+                                                FontSize="14"                                                
                                                 Text="{Binding Headline}"
                                                 VerticalTextAlignment="Center" />
 
