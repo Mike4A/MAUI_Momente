@@ -25,15 +25,15 @@ public partial class MomentPage : ContentPage
         _viewModel.Headline = args.Moment.Headline;
         _viewModel.Description = args.Moment.Description;
         _viewModel.Color = SlidedColor = args.Moment.Color;
-        Loaded += MomentPage_Loaded;
+        //Loaded += MomentPage_Loaded;
     }
-
 
     private MomentViewModel _viewModel;
-    private void MomentPage_Loaded(object? sender, EventArgs e)
-    {
-        IconEntry.Focus();
-    }
+
+    //private void MomentPage_Loaded(object? sender, EventArgs e)
+    //{
+    //    IconEntry.Focus();
+    //}
 
     private MomentPageArgs _args;
 
