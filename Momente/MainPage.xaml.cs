@@ -105,26 +105,29 @@ namespace Momente
 #endif
         }
 
-        private void ClearSearchButton_Clicked(object sender, EventArgs e)
-        {
-            DatabaseService.Instance.FilterCsv = null;
-            DatabaseService.Instance.ResetIdCounter();
-            ClearSearchButton.IsVisible = false;
-            (BindingContext as MainViewModel)!.Moments!.Clear();
-            MomentsCollectionView.SelectedItem = null;
-            PopulateMomentsView();
-        }
         private async void SearchMomentsButton_Clicked(object sender, EventArgs e)
         {
             await SearchMomentsButton.ScaleTo(0.75, 50);
             await SearchMomentsButton.RotateXTo(180, 100);
             await SearchMomentsButton.RotateXTo(0, 100);
             await SearchMomentsButton.ScaleTo(1, 50);
-            string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
-            if (!string.IsNullOrEmpty(filter))
+            if (SearchMomentsButton.Text == "🔎")
             {
-                DatabaseService.Instance.FilterCsv = filter;
-                ClearSearchButton.IsVisible = true;
+                string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    DatabaseService.Instance.FilterCsv = filter;
+                    SearchMomentsButton.Text = "🔎❌";
+                    PopulateMomentsView();
+                }
+            }
+            else
+            {
+                DatabaseService.Instance.FilterCsv = null;
+                DatabaseService.Instance.ResetIdCounter();
+                SearchMomentsButton.Text = "🔎";
+                (BindingContext as MainViewModel)!.Moments!.Clear();
+                MomentsCollectionView.SelectedItem = null;
                 PopulateMomentsView();
             }
         }
