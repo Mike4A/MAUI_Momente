@@ -42,7 +42,7 @@
                             RowDefinitions="76">
 
                             <Border
-                                Margin="0,4,1,0"
+                                Margin="0,2,1,2"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 24,6,24,6"
                                 StrokeThickness="2">
@@ -73,7 +73,7 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="0,4,0,0"
+                                Margin="0,2,0,2"
                                 Stroke="{Binding Color}"
                                 StrokeShape="RoundRectangle 6,24,6,24"
                                 StrokeThickness="2">
