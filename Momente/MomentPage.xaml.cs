@@ -124,15 +124,8 @@ public partial class MomentPage : ContentPage
         _args.Moment.Color = _viewModel.Color;
         if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
         {
-            if (ChangesMadeToMoment())
-            {
-                await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
-                _args.Action = MomentAction.Updated;
-            }
-            else
-            {
-                _args.Action = MomentAction.None;
-            }
+            await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
+            _args.Action = MomentAction.Updated;
         }
         else
         {
