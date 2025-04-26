@@ -145,6 +145,7 @@
                         FontSize="14"
                         HorizontalTextAlignment="Center"
                         Placeholder="✍"
+                        Completed="DescriptionEditor_Completed"
                         Text="{Binding Description}" />
 
                 </Border>

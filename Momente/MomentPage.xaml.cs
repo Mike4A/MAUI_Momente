@@ -25,15 +25,10 @@ public partial class MomentPage : ContentPage
         _viewModel.Headline = args.Moment.Headline;
         _viewModel.Description = args.Moment.Description;
         _viewModel.Color = SlidedColor = args.Moment.Color;
-        //Loaded += MomentPage_Loaded;
     }
 
     private MomentViewModel _viewModel;
 
-    //private void MomentPage_Loaded(object? sender, EventArgs e)
-    //{
-    //    IconEntry.Focus();
-    //}
 
     private MomentPageArgs _args;
 
@@ -187,10 +182,14 @@ public partial class MomentPage : ContentPage
 
     private void IconEntry_Completed(object sender, EventArgs e)
     {
-        HeadlineEntry.Focus();
+        IconEntry.Unfocus();
     }
     private void HeadlineEntry_Completed(object sender, EventArgs e)
     {
-        DescriptionEditor.Focus();
+        HeadlineEntry.Unfocus();
+    }
+    private void DescriptionEditor_Completed(object sender, EventArgs e)
+    {
+        DescriptionEditor.Unfocus();
     }
 }
