@@ -2,6 +2,7 @@
 
 namespace Momente
 {
+    //v0.8
     public static class MauiProgram
     {
         public static Color DEFAULT_MOMENT_COLOR { get; } = Color.FromRgb(127, 128, 128);
