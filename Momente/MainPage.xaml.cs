@@ -33,8 +33,12 @@ namespace Momente
                 }
                 if (_momentPageArgs.Action == MomentAction.Updated)
                 {
-                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
-                    MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);                    
+                    Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
+                    if (updatedMoment != null)
+                    {
+                        moments.Insert(selectedIndex, updatedMoment);
+                        MomentsCollectionView.ScrollTo(updatedMoment);
+                    }
                 }
                 MomentsCollectionView.SelectedItem = null;
             }
