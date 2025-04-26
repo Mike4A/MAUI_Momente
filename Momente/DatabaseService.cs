@@ -131,14 +131,14 @@ namespace Momente
 
         public async Task<Moment?> GetLastMomentAsync()
         {
-            Moment? firstOrDefault = null;
-            firstOrDefault = await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
-            if (firstOrDefault != null)
+            Moment? lastOrDefault = null;
+            lastOrDefault = await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+            if (lastOrDefault != null)
             {
-                int lastId = firstOrDefault.Id;
+                int lastId = lastOrDefault.Id;
                 return await GetMomentByIdAsync(lastId);
             }
-            return firstOrDefault;
+            return lastOrDefault;
         }
 
         internal async Task AddWelcomeMomentIfEmptyAsync()
