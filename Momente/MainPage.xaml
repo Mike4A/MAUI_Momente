@@ -117,7 +117,7 @@
                                                 x:Name="HeadlineLabel"
                                                 Grid.Row="1"
                                                 Padding="6,0,6,3"
-                                                FontSize="14"                                                
+                                                FontSize="14"
                                                 Text="{Binding Headline}"
                                                 VerticalTextAlignment="Center" />
 
@@ -151,19 +151,11 @@
                                      Dark={StaticResource Black}}"
             StrokeShape="RoundRectangle 24">
 
-            <Grid ColumnDefinitions="*,*,*">
-
-                <Button
-                    x:Name="SwitchThemeButton"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="SwitchThemeButton_Clicked"
-                    FontSize="24"
-                    Text="🌛" />
+            <Grid ColumnDefinitions="*,*,*,*">
 
                 <Button
                     x:Name="QuitButton"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Margin="4"
                     Padding="0"
                     Clicked="QuitButton_Clicked"
@@ -171,8 +163,26 @@
                     Text="🔚" />
 
                 <Button
-                    x:Name="AddMomentButton"
+                    x:Name="SwitchThemeButton"
+                    Grid.Column="1"
+                    Margin="4"
+                    Padding="0"
+                    Clicked="SwitchThemeButton_Clicked"
+                    FontSize="24"
+                    Text="{AppThemeBinding  Light={StaticResource LightModeIcon}, Dark={StaticResource DarkModeIcon}} "/>
+
+                <Button
+                    x:Name="SearchMomentsButton"
                     Grid.Column="2"
+                    Margin="4"
+                    Padding="0"
+                    Clicked="SearchMomentsButton_Clicked"
+                    FontSize="24"
+                    Text="🔎" />
+
+                <Button
+                    x:Name="AddMomentButton"
+                    Grid.Column="3"
                     Margin="4"
                     Padding="0"
                     Clicked="AddMomentButton_Clicked"

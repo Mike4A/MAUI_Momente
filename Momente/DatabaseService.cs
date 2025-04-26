@@ -7,6 +7,7 @@ using SQLite;
 using System.IO;
 using System.Numerics;
 using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 
 namespace Momente
 {
@@ -16,7 +17,7 @@ namespace Momente
         {
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<Moment>().Wait();            
+            _database.CreateTableAsync<Moment>().Wait();
             ApplyIdCounter();
         }
 
@@ -41,9 +42,11 @@ namespace Momente
 
         private int _idCounter;
 
+        public string? Filter { get; set; }
+
         private async void ApplyIdCounter()
         {
-            
+
             Moment lastMoment = await GetLastMomentAsync();
             if (lastMoment != null)
             {
@@ -91,14 +94,15 @@ namespace Momente
             do
             {
                 _idCounter--;
-                moment = await GetMomentByIdAsync(_idCounter);                
+                moment = await GetMomentByIdAsync(_idCounter);
             } while (_idCounter > 1 && moment == null);
             return moment;
         }
 
         public async Task<Moment> GetLastMomentAsync()
         {
-            return await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+            Moment firstOrDefault = await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+            return firstOrDefault;
         }
 
         internal async Task AddWelcomeMomentIfEmptyAsync()

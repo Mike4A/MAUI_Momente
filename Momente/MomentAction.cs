@@ -8,6 +8,6 @@ namespace Momente
 {
     public enum MomentAction
     {
-        None, Saved, Deleted
+        None, Created, Updated, Deleted
     }
 }
