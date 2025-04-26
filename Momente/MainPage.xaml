@@ -147,9 +147,9 @@
                 Margin="4"
                 Padding="0"
                 Clicked="ClearSearchButton_Clicked"
-                FontSize="24"
+                FontSize="16"
                 IsVisible="False"
-                Text="❌🔎❌" />
+                Text="🔎 Filter zurücksetzen 🔍" />
 
         </VerticalStackLayout>
 
