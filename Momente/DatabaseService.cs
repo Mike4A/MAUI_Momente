@@ -18,7 +18,7 @@ namespace Momente
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<Moment>().Wait();
-            ApplyIdCounter();
+            ResetIdCounter();
         }
 
         private static DatabaseService? _instance;
@@ -42,12 +42,12 @@ namespace Momente
 
         private int _idCounter;
 
-        public string? Filter { get; set; }
+        public string? FilterCsv { get; set; }
 
-        private async void ApplyIdCounter()
+        public async void ResetIdCounter()
         {
-
-            Moment lastMoment = await GetLastMomentAsync();
+            _idCounter = 0;
+            Moment? lastMoment = await GetLastMomentAsync();
             if (lastMoment != null)
             {
                 _idCounter = lastMoment.Id;
@@ -59,16 +59,41 @@ namespace Momente
             return await _database.InsertAsync(moment);
         }
 
-        public async Task<List<Moment>> GetMomentsAsync()
+        public async Task<List<Moment>> GetMomentsReversedAsync()
         {
-            return await _database.Table<Moment>().ToListAsync();
+            return await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
         }
-
-        public async Task<Moment> GetMomentByIdAsync(int id)
+        public async Task<List<Moment>> GetMomentsFilteredAndReversedAsync()
         {
-            return await _database.Table<Moment>().Where(m => m.Id == id).FirstOrDefaultAsync();
+            List<Moment> moments = await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
+            if (string.IsNullOrEmpty(FilterCsv))
+            {
+                return moments;
+            }
+            else
+            {
+                List<Moment> filteredMoments = new();
+                string[] filters = FilterCsv.Split(",");
+                foreach (Moment moment in moments)
+                {
+                    foreach (string filter in filters)
+                    {
+                        if (!string.IsNullOrEmpty(filter)) 
+                        {
+                            if (moment.Icon.Contains(filter,StringComparison.OrdinalIgnoreCase) ||
+                                moment.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+                                moment.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+                                moment.Description.Contains(filter, StringComparison.OrdinalIgnoreCase))
+                            {
+                                filteredMoments.Add(moment);
+                                break;
+                            }
+                        } 
+                    }
+                }
+                return filteredMoments;
+            }
         }
-
         public async Task<int> UpdateMomentAsync(Moment moment)
         {
             return await _database.UpdateAsync(moment);
@@ -88,9 +113,9 @@ namespace Momente
             }
         }
 
-        public async Task<Moment> GetPreviousMomentAsync()
+        public async Task<Moment?> GetPreviousMomentAsync()
         {
-            Moment moment;
+            Moment? moment;
             do
             {
                 _idCounter--;
@@ -98,10 +123,21 @@ namespace Momente
             } while (_idCounter > 1 && moment == null);
             return moment;
         }
-
-        public async Task<Moment> GetLastMomentAsync()
+        public async Task<Moment?> GetMomentByIdAsync(int id)
         {
-            Moment firstOrDefault = await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+            Moment? momentById = await _database.Table<Moment>().Where(m => m.Id == id).FirstOrDefaultAsync();
+            return momentById;
+        }
+
+        public async Task<Moment?> GetLastMomentAsync()
+        {
+            Moment? firstOrDefault = null;
+            firstOrDefault = await _database.Table<Moment>().OrderByDescending(m => m.Id).FirstOrDefaultAsync();
+            if (firstOrDefault != null)
+            {
+                int lastId = firstOrDefault.Id;
+                return await GetMomentByIdAsync(lastId);
+            }
             return firstOrDefault;
         }
 
