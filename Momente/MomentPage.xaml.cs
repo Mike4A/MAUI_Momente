@@ -82,7 +82,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(180, 100);
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
-        _args.Action = MomentAction.None;    
+        _args.Action = MomentAction.None;
         //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation DB sync props
         if (ChangesMadeToMoment() && await DisplayAlert("", "Speichern?", "Ja", "Nein"))
         {
@@ -115,7 +115,7 @@ public partial class MomentPage : ContentPage
         await SaveChangesAndPop();
     }
     private async Task SaveChangesAndPop()
-    {        
+    {
         _args.Moment.Id = _viewModel.Id;
         _args.Moment.CreatedAt = _viewModel.CreatedAt;
         _args.Moment.Icon = _viewModel.Icon;
@@ -124,8 +124,15 @@ public partial class MomentPage : ContentPage
         _args.Moment.Color = _viewModel.Color;
         if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
         {
-            await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
-            _args.Action = MomentAction.Updated;
+            if (ChangesMadeToMoment())
+            {
+                await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
+                _args.Action = MomentAction.Updated;
+            }
+            else
+            {
+                _args.Action = MomentAction.None;
+            }
         }
         else
         {
