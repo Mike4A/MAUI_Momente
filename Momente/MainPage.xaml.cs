@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using static Microsoft.Maui.Controls.VisualStateManager;
+﻿using System.Collections.ObjectModel;
 
 namespace Momente
 {
@@ -36,12 +33,8 @@ namespace Momente
                 }
                 if (_momentPageArgs.Action == MomentAction.Updated)
                 {
-                    Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
-                    if (updatedMoment != null)
-                    {
-                        moments.Insert(selectedIndex, updatedMoment);
-                        //MomentsCollectionView.ScrollTo(selectedMoment);
-                    }
+                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
+                    MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);                    
                 }
                 MomentsCollectionView.SelectedItem = null;
             }
@@ -91,6 +84,7 @@ namespace Momente
             Application.Current!.Quit();
         }
 
+        private bool handleSelectionChanged = true;
         private async void SwitchThemeButton_Clicked(object sender, EventArgs e)
         {
             await SwitchThemeButton.ScaleTo(0.75, 50);
@@ -102,6 +96,20 @@ namespace Momente
             Preferences.Set("Theme", (int)theme);
 #if DEBUG
             _ = Debugger.WriteMomentEntries();
+            //Test
+            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            Moment highlightedMoment = moments[1];
+            MomentsCollectionView.ScrollTo(highlightedMoment, ScrollToPosition.Center);
+            handleSelectionChanged = false;
+            MomentsCollectionView.SelectedItem = highlightedMoment;
+            Dispatcher.Dispatch(() =>
+            {
+                Thread.Sleep(2000);
+                MomentsCollectionView.SelectedItem = null;
+            });
+            handleSelectionChanged = true;
+            // moments.Remove(highlightedMoment);            
+            // moments.Insert(1, highlightedMoment);
 #endif
         }
 
@@ -146,7 +154,7 @@ namespace Momente
         private MomentPageArgs _momentPageArgs = new();
         private async void MomentsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MomentsCollectionView.SelectedItem != null)
+            if (handleSelectionChanged && MomentsCollectionView.SelectedItem != null)
             {
                 Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
                 if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color.ToHex() == "#000000")
