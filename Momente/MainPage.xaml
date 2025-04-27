@@ -202,7 +202,8 @@
                     Margin="4,0,4,0"
                     HorizontalTextAlignment="Center"
                     Placeholder="✍"
-                    VerticalTextAlignment="End"/>
+                    TextChanged="SearchEntry_TextChanged"
+                    VerticalTextAlignment="End" />
 
             </Border>
 

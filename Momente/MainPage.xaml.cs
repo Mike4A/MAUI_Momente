@@ -181,6 +181,7 @@ namespace Momente
         private void FindNextButton_Clicked(object sender, EventArgs e)
         {
             if (_isSearching) { return; }
+            SearchEntry.Unfocus();
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
@@ -202,6 +203,7 @@ namespace Momente
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
         {
             if (_isSearching) { return; }
+            SearchEntry.Unfocus();
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
@@ -247,7 +249,7 @@ namespace Momente
             await Task.Delay(500);
             MomentsCollectionView.SelectedItem = moment;
             await Task.Delay(500);
-            MomentsCollectionView.SelectedItem = null;            
+            MomentsCollectionView.SelectedItem = null;
             _isSearching = false;
         }
         private bool MomentMatchesSearchPatter(Moment moment)
@@ -273,6 +275,18 @@ namespace Momente
         {
             SearchControlsGrid.IsVisible = false;
             DefaultControlsGrid.IsVisible = true;
+        }
+
+        private void SearchEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Dispatcher.Dispatch(() =>
+            {
+                if (!String.IsNullOrEmpty(SearchEntry.Text))
+                {
+                    SearchEntry.CursorPosition = 0;
+                    SearchEntry.SelectionLength = SearchEntry.Text.Length;
+                }
+            });
         }
     }
 }
