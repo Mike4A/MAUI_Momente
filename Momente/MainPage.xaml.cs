@@ -240,11 +240,14 @@ namespace Momente
         private async void HighlightFoundMoment(Moment moment)
         {
             MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
-            await Task.Delay(100);
+            await Task.Delay(500);
             MomentsCollectionView.SelectedItem = moment;
             await Task.Delay(500);
             MomentsCollectionView.SelectedItem = null;
-            await Task.Delay(100);
+            await Task.Delay(500);
+            MomentsCollectionView.SelectedItem = moment;
+            await Task.Delay(500);
+            MomentsCollectionView.SelectedItem = null;            
             _isSearching = false;
         }
         private bool MomentMatchesSearchPatter(Moment moment)
