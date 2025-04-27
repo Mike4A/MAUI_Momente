@@ -70,8 +70,8 @@ namespace Momente
 
         private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(DatabaseService.Instance.FilterCsv))
-            { return; }
+            //if (!String.IsNullOrEmpty(DatabaseService.Instance.FilterCsv))
+            //{ return; }
             Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
             if (previousMoment != null)
             {
@@ -175,42 +175,74 @@ namespace Momente
 
         private bool _isSearching = false;
         private int _searchIndex;
-        private async void FindNextButton_Clicked(object sender, EventArgs e)
+        private void FindNextButton_Clicked(object sender, EventArgs e)
         {
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
-            if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex; }
+            if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
             do
             {
                 _searchIndex--;
             } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
             if (_searchIndex == -1)
             {
-                await DisplayAlert("", "Keine weitere Übereinstimmung in dieser Richtung gefunden.", "Ok");
+                AlertSearchReachedEnd();
+
             }
             else
             {
-                Moment moment = moments[_searchIndex];
-                MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
-                await Task.Delay(100);
-                MomentsCollectionView.SelectedItem = moment;
-                await Task.Delay(500);
-                MomentsCollectionView.SelectedItem = null;
-                //moments.Remove(moment);
-                //moments.Insert(_searchIndex, moment);// Code to run on the main thread
-
-
+                HighlightFoundMoment(moments[_searchIndex]);
             }
+        }
+        private async void FindPreviousButton_Clicked(object sender, EventArgs e)
+        {
+            _isSearching = true;
+            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
+            if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
+            do
+            {
+                _searchIndex++;
+                if (_searchIndex > moments.Count - 1)
+                {
+                    Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
+                    if (previousMoment != null)
+                    {
+                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+                    }
+                    else
+                    {
+                        _searchIndex = -1;
+                        break;
+                    }
+                }
+            } while (!MomentMatchesSearchPatter(moments[_searchIndex]));
+            if (_searchIndex == -1)
+            {
+                AlertSearchReachedEnd();
+            }
+            else
+            {
+                HighlightFoundMoment(moments[_searchIndex]);
+            }
+        }
+
+        private async void AlertSearchReachedEnd()
+        {
+            await DisplayAlert("", "Keine weitere Übereinstimmung in dieser Richtung gefunden.", "Ok");
+        }
+
+        private async void HighlightFoundMoment(Moment moment)
+        {
+            MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
+            await Task.Delay(100);
+            MomentsCollectionView.SelectedItem = moment;
+            await Task.Delay(500);
+            MomentsCollectionView.SelectedItem = null;
             _isSearching = false;
         }
-        private void FindPreviousButton_Clicked(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(SearchEntry.Text))
-            { return; }
-            if (_searchIndex == -1)
-            { _searchIndex = _firstVisibleIndex; }
-        }
+
         private bool MomentMatchesSearchPatter(Moment moment)
         {
             string[] filters = SearchEntry.Text.Split(",");
