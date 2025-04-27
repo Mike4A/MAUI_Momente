@@ -181,7 +181,8 @@ namespace Momente
         private void FindNextButton_Clicked(object sender, EventArgs e)
         {
             if (_isSearching) { return; }
-            SearchEntry.Unfocus();
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
@@ -203,7 +204,8 @@ namespace Momente
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
         {
             if (_isSearching) { return; }
-            SearchEntry.Unfocus();
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
