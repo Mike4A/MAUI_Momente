@@ -200,9 +200,9 @@
                 <Entry
                     x:Name="SearchEntry"
                     Margin="4,0,4,0"
+                    Focused="SearchEntry_Focused"
                     HorizontalTextAlignment="Center"
                     Placeholder="✍"
-                    TextChanged="SearchEntry_TextChanged"
                     VerticalTextAlignment="End" />
 
             </Border>

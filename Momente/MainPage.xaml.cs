@@ -277,7 +277,7 @@ namespace Momente
             DefaultControlsGrid.IsVisible = true;
         }
 
-        private void SearchEntry_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchEntry_Focused(object sender, FocusEventArgs e)
         {
             Dispatcher.Dispatch(() =>
             {
