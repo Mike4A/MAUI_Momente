@@ -16,11 +16,11 @@ namespace Momente
         }
         private async void PopulateMomentsView()
         {
-            if (DatabaseService.Instance.FilterCsv != null)
-            {
-                PopulatedMomentsViewFiltered();
-                return;
-            }
+            //if (DatabaseService.Instance.FilterCsv != null)
+            //{
+            //    PopulatedMomentsViewFiltered();
+            //    return;
+            //}
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             Moment? selectedMoment = (MomentsCollectionView.SelectedItem as Moment);
             if (selectedMoment != null)
@@ -57,16 +57,16 @@ namespace Momente
             }
             _momentPageArgs = new MomentPageArgs();
         }
-        private async void PopulatedMomentsViewFiltered()
-        {
-            (BindingContext as MainViewModel)!.Moments!.Clear();
-            var moments = (BindingContext as MainViewModel)!.Moments!;
-            List<Moment> filteredMoments = await DatabaseService.Instance.GetMomentsFilteredAndReversedAsync();
-            foreach (Moment filteredMoment in filteredMoments)
-            {
-                (BindingContext as MainViewModel)!.Moments!.Add(filteredMoment);
-            }
-        }
+        //private async void PopulatedMomentsViewFiltered()
+        //{
+        //    (BindingContext as MainViewModel)!.Moments!.Clear();
+        //    var moments = (BindingContext as MainViewModel)!.Moments!;
+        //    List<Moment> filteredMoments = await DatabaseService.Instance.GetMomentsFilteredAndReversedAsync();
+        //    foreach (Moment filteredMoment in filteredMoments)
+        //    {
+        //        (BindingContext as MainViewModel)!.Moments!.Add(filteredMoment);
+        //    }
+        //}
 
         private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
         {
@@ -112,7 +112,6 @@ namespace Momente
             _searchIndex = -1;
             SearchControlsGrid.IsVisible = true;
             SearchEntry.Focus();
-
             //if (SearchMomentsButton.Text == "🔎")
             //{
             //    string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
@@ -177,6 +176,7 @@ namespace Momente
         private int _searchIndex;
         private void FindNextButton_Clicked(object sender, EventArgs e)
         {
+            if (_isSearching) { return; }
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
@@ -188,7 +188,7 @@ namespace Momente
             if (_searchIndex == -1)
             {
                 AlertSearchReachedEnd();
-
+                _isSearching = false;
             }
             else
             {
@@ -197,6 +197,7 @@ namespace Momente
         }
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
         {
+            if (_isSearching) { return; }
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
@@ -221,18 +222,17 @@ namespace Momente
             if (_searchIndex == -1)
             {
                 AlertSearchReachedEnd();
+                _isSearching = false;
             }
             else
             {
                 HighlightFoundMoment(moments[_searchIndex]);
             }
         }
-
         private async void AlertSearchReachedEnd()
         {
             await DisplayAlert("", "Keine weitere Übereinstimmung in dieser Richtung gefunden.", "Ok");
         }
-
         private async void HighlightFoundMoment(Moment moment)
         {
             MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
@@ -240,9 +240,9 @@ namespace Momente
             MomentsCollectionView.SelectedItem = moment;
             await Task.Delay(500);
             MomentsCollectionView.SelectedItem = null;
+            await Task.Delay(100);
             _isSearching = false;
         }
-
         private bool MomentMatchesSearchPatter(Moment moment)
         {
             string[] filters = SearchEntry.Text.Split(",");

@@ -42,7 +42,7 @@ namespace Momente
 
         private int _idCounter;
 
-        public string? FilterCsv { get; set; }
+        //public string? FilterCsv { get; set; }
 
         public async void ResetIdCounter()
         {
@@ -63,37 +63,37 @@ namespace Momente
         {
             return await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
         }
-        public async Task<List<Moment>> GetMomentsFilteredAndReversedAsync()
-        {
-            List<Moment> moments = await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
-            if (string.IsNullOrEmpty(FilterCsv))
-            {
-                return moments;
-            }
-            else
-            {
-                List<Moment> filteredMoments = new();
-                string[] filters = FilterCsv.Split(",");
-                foreach (Moment moment in moments)
-                {
-                    foreach (string filter in filters)
-                    {
-                        if (!string.IsNullOrEmpty(filter)) 
-                        {
-                            if (moment.Icon.Contains(filter,StringComparison.OrdinalIgnoreCase) ||
-                                moment.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-                                moment.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-                                moment.Description.Contains(filter, StringComparison.OrdinalIgnoreCase))
-                            {
-                                filteredMoments.Add(moment);
-                                break;
-                            }
-                        } 
-                    }
-                }
-                return filteredMoments;
-            }
-        }
+        //public async Task<List<Moment>> GetMomentsFilteredAndReversedAsync()
+        //{
+        //    List<Moment> moments = await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
+        //    if (string.IsNullOrEmpty(FilterCsv))
+        //    {
+        //        return moments;
+        //    }
+        //    else
+        //    {
+        //        List<Moment> filteredMoments = new();
+        //        string[] filters = FilterCsv.Split(",");
+        //        foreach (Moment moment in moments)
+        //        {
+        //            foreach (string filter in filters)
+        //            {
+        //                if (!string.IsNullOrEmpty(filter)) 
+        //                {
+        //                    if (moment.Icon.Contains(filter,StringComparison.OrdinalIgnoreCase) ||
+        //                        moment.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+        //                        moment.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+        //                        moment.Description.Contains(filter, StringComparison.OrdinalIgnoreCase))
+        //                    {
+        //                        filteredMoments.Add(moment);
+        //                        break;
+        //                    }
+        //                } 
+        //            }
+        //        }
+        //        return filteredMoments;
+        //    }
+        //}
         public async Task<int> UpdateMomentAsync(Moment moment)
         {
             return await _database.UpdateAsync(moment);
@@ -128,7 +128,6 @@ namespace Momente
             Moment? momentById = await _database.Table<Moment>().Where(m => m.Id == id).FirstOrDefaultAsync();
             return momentById;
         }
-
         public async Task<Moment?> GetLastMomentAsync()
         {
             Moment? lastOrDefault = null;
