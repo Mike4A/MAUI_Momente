@@ -140,59 +140,51 @@
 
         </Border>
 
-        <Border
-            Grid.Row="1"
-            Grid.Column="0"
+        <Grid
+            x:Name="DefaultButtonsGrid"
+            Grid.Row="3"
             Margin="3,0,3,4"
             Padding="0"
-            BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                              Dark={StaticResource Black}}"
-            Stroke="{AppThemeBinding Light={StaticResource White},
-                                     Dark={StaticResource Black}}"
-            StrokeShape="RoundRectangle 24">
+            ColumnDefinitions="*,*,*,*">
 
-            <Grid ColumnDefinitions="*,*,*,*">
+            <Button
+                x:Name="QuitButton"
+                Grid.Column="0"
+                Margin="4"
+                Padding="0"
+                Clicked="QuitButton_Clicked"
+                FontSize="24"
+                Text="🔚" />
 
-                <Button
-                    x:Name="QuitButton"
-                    Grid.Column="0"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="QuitButton_Clicked"
-                    FontSize="24"
-                    Text="🔚" />
+            <Button
+                x:Name="SwitchThemeButton"
+                Grid.Column="1"
+                Margin="4"
+                Padding="0"
+                Clicked="SwitchThemeButton_Clicked"
+                FontSize="24"
+                Text="{AppThemeBinding Light={StaticResource LightModeIcon},
+                                       Dark={StaticResource DarkModeIcon}}" />
 
-                <Button
-                    x:Name="SwitchThemeButton"
-                    Grid.Column="1"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="SwitchThemeButton_Clicked"
-                    FontSize="24"
-                    Text="{AppThemeBinding Light={StaticResource LightModeIcon},
-                                           Dark={StaticResource DarkModeIcon}}" />
+            <Button
+                x:Name="SearchMomentsButton"
+                Grid.Column="2"
+                Margin="4"
+                Padding="0"
+                Clicked="SearchMomentsButton_Clicked"
+                FontSize="24"
+                Text="🔎" />
 
-                <Button
-                    x:Name="SearchMomentsButton"
-                    Grid.Column="2"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="SearchMomentsButton_Clicked"
-                    FontSize="24"
-                    Text="🔎" />
+            <Button
+                x:Name="AddMomentButton"
+                Grid.Column="3"
+                Margin="4"
+                Padding="0"
+                Clicked="AddMomentButton_Clicked"
+                FontSize="24"
+                Text="➕" />
 
-                <Button
-                    x:Name="AddMomentButton"
-                    Grid.Column="3"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="AddMomentButton_Clicked"
-                    FontSize="24"
-                    Text="➕" />
-
-            </Grid>
-
-        </Border>
+        </Grid>
 
     </Grid>
 

@@ -142,10 +142,10 @@
                     <Editor
                         x:Name="DescriptionEditor"
                         Grid.Row="2"
+                        Completed="DescriptionEditor_Completed"
                         FontSize="14"
                         HorizontalTextAlignment="Center"
                         Placeholder="✍"
-                        Completed="DescriptionEditor_Completed"
                         Text="{Binding Description}" />
 
                 </Border>
@@ -243,49 +243,40 @@
 
         </Border>
 
-        <Border
-            Grid.Row="3"
-            Grid.Column="0"
+        <Grid Grid.Row="3"
             Margin="3,0,3,4"
             Padding="0"
-            BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                              Dark={StaticResource Black}}"
-            Stroke="{AppThemeBinding Light={StaticResource White},
-                                     Dark={StaticResource Black}}"
-            StrokeShape="RoundRectangle 24">
+            ColumnDefinitions="*,*,*">
 
-            <Grid ColumnDefinitions="*,*,*">
+            <Button
+                x:Name="DeleteButton"
+                Margin="4"
+                Padding="0"
+                Clicked="DeleteButton_Clicked"
+                FontSize="24"
+                Text="🚮" />
 
-                <Button
-                    x:Name="DeleteButton"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="DeleteButton_Clicked"
-                    FontSize="24"
-                    Text="🚮" />
+            <Button
+                x:Name="CancelButton"
+                Grid.Column="1"
+                Margin="4"
+                Padding="0"
+                Clicked="CancelButton_Clicked"
+                FontSize="24"
+                Text="❌" />
 
-                <Button
-                    x:Name="CancelButton"
-                    Grid.Column="1"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="CancelButton_Clicked"
-                    FontSize="24"
-                    Text="❌" />
+            <Button
+                x:Name="SaveButton"
+                Grid.Column="2"
+                Margin="4"
+                Padding="0"
+                Clicked="SaveButton_Clicked"
+                Command="{Binding SaveMomentCommand}"
+                FontSize="24"
+                Text="✓" />
 
-                <Button
-                    x:Name="SaveButton"
-                    Grid.Column="2"
-                    Margin="4"
-                    Padding="0"
-                    Clicked="SaveButton_Clicked"
-                    Command="{Binding SaveMomentCommand}"
-                    FontSize="24"
-                    Text="✓" />
-
-            </Grid>
-
-        </Border>
+        </Grid>
 
     </Grid>
+
 </ContentPage>
