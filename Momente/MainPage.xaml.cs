@@ -88,7 +88,6 @@ namespace Momente
             Application.Current!.Quit();
         }
 
-        private bool handleSelectionChanged = true;
         private async void SwitchThemeButton_Clicked(object sender, EventArgs e)
         {
             await SwitchThemeButton.ScaleTo(0.75, 50);
@@ -100,20 +99,6 @@ namespace Momente
             Preferences.Set("Theme", (int)theme);
 #if DEBUG
             _ = Debugger.WriteMomentEntries();
-            //Test
-            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
-            Moment highlightedMoment = moments[1];
-            MomentsCollectionView.ScrollTo(highlightedMoment, ScrollToPosition.Center);
-            handleSelectionChanged = false;
-            MomentsCollectionView.SelectedItem = highlightedMoment;
-            Dispatcher.Dispatch(() =>
-            {
-                Thread.Sleep(2000);
-                MomentsCollectionView.SelectedItem = null;
-            });
-            handleSelectionChanged = true;
-            // moments.Remove(highlightedMoment);            
-            // moments.Insert(1, highlightedMoment);
 #endif
         }
 
@@ -123,25 +108,30 @@ namespace Momente
             await SearchMomentsButton.RotateXTo(180, 100);
             await SearchMomentsButton.RotateXTo(0, 100);
             await SearchMomentsButton.ScaleTo(1, 50);
-            if (SearchMomentsButton.Text == "🔎")
-            {
-                string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    DatabaseService.Instance.FilterCsv = filter;
-                    SearchMomentsButton.Text = "🔎❌";
-                    PopulateMomentsView();
-                }
-            }
-            else
-            {
-                DatabaseService.Instance.FilterCsv = null;
-                DatabaseService.Instance.ResetIdCounter();
-                SearchMomentsButton.Text = "🔎";
-                (BindingContext as MainViewModel)!.Moments!.Clear();
-                MomentsCollectionView.SelectedItem = null;
-                PopulateMomentsView();
-            }
+            DefaultControlsGrid.IsVisible = false;
+            _searchIndex = -1;
+            SearchControlsGrid.IsVisible = true;
+            SearchEntry.Focus();
+
+            //if (SearchMomentsButton.Text == "🔎")
+            //{
+            //    string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
+            //    if (!string.IsNullOrEmpty(filter))
+            //    {
+            //        DatabaseService.Instance.FilterCsv = filter;
+            //        SearchMomentsButton.Text = "🔎❌";
+            //        PopulateMomentsView();
+            //    }
+            //}
+            //else
+            //{
+            //    DatabaseService.Instance.FilterCsv = null;
+            //    DatabaseService.Instance.ResetIdCounter();
+            //    SearchMomentsButton.Text = "🔎";
+            //    (BindingContext as MainViewModel)!.Moments!.Clear();
+            //    MomentsCollectionView.SelectedItem = null;
+            //    PopulateMomentsView();
+            //}
         }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
@@ -158,7 +148,7 @@ namespace Momente
         private MomentPageArgs _momentPageArgs = new();
         private async void MomentsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (handleSelectionChanged && MomentsCollectionView.SelectedItem != null)
+            if (!_isSearching && MomentsCollectionView.SelectedItem != null)
             {
                 Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
                 if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color.ToHex() == "#000000")
@@ -168,6 +158,82 @@ namespace Momente
                 _momentPageArgs = new MomentPageArgs(selectedMoment);
                 await Navigation.PushAsync(new MomentPage(_momentPageArgs));
             }
+        }
+
+        private int _firstVisibleIndex = 0;
+        private int _lastVisibleIndex = 0;
+
+        private void MomentsCollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+            _firstVisibleIndex = e.FirstVisibleItemIndex;
+            _lastVisibleIndex = e.LastVisibleItemIndex;
+            if (!_isSearching)
+            {
+                _searchIndex = -1;
+            }
+        }
+
+        private bool _isSearching = false;
+        private int _searchIndex;
+        private async void FindNextButton_Clicked(object sender, EventArgs e)
+        {
+            _isSearching = true;
+            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
+            if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex; }
+            do
+            {
+                _searchIndex--;
+            } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
+            if (_searchIndex == -1)
+            {
+                await DisplayAlert("", "Keine weitere Übereinstimmung in dieser Richtung gefunden.", "Ok");
+            }
+            else
+            {
+                Moment moment = moments[_searchIndex];
+                MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
+                await Task.Delay(100);
+                MomentsCollectionView.SelectedItem = moment;
+                await Task.Delay(500);
+                MomentsCollectionView.SelectedItem = null;
+                //moments.Remove(moment);
+                //moments.Insert(_searchIndex, moment);// Code to run on the main thread
+
+
+            }
+            _isSearching = false;
+        }
+        private void FindPreviousButton_Clicked(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(SearchEntry.Text))
+            { return; }
+            if (_searchIndex == -1)
+            { _searchIndex = _firstVisibleIndex; }
+        }
+        private bool MomentMatchesSearchPatter(Moment moment)
+        {
+            string[] filters = SearchEntry.Text.Split(",");
+            foreach (string filter in filters)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    if (moment.Icon.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+                        moment.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+                        moment.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
+                        moment.Description.Contains(filter, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void CancelSearchButton_Clicked(object sender, EventArgs e)
+        {
+            SearchControlsGrid.IsVisible = false;
+            DefaultControlsGrid.IsVisible = true;
         }
     }
 }

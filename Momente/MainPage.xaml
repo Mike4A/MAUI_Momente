@@ -29,6 +29,7 @@
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Rotation="0"
+                Scrolled="MomentsCollectionView_Scrolled"
                 SelectionChanged="MomentsCollectionView_SelectionChanged"
                 SelectionMode="Single">
 
@@ -141,7 +142,7 @@
         </Border>
 
         <Grid
-            x:Name="DefaultButtonsGrid"
+            x:Name="DefaultControlsGrid"
             Grid.Row="3"
             Margin="3,0,3,4"
             Padding="0"
@@ -183,6 +184,54 @@
                 Clicked="AddMomentButton_Clicked"
                 FontSize="24"
                 Text="➕" />
+
+        </Grid>
+
+        <Grid
+            x:Name="SearchControlsGrid"
+            Grid.Row="3"
+            Margin="3,0,3,4"
+            Padding="0"
+            ColumnDefinitions="3*,*,*,*"
+            IsVisible="False">
+
+            <Border Margin="4" StrokeShape="RoundRectangle 24">
+
+                <Entry
+                    x:Name="SearchEntry"
+                    Margin="4,0,4,0"
+                    HorizontalTextAlignment="Center"
+                    Placeholder="✍"
+                    VerticalTextAlignment="End"/>
+
+            </Border>
+
+            <Button
+                x:Name="FindPreviousButton"
+                Grid.Column="1"
+                Margin="4"
+                Padding="0"
+                Clicked="FindPreviousButton_Clicked"
+                FontSize="24"
+                Text="⬇" />
+
+            <Button
+                x:Name="FindNextButton"
+                Grid.Column="2"
+                Margin="4"
+                Padding="0"
+                Clicked="FindNextButton_Clicked"
+                FontSize="24"
+                Text="⬆" />
+
+            <Button
+                x:Name="CancelSearchButton"
+                Grid.Column="3"
+                Margin="4"
+                Padding="0"
+                Clicked="CancelSearchButton_Clicked"
+                FontSize="24"
+                Text="❌" />
 
         </Grid>
 
