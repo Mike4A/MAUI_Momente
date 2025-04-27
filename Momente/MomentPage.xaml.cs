@@ -1,8 +1,6 @@
 
 using Momente.Drawables;
 using Momente.Resources.Localizations;
-using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace Momente;
 
