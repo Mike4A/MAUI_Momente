@@ -22,7 +22,7 @@ namespace Momente
 
         public string Description { get; set; } = "";
 
-        public string ColorString { get; set; } = MauiProgram.DEFAULT_MOMENT_COLOR.ToHex();
+        public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();
         [Ignore]
         public Color Color { get => Color.Parse(ColorString); set => ColorString = value.ToHex(); }
         [Ignore]
@@ -31,7 +31,7 @@ namespace Momente
             get
             {
                 Color c = Color.Parse(ColorString);
-                return c.WithLuminosity(c.GetLuminosity() + MauiProgram.LUMINOSITY_GLOW);
+                return c.WithLuminosity(c.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_GLOW);
             }
         }
         [Ignore]

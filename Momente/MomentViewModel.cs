@@ -80,7 +80,7 @@ namespace Momente
             }
         }
 
-        private Color _color = MauiProgram.DEFAULT_MOMENT_COLOR;
+        private Color _color = MauiProgram.MOMENT_DEFAULT_COLOR;
         public Color Color
         {
             get => _color;
@@ -94,7 +94,7 @@ namespace Momente
 
         public Color GlowColor
         {
-            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.LUMINOSITY_GLOW);
+            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_GLOW);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

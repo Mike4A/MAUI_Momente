@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Momente.Resources.Localizations;
+using System.Collections.ObjectModel;
 
 namespace Momente
 {
@@ -150,9 +151,12 @@ namespace Momente
             if (!_isSearching && MomentsCollectionView.SelectedItem != null)
             {
                 Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
-                if (selectedMoment.Headline == "DevCheat" && selectedMoment.Color.ToHex() == "#000000")
+                if (selectedMoment.Headline == MauiProgram.DEV_CHEAT_CODE && selectedMoment.Color.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
                 {
-                    await DisplayAlert("DB-Path:", Path.Combine(FileSystem.AppDataDirectory, "moments.db"), "Done");
+                    string msg =
+                        $"DB-Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
+                        $"DB-Count: {await DatabaseService.Instance.GetCount()}";
+                    await DisplayAlert("", msg, "Ok");
                 }
                 _momentPageArgs = new MomentPageArgs(selectedMoment);
                 await Navigation.PushAsync(new MomentPage(_momentPageArgs));
@@ -231,7 +235,7 @@ namespace Momente
         }
         private async void AlertSearchReachedEnd()
         {
-            await DisplayAlert("", "Keine weitere Übereinstimmung in dieser Richtung gefunden.", "Ok");
+            await DisplayAlert("", AppResources.SearchMsgNoMoreResults, "Ok");
         }
         private async void HighlightFoundMoment(Moment moment)
         {

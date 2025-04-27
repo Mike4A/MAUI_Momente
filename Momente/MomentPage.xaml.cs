@@ -1,5 +1,6 @@
 
 using Momente.Drawables;
+using Momente.Resources.Localizations;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -63,7 +64,7 @@ public partial class MomentPage : ContentPage
         await DeleteButton.ScaleTo(1, 50);
         if (_viewModel.Id != 0)
         {
-            if (await DisplayAlert("", "Moment löschen?", "Ja", "Nein"))
+            if (await DisplayAlert("", AppResources.DeleteMomentQuestion, AppResources.Yes, AppResources.No))
             {
                 await DatabaseService.Instance.DeleteMomentAsync(_viewModel.Id);
                 _args.Action = MomentAction.Deleted;
@@ -84,7 +85,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.ScaleTo(1, 50);
         _args.Action = MomentAction.None;
         //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation DB sync props
-        if (ChangesMadeToMoment() && await DisplayAlert("", "Speichern?", "Ja", "Nein"))
+        if (ChangesMadeToMoment() && await DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
         {
             await SaveChangesAndPop();
         }

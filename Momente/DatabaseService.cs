@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using SQLite;
-using System.IO;
-using System.Numerics;
-using static System.Net.Mime.MediaTypeNames;
-using System.Diagnostics;
+using Momente.Resources.Localizations;
 
 namespace Momente
 {
@@ -147,10 +140,16 @@ namespace Momente
                 await AddMomentAsync(new Moment
                 {
                     Icon = "👋",
-                    Headline = "Willkommen!",
-                    Description = "Freut mich dich hier begrüßen zu dürfen.\n\nMit dieser App kannst du Momente und Eindrücke sammeln.\n\nWenn du dann mal einen schlechten Tag hast, kannst du in diese Momente zurückeintauchen und Energie aus ihnen schöpfen.\n\nIch wünsche dir viele bunte Momente!"
+                    Headline = AppResources.WelcomeMomentHeadline,
+                    Description = AppResources.WelcomeMomentDescription,
+                    Color = Colors.Cyan
                 });
             }
+        }
+
+        internal async Task<int> GetCount()
+        {
+            return await _database.Table<Moment>().CountAsync();
         }
     }
 }
