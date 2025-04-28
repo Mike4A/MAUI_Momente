@@ -55,21 +55,9 @@ namespace Momente
             }
             _momentPageArgs = new MomentPageArgs();
         }
-        //private async void PopulatedMomentsViewFiltered()
-        //{
-        //    (BindingContext as MainViewModel)!.Moments!.Clear();
-        //    var moments = (BindingContext as MainViewModel)!.Moments!;
-        //    List<Moment> filteredMoments = await DatabaseService.Instance.GetMomentsFilteredAndReversedAsync();
-        //    foreach (Moment filteredMoment in filteredMoments)
-        //    {
-        //        (BindingContext as MainViewModel)!.Moments!.Add(filteredMoment);
-        //    }
-        //}
 
         private async void MomentsCollectionView_RemainingItemsThresholdReached(object sender, EventArgs e)
         {
-            //if (!String.IsNullOrEmpty(DatabaseService.Instance.FilterCsv))
-            //{ return; }
             Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
             if (previousMoment != null)
             {
@@ -110,26 +98,7 @@ namespace Momente
             _searchIndex = -1;
             SearchControlsGrid.IsVisible = true;
             SearchEntry.Focus();
-            //if (SearchMomentsButton.Text == "🔎")
-            //{
-            //    string filter = await DisplayPromptAsync("", "Suchen nach?", "Ok", "Abbrechen", "...");
-            //    if (!string.IsNullOrEmpty(filter))
-            //    {
-            //        DatabaseService.Instance.FilterCsv = filter;
-            //        SearchMomentsButton.Text = "🔎❌";
-            //        PopulateMomentsView();
-            //    }
-            //}
-            //else
-            //{
-            //    DatabaseService.Instance.FilterCsv = null;
-            //    DatabaseService.Instance.ResetIdCounter();
-            //    SearchMomentsButton.Text = "🔎";
-            //    (BindingContext as MainViewModel)!.Moments!.Clear();
-            //    MomentsCollectionView.SelectedItem = null;
-            //    PopulateMomentsView();
-            //}
-        }
+         }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
         {

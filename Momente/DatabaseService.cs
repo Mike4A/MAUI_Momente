@@ -35,8 +35,6 @@ namespace Momente
 
         private int _idCounter;
 
-        //public string? FilterCsv { get; set; }
-
         public async void ResetIdCounter()
         {
             _idCounter = 0;
