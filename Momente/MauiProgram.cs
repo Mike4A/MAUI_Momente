@@ -30,7 +30,7 @@ namespace Momente
         private static async void AddWelcomeEntry()
         {
             await DatabaseService.Instance.AddWelcomeMomentIfEmptyAsync();
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
         }
     }
 }
