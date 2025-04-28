@@ -17,11 +17,6 @@ namespace Momente
         }
         private async void PopulateMomentsView()
         {
-            //if (DatabaseService.Instance.FilterCsv != null)
-            //{
-            //    PopulatedMomentsViewFiltered();
-            //    return;
-            //}
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             Moment? selectedMoment = (MomentsCollectionView.SelectedItem as Moment);
             if (selectedMoment != null)
@@ -34,12 +29,14 @@ namespace Momente
                 }
                 if (_momentPageArgs.Action == MomentAction.Updated)
                 {
-                    Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
-                    if (updatedMoment != null)
-                    {
-                        moments.Insert(selectedIndex, updatedMoment);
-                        MomentsCollectionView.ScrollTo(updatedMoment);
-                    }
+                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
+                    MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);
+                    //Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
+                    //if (updatedMoment != null)
+                    //{
+                    //    moments.Insert(selectedIndex, updatedMoment);
+                    //    MomentsCollectionView.ScrollTo(updatedMoment);
+                    //}
                 }
                 MomentsCollectionView.SelectedItem = null;
             }
@@ -178,13 +175,16 @@ namespace Momente
 
         private bool _isSearching = false;
         private int _searchIndex;
-        private void FindNextButton_Clicked(object sender, EventArgs e)
+        private async void FindNextButton_Clicked(object sender, EventArgs e)
         {
-            if (_isSearching) { return; }
+            await FindNextButton.ScaleTo(0.75, 50);
+            await FindNextButton.RotateXTo(180, 100);
+            await FindNextButton.RotateXTo(0, 100);
+            await FindNextButton.ScaleTo(1, 50);
+            if (_isSearching || String.IsNullOrEmpty(SearchEntry.Text)) { return; }
             SearchEntry.Unfocus();
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
-            if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
             if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
             do
             {
@@ -202,11 +202,14 @@ namespace Momente
         }
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
         {
-            if (_isSearching) { return; }
+            await FindPreviousButton.ScaleTo(0.75, 50);
+            await FindPreviousButton.RotateXTo(180, 100);
+            await FindPreviousButton.RotateXTo(0, 100);
+            await FindPreviousButton.ScaleTo(1, 50);
+            if (_isSearching || String.IsNullOrEmpty(SearchEntry.Text)) { return; }
             SearchEntry.Unfocus();
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
-            if (String.IsNullOrEmpty(SearchEntry.Text)) { return; }
             if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
             do
             {
@@ -271,10 +274,15 @@ namespace Momente
             return false;
         }
 
-        private void CancelSearchButton_Clicked(object sender, EventArgs e)
+        private async void CancelSearchButton_Clicked(object sender, EventArgs e)
         {
+            await CancelSearchButton.ScaleTo(0.75, 50);
+            await CancelSearchButton.RotateXTo(180, 100);
+            await CancelSearchButton.RotateXTo(0, 100);
+            await CancelSearchButton.ScaleTo(1, 50);
             SearchControlsGrid.IsVisible = false;
             DefaultControlsGrid.IsVisible = true;
+            SearchEntry.Unfocus();
         }
 
         private void SearchEntry_Focused(object sender, FocusEventArgs e)
@@ -287,6 +295,12 @@ namespace Momente
                     SearchEntry.SelectionLength = SearchEntry.Text.Length;
                 }
             });
+        }
+
+        private void SearchEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
         }
     }
 }
