@@ -85,7 +85,7 @@ public partial class MomentPage : ContentPage
         //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation DB sync props
         if (ChangesMadeToMoment() && await DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
         {
-            await SaveChangesAndPop();
+            SaveChangesAndPop();
         }
         else
         {
@@ -111,9 +111,9 @@ public partial class MomentPage : ContentPage
         await SaveButton.RotateXTo(180, 100);
         await SaveButton.RotateXTo(0, 100);
         await SaveButton.ScaleTo(1, 50);
-        await SaveChangesAndPop();
+        SaveChangesAndPop();
     }
-    private async Task SaveChangesAndPop()
+    private async void SaveChangesAndPop()
     {
         _args.Moment.Id = _viewModel.Id;
         _args.Moment.CreatedAt = _viewModel.CreatedAt;
