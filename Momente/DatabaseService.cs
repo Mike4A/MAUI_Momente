@@ -142,7 +142,7 @@ namespace Momente
                     Icon = "👋",
                     Headline = AppResources.WelcomeMomentHeadline,
                     Description = AppResources.WelcomeMomentDescription,
-                    Color = Colors.Cyan
+                    Color = Colors.DarkCyan
                 });
             }
         }
