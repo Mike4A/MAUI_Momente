@@ -23,13 +23,18 @@ namespace Momente
             {
                 //Handle updated or deleted moment
                 int selectedIndex = moments.IndexOf(selectedMoment);
-                if (_momentPageArgs.Action is MomentAction.Deleted or MomentAction.Updated)
+                if (_momentPageArgs.Action is MomentAction.Deleted)
                 {
                     moments.Remove(selectedMoment!);
+
                 }
                 if (_momentPageArgs.Action == MomentAction.Updated)
+
                 {
-                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
+                    moments.Remove(selectedMoment!);
+                    //await Task.Delay(1000);
+                    moments.Insert(selectedIndex, _momentPageArgs.Moment);                 
+                    //await Task.Delay(333);
                     MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);
                     //Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
                     //if (updatedMoment != null)
@@ -98,7 +103,7 @@ namespace Momente
             _searchIndex = -1;
             SearchControlsGrid.IsVisible = true;
             SearchEntry.Focus();
-         }
+        }
 
         private async void AddMomentButton_Clicked(object sender, EventArgs e)
         {
@@ -151,7 +156,8 @@ namespace Momente
             await FindNextButton.RotateXTo(0, 100);
             await FindNextButton.ScaleTo(1, 50);
             if (_isSearching || String.IsNullOrEmpty(SearchEntry.Text)) { return; }
-            SearchEntry.Unfocus();
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
@@ -176,7 +182,8 @@ namespace Momente
             await FindPreviousButton.RotateXTo(0, 100);
             await FindPreviousButton.ScaleTo(1, 50);
             if (_isSearching || String.IsNullOrEmpty(SearchEntry.Text)) { return; }
-            SearchEntry.Unfocus();
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
@@ -251,7 +258,8 @@ namespace Momente
             await CancelSearchButton.ScaleTo(1, 50);
             SearchControlsGrid.IsVisible = false;
             DefaultControlsGrid.IsVisible = true;
-            SearchEntry.Unfocus();
+            SearchEntry.IsEnabled = false;
+            SearchEntry.IsEnabled = true;
         }
 
         private void SearchEntry_Focused(object sender, FocusEventArgs e)

@@ -171,7 +171,7 @@
                 StrokeThickness="2">
 
                 <Border
-                    Padding="3,6,3,6"
+                    Padding="3"
                     BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
                                                       Dark={StaticResource Gray900}}"
                     Stroke="{Binding Color}"
@@ -182,7 +182,7 @@
 
                         <Border
                             Grid.Row="0"
-                            Margin="6"
+                            Margin="3"
                             StrokeShape="RoundRectangle 20">
 
                             <Grid>
@@ -200,7 +200,7 @@
 
                         <Border
                             Grid.Row="1"
-                            Margin="6"
+                            Margin="3"
                             StrokeShape="RoundRectangle 20">
 
                             <Grid>
@@ -219,7 +219,7 @@
 
                         <Border
                             Grid.Row="2"
-                            Margin="6"
+                            Margin="3"
                             StrokeShape="RoundRectangle 20">
 
                             <Grid>
