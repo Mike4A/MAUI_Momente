@@ -33,18 +33,18 @@ namespace Momente
 
         private readonly SQLiteAsyncConnection _database;
 
-        private int _idCounter;
+        public int IdCounter;        
 
         public async void ResetIdCounter()
         {
-            _idCounter = 0;
+            IdCounter = 0;
             Moment? lastMoment = await GetLastMomentAsync();
             if (lastMoment != null)
             {
-                _idCounter = lastMoment.Id;
+                IdCounter = lastMoment.Id;
             }
         }
-
+        
         public async Task<int> AddMomentAsync(Moment moment)
         {
             return await _database.InsertAsync(moment);
@@ -79,9 +79,9 @@ namespace Momente
             Moment? moment;
             do
             {
-                _idCounter--;
-                moment = await GetMomentByIdAsync(_idCounter);
-            } while (_idCounter > 1 && moment == null);
+                IdCounter--;
+                moment = await GetMomentByIdAsync(IdCounter);
+            } while (IdCounter > 1 && moment == null);
             return moment;
         }
         public async Task<Moment?> GetMomentByIdAsync(int id)

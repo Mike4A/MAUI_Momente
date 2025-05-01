@@ -149,6 +149,7 @@ namespace Momente
                     for (int i = moments.Count - 1; i > _lastVisibleIndex + 3; i--)
                     {
                         moments.Remove(moments[i]);
+                        DatabaseService.Instance.IdCounter = moments[i - 1].Id;
                     }
                 }
             }
