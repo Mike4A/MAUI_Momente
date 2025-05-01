@@ -32,9 +32,7 @@ namespace Momente
 
                 {
                     moments.Remove(selectedMoment!);
-                    //await Task.Delay(1000);
-                    moments.Insert(selectedIndex, _momentPageArgs.Moment);                 
-                    //await Task.Delay(333);
+                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
                     MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);
                     //Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
                     //if (updatedMoment != null)
@@ -125,8 +123,9 @@ namespace Momente
                 if (selectedMoment.Headline == MauiProgram.DEV_CHEAT_CODE && selectedMoment.Color.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
                 {
                     string msg =
-                        $"DB-Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
-                        $"DB-Count: {await DatabaseService.Instance.GetCount()}";
+                        $"DB Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
+                        $"DB Count: {await DatabaseService.Instance.GetCount()}\n" +
+                        $"Loaded Moments: {(BindingContext as MainViewModel)!.Moments!.Count}";
                     await DisplayAlert("", msg, "Ok");
                 }
                 _momentPageArgs = new MomentPageArgs(selectedMoment);
@@ -144,6 +143,14 @@ namespace Momente
             if (!_isSearching)
             {
                 _searchIndex = -1;
+                ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+                if (moments!= null && moments.Count > 0)
+                {
+                    for (int i = moments.Count - 1; i > _lastVisibleIndex + 3; i--)
+                    {
+                        moments.Remove(moments[i]);
+                    }
+                }
             }
         }
 
@@ -195,7 +202,7 @@ namespace Momente
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
                     if (previousMoment != null)
                     {
-                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);                        
+                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
                     }
                     else
                     {
