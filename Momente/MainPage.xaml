@@ -43,28 +43,43 @@
                             RowDefinitions="76">
 
                             <Border
+                                Grid.Column="0"
                                 Margin="0,2,1,2"
-                                Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 24,6,24,6"
-                                StrokeThickness="2">
+                                Stroke="{Binding ShadowColor}"
+                                StrokeShape="RoundRectangle 27,5.5,27,5.5"
+                                StrokeThickness="1">
 
                                 <Border
-                                    Stroke="{Binding GlowColor}"
-                                    StrokeShape="RoundRectangle 22,3,22,3"
-                                    StrokeThickness="2">
+                                    Stroke="{Binding Color}"
+                                    StrokeShape="RoundRectangle 27,5,27,5"
+                                    StrokeThickness="1">
 
                                     <Border
-                                        Stroke="{Binding Color}"
-                                        StrokeShape="RoundRectangle 20,1,20,1"
+                                        Stroke="{Binding GlowColor}"
+                                        StrokeShape="RoundRectangle 26,3.5,26,3.5"
                                         StrokeThickness="2">
 
-                                        <Label
-                                            x:Name="IconLabel"
-                                            Padding="5,0,0,4"
-                                            FontSize="36"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding Icon}"
-                                            VerticalTextAlignment="Center" />
+                                        <Border
+                                            Stroke="{Binding Color}"
+                                            StrokeShape="RoundRectangle 25,2,25,2"
+                                            StrokeThickness="1">
+
+                                            <Border
+                                                Stroke="{Binding ShadowColor}"
+                                                StrokeShape="RoundRectangle 25,1,25,1"
+                                                StrokeThickness="1">
+                                                
+                                                <Label
+                                                    x:Name="IconLabel"
+                                                    Padding="5,0,0,4"
+                                                    FontSize="36"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{Binding Icon}"
+                                                    VerticalTextAlignment="Center" />
+
+                                            </Border>
+
+                                        </Border>
 
                                     </Border>
 
@@ -74,55 +89,69 @@
 
                             <Border
                                 Grid.Column="1"
-                                Margin="0,2,0,2"
-                                Stroke="{Binding Color}"
-                                StrokeShape="RoundRectangle 6,24,6,24"
-                                StrokeThickness="2">
+                                Margin="0,2,1,2"
+                                Stroke="{Binding ShadowColor}"
+                                StrokeShape="RoundRectangle 5.5,27,5.5,27"
+                                StrokeThickness="1">
 
                                 <Border
-                                    Stroke="{Binding GlowColor}"
-                                    StrokeShape="RoundRectangle 3,22,3,22"
-                                    StrokeThickness="2">
+                                    Stroke="{Binding Color}"
+                                    StrokeShape="RoundRectangle 5,27,5,27"
+                                    StrokeThickness="1">
 
                                     <Border
-                                        Stroke="{Binding Color}"
-                                        StrokeShape="RoundRectangle 1,20,1,20"
+                                        Stroke="{Binding GlowColor}"
+                                        StrokeShape="RoundRectangle 3.5,26,3.5,26"
                                         StrokeThickness="2">
 
+                                        <Border
+                                            Stroke="{Binding Color}"
+                                            StrokeShape="RoundRectangle 2,25,2,25"
+                                            StrokeThickness="1">
 
-                                        <Grid RowDefinitions="*,*">
-                                            <Grid Padding="0" ColumnDefinitions="*,0.15*">
+                                            <Border
+                                                Stroke="{Binding ShadowColor}"
+                                                StrokeShape="RoundRectangle 1,25,1,25"
+                                                StrokeThickness="1">
 
-                                                <Label
-                                                    x:Name="CreatedAtLabel"
-                                                    Padding="6,3,6,3"
-                                                    FontSize="10"
-                                                    Text="{Binding CreatedAtString}"
-                                                    TextColor="{AppThemeBinding Light={StaticResource Gray500},
-                                                                                Dark={StaticResource Gray400}}"
-                                                    VerticalTextAlignment="Center" />
 
-                                                <Label
-                                                    x:Name="HasDescriptionLabel"
-                                                    Grid.Column="1"
-                                                    Margin="3,3,6,3"
-                                                    FontSize="14"
-                                                    HorizontalTextAlignment="End"
-                                                    Text="{Binding HasDescriptonString}"
-                                                    TextColor="{StaticResource Gray500}"
-                                                    VerticalTextAlignment="Center" />
+                                                <Grid RowDefinitions="*,*">
+                                                    <Grid Padding="0" ColumnDefinitions="*,0.15*">
 
-                                            </Grid>
+                                                        <Label
+                                                            x:Name="CreatedAtLabel"
+                                                            Padding="6,3,6,3"
+                                                            FontSize="10"
+                                                            Text="{Binding CreatedAtString}"
+                                                            TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                                                                        Dark={StaticResource Gray400}}"
+                                                            VerticalTextAlignment="Center" />
 
-                                            <Label
-                                                x:Name="HeadlineLabel"
-                                                Grid.Row="1"
-                                                Padding="6,0,6,3"
-                                                FontSize="14"
-                                                Text="{Binding Headline}"
-                                                VerticalTextAlignment="Center" />
+                                                        <Label
+                                                            x:Name="HasDescriptionLabel"
+                                                            Grid.Column="1"
+                                                            Margin="3,3,6,3"
+                                                            FontSize="14"
+                                                            HorizontalTextAlignment="End"
+                                                            Text="{Binding HasDescriptonString}"
+                                                            TextColor="{StaticResource Gray500}"
+                                                            VerticalTextAlignment="Center" />
 
-                                        </Grid>
+                                                    </Grid>
+
+                                                    <Label
+                                                        x:Name="HeadlineLabel"
+                                                        Grid.Row="1"
+                                                        Padding="6,0,6,3"
+                                                        FontSize="14"
+                                                        Text="{Binding Headline}"
+                                                        VerticalTextAlignment="Center" />
+
+                                                </Grid>
+
+                                            </Border>
+
+                                        </Border>
 
                                     </Border>
 
@@ -213,9 +242,9 @@
                     x:Name="SearchEntry"
                     Margin="4,0,4,0"
                     Focused="SearchEntry_Focused"
-                    Unfocused="SearchEntry_Unfocused"
                     HorizontalTextAlignment="Center"
                     Placeholder="✍"
+                    Unfocused="SearchEntry_Unfocused"
                     VerticalTextAlignment="End" />
 
             </Border>

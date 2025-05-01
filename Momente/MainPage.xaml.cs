@@ -164,6 +164,8 @@ namespace Momente
             do
             {
                 _searchIndex--;
+                MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.End);
+                await Task.Delay(333);
             } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
             if (_searchIndex == -1)
             {
@@ -196,6 +198,8 @@ namespace Momente
                     if (previousMoment != null)
                     {
                         (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+                        MomentsCollectionView.ScrollTo(previousMoment, ScrollToPosition.End);  
+                        await Task.Delay(333);
                     }
                     else
                     {
@@ -220,14 +224,13 @@ namespace Momente
         }
         private async void HighlightFoundMoment(Moment moment)
         {
-            MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);    // Code to run on the main thread
-            await Task.Delay(500);
+            await Task.Delay(333);
             MomentsCollectionView.SelectedItem = moment;
-            await Task.Delay(500);
+            await Task.Delay(333);
             MomentsCollectionView.SelectedItem = null;
-            await Task.Delay(500);
+            await Task.Delay(333);
             MomentsCollectionView.SelectedItem = moment;
-            await Task.Delay(500);
+            await Task.Delay(333);
             MomentsCollectionView.SelectedItem = null;
             _isSearching = false;
         }

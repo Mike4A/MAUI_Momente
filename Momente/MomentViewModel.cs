@@ -83,10 +83,13 @@ namespace Momente
                 OnPropertyChanged(nameof(GlowColor));
             }
         }
-
         public Color GlowColor
         {
             get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_GLOW);
+        }
+        public Color ShadowColor
+        {
+            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_SHADOW);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -29,6 +29,14 @@ namespace Momente
                 return c.WithLuminosity(c.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_GLOW);
             }
         }
+        public Color ShadowColor
+        {
+            get
+            {
+                Color c = Color.Parse(ColorString);
+                return c.WithLuminosity(c.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_SHADOW);
+            }
+        }
         [Ignore]
         public string? HasDescriptonString { get => String.IsNullOrEmpty(Description) ? null : "📎"; }
     }

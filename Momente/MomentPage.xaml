@@ -18,41 +18,49 @@
         <Grid ColumnDefinitions="78,*">
 
             <Border
+                Grid.Column="0"
                 Margin="3,3,1,1"
-                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Gray900}}"
-                Stroke="{Binding Color}"
-                StrokeShape="RoundRectangle 26,6,6,6"
-                StrokeThickness="2">
+                Stroke="{Binding ShadowColor}"
+                StrokeShape="RoundRectangle 27,5.5,5.5,5.5"
+                StrokeThickness="1">
 
                 <Border
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                      Dark={StaticResource Gray900}}"
-                    Stroke="{Binding GlowColor}"
-                    StrokeShape="RoundRectangle 24,3,3,3"
-                    StrokeThickness="2">
+                    Stroke="{Binding Color}"
+                    StrokeShape="RoundRectangle 27,5,5,5"
+                    StrokeThickness="1">
 
                     <Border
-                        Padding="3"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                          Dark={StaticResource Gray900}}"
-                        Stroke="{Binding Color}"
-                        StrokeShape="RoundRectangle 22,1,1,1"
+                        Stroke="{Binding GlowColor}"
+                        StrokeShape="RoundRectangle 26,3.5,3.5,3.5"
                         StrokeThickness="2">
 
-                        <Entry
-                            x:Name="IconEntry"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Completed="IconEntry_Completed"
-                            Focused="IconEntry_Focused"
-                            FontSize="36"
-                            HorizontalTextAlignment="Center"
-                            Keyboard="Chat"
-                            Placeholder="✍"
-                            Text="{Binding Icon}"
-                            TextChanged="IconEntry_TextChanged"
-                            VerticalTextAlignment="Center" />
+                        <Border
+                            Stroke="{Binding Color}"
+                            StrokeShape="RoundRectangle 25,2,2,2"
+                            StrokeThickness="1">
+
+                            <Border
+                                Stroke="{Binding ShadowColor}"
+                                StrokeShape="RoundRectangle 25,1,1,1"
+                                StrokeThickness="1">
+
+                                <Entry
+                                    x:Name="IconEntry"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Completed="IconEntry_Completed"
+                                    Focused="IconEntry_Focused"
+                                    FontSize="36"
+                                    HorizontalTextAlignment="Center"
+                                    Keyboard="Chat"
+                                    Placeholder="✍"
+                                    Text="{Binding Icon}"
+                                    TextChanged="IconEntry_TextChanged"
+                                    VerticalTextAlignment="Center" />
+
+                            </Border>
+
+                        </Border>
 
                     </Border>
 
@@ -61,50 +69,56 @@
             </Border>
 
             <Border
-                Grid.Row="0"
                 Grid.Column="1"
                 Margin="1,3,3,1"
-                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Gray900}}"
-                Stroke="{Binding Color}"
-                StrokeShape="RoundRectangle 6,26,6,6"
-                StrokeThickness="2">
+                Stroke="{Binding ShadowColor}"
+                StrokeShape="RoundRectangle 5.5,27,5.5,5.5"
+                StrokeThickness="1">
 
                 <Border
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                      Dark={StaticResource Gray900}}"
-                    Stroke="{Binding GlowColor}"
-                    StrokeShape="RoundRectangle 3,24,3,3"
-                    StrokeThickness="2">
+                    Stroke="{Binding Color}"
+                    StrokeShape="RoundRectangle 5,27,5,5"
+                    StrokeThickness="1">
 
                     <Border
-                        Padding="3"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                          Dark={StaticResource Gray900}}"
-                        Stroke="{Binding Color}"
-                        StrokeShape="RoundRectangle 1,22,1,1"
+                        Stroke="{Binding GlowColor}"
+                        StrokeShape="RoundRectangle 3.5,26,3.5,3.5"
                         StrokeThickness="2">
 
-                        <Grid Padding="3,1,3,0" RowDefinitions="*,1.6*">
+                        <Border
+                            Stroke="{Binding Color}"
+                            StrokeShape="RoundRectangle 2,25,2,2"
+                            StrokeThickness="1">
 
-                            <Label
-                                x:Name="CreatedAtLabel"
-                                Margin="4"
-                                FontSize="10"
-                                Text="{Binding CreatedAtString}"
-                                TextColor="{StaticResource Gray500}"
-                                VerticalTextAlignment="Center" />
+                            <Border
+                                Stroke="{Binding ShadowColor}"
+                                StrokeShape="RoundRectangle 1,25,1,1"
+                                StrokeThickness="1">
 
-                            <Entry
-                                x:Name="HeadlineEntry"
-                                Grid.Row="1"
-                                Completed="HeadlineEntry_Completed"
-                                FontSize="14"
-                                Placeholder="✍"
-                                Text="{Binding Headline}"
-                                VerticalTextAlignment="Center" />
+                                <Grid Padding="3,1,3,0" RowDefinitions="*,1.6*">
 
-                        </Grid>
+                                    <Label
+                                        x:Name="CreatedAtLabel"
+                                        Margin="4"
+                                        FontSize="10"
+                                        Text="{Binding CreatedAtString}"
+                                        TextColor="{StaticResource Gray500}"
+                                        VerticalTextAlignment="Center" />
+
+                                    <Entry
+                                        x:Name="HeadlineEntry"
+                                        Grid.Row="1"
+                                        Completed="HeadlineEntry_Completed"
+                                        FontSize="14"
+                                        Placeholder="✍"
+                                        Text="{Binding Headline}"
+                                        VerticalTextAlignment="Center" />
+
+                                </Grid>
+
+                            </Border>
+
+                        </Border>
 
                     </Border>
 
@@ -116,37 +130,45 @@
 
         <Border
             Grid.Row="1"
+            Grid.Column="0"
             Margin="3,1,3,1"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                              Dark={StaticResource Gray900}}"
-            Stroke="{Binding Color}"
-            StrokeShape="RoundRectangle 6"
-            StrokeThickness="2">
+            Stroke="{Binding ShadowColor}"
+            StrokeShape="RoundRectangle 5.5"
+            StrokeThickness="1">
 
             <Border
-                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Gray900}}"
-                Stroke="{Binding GlowColor}"
-                StrokeShape="RoundRectangle 3"
-                StrokeThickness="2">
+                Stroke="{Binding Color}"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="1">
 
                 <Border
-                    Grid.Row="1"
-                    Padding="3,0,3,0"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                      Dark={StaticResource Gray900}}"
-                    Stroke="{Binding Color}"
-                    StrokeShape="RoundRectangle 1"
+                    Stroke="{Binding GlowColor}"
+                    StrokeShape="RoundRectangle 3.5"
                     StrokeThickness="2">
 
-                    <Editor
-                        x:Name="DescriptionEditor"
-                        Grid.Row="2"
-                        Completed="DescriptionEditor_Completed"
-                        FontSize="14"
-                        HorizontalTextAlignment="Center"
-                        Placeholder="✍"
-                        Text="{Binding Description}" />
+                    <Border
+                        Stroke="{Binding Color}"
+                        StrokeShape="RoundRectangle 2"
+                        StrokeThickness="1">
+
+                        <Border
+                            Padding="3,0,3,0"
+                            Stroke="{Binding ShadowColor}"
+                            StrokeShape="RoundRectangle 1"
+                            StrokeThickness="1">
+
+                            <Editor
+                                x:Name="DescriptionEditor"
+                                Grid.Row="2"
+                                Completed="DescriptionEditor_Completed"
+                                FontSize="14"
+                                HorizontalTextAlignment="Center"
+                                Placeholder="✍"
+                                Text="{Binding Description}" />
+
+                        </Border>
+
+                    </Border>
 
                 </Border>
 
@@ -157,85 +179,93 @@
         <Border
             Grid.Row="2"
             Margin="3,1,3,3"
-            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                              Dark={StaticResource Gray900}}"
-            Stroke="{Binding Color}"
-            StrokeShape="RoundRectangle 6,6,26,26"
-            StrokeThickness="2">
+            Stroke="{Binding ShadowColor}"
+            StrokeShape="RoundRectangle 5.5,5.5,27,27"
+            StrokeThickness="1">
 
             <Border
-                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                  Dark={StaticResource Gray900}}"
-                Stroke="{Binding GlowColor}"
-                StrokeShape="RoundRectangle 3,3,24,24"
-                StrokeThickness="2">
+                Stroke="{Binding Color}"
+                StrokeShape="RoundRectangle 5,5,27,27"
+                StrokeThickness="1">
 
                 <Border
-                    Padding="3"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                      Dark={StaticResource Gray900}}"
-                    Stroke="{Binding Color}"
-                    StrokeShape="RoundRectangle 1,1,22,22"
+                    Stroke="{Binding GlowColor}"
+                    StrokeShape="RoundRectangle 3.5,3.5,26,26"
                     StrokeThickness="2">
 
-                    <Grid Grid.Column="1" RowDefinitions="*,*,*">
+                    <Border
+                        Stroke="{Binding Color}"
+                        StrokeShape="RoundRectangle 2,2,25,25"
+                        StrokeThickness="1">
 
                         <Border
-                            Grid.Row="0"
-                            Margin="3"
-                            StrokeShape="RoundRectangle 20">
+                            Padding="3"
+                            Stroke="{Binding ShadowColor}"
+                            StrokeShape="RoundRectangle 1,1,25,25"
+                            StrokeThickness="1">
 
-                            <Grid>
+                            <Grid Grid.Column="1" RowDefinitions="*,*,*">
 
-                                <GraphicsView x:Name="HueGraphicsView" Margin="12,0,12,0" />
+                                <Border
+                                    Grid.Row="0"
+                                    Margin="3"
+                                    StrokeShape="RoundRectangle 20">
 
-                                <Slider
-                                    x:Name="HueSlider"
-                                    Margin="-4,0,-4,0"
-                                    ValueChanged="HueSlider_ValueChanged" />
+                                    <Grid>
+
+                                        <GraphicsView x:Name="HueGraphicsView" Margin="12,0,12,0" />
+
+                                        <Slider
+                                            x:Name="HueSlider"
+                                            Margin="-4,0,-4,0"
+                                            ValueChanged="HueSlider_ValueChanged" />
+
+                                    </Grid>
+
+                                </Border>
+
+                                <Border
+                                    Grid.Row="1"
+                                    Margin="3"
+                                    StrokeShape="RoundRectangle 20">
+
+                                    <Grid>
+
+                                        <GraphicsView x:Name="SaturationGraphicsView" Margin="12,0,12,0" />
+
+                                        <Slider
+                                            x:Name="SaturationSlider"
+                                            Margin="-4,0,-4,0"
+                                            ValueChanged="SaturationSlider_ValueChanged" />
+
+                                    </Grid>
+
+                                </Border>
+
+
+                                <Border
+                                    Grid.Row="2"
+                                    Margin="3"
+                                    StrokeShape="RoundRectangle 20">
+
+                                    <Grid>
+
+                                        <GraphicsView x:Name="LuminosityGraphicsView" Margin="12,0,12,0" />
+
+                                        <Slider
+                                            x:Name="LuminositySlider"
+                                            Margin="-4,0,-4,0"
+                                            ValueChanged="LuminositySlider_ValueChanged" />
+
+                                    </Grid>
+
+                                </Border>
 
                             </Grid>
 
                         </Border>
 
-                        <Border
-                            Grid.Row="1"
-                            Margin="3"
-                            StrokeShape="RoundRectangle 20">
-
-                            <Grid>
-
-                                <GraphicsView x:Name="SaturationGraphicsView" Margin="12,0,12,0" />
-
-                                <Slider
-                                    x:Name="SaturationSlider"
-                                    Margin="-4,0,-4,0"
-                                    ValueChanged="SaturationSlider_ValueChanged" />
-
-                            </Grid>
-
-                        </Border>
-
-
-                        <Border
-                            Grid.Row="2"
-                            Margin="3"
-                            StrokeShape="RoundRectangle 20">
-
-                            <Grid>
-
-                                <GraphicsView x:Name="LuminosityGraphicsView" Margin="12,0,12,0" />
-
-                                <Slider
-                                    x:Name="LuminositySlider"
-                                    Margin="-4,0,-4,0"
-                                    ValueChanged="LuminositySlider_ValueChanged" />
-
-                            </Grid>
-
-                        </Border>
-
-                    </Grid>
+                    </Border>
 
                 </Border>
 
