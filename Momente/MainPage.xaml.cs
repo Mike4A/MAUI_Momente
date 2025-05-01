@@ -175,6 +175,10 @@ namespace Momente
                 _searchIndex--;
                 if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
                 {
+                    if (_searchIndex > -1)
+                    {
+                        MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);
+                    }                    
                     bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
                     if (!result) { break; }
                 }
@@ -205,18 +209,19 @@ namespace Momente
             int searched = 0;
             do
             {
-                _searchIndex++;
-                if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
-                {
-                    bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
-                    if (!result) { break; }
-                }
+                _searchIndex++;                
                 if (_searchIndex > moments.Count - 1)
                 {
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
                     if (previousMoment != null)
                     {
                         (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+                        if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
+                        {
+                            MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);
+                            bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
+                            if (!result) { break; }
+                        }
                     }
                     else
                     {
