@@ -10,7 +10,8 @@ namespace Momente
         public const float MOMENT_LUMINOSITY_SHADOW = -0.1f;
         public const float MOMENT_LUMINOSITY_GLOW = 0.1f;
         public const string DEV_CHEAT_CODE  = "DevCheat";
-        public const string DEV_CHEAT_COlOR = "#000000";        
+        public const string DEV_CHEAT_COlOR = "#000000";
+        public const int SEARCH_PROMPT_LIMIT  = 100;
 
         public static MauiApp CreateMauiApp()
         {

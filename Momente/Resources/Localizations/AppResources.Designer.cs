@@ -88,6 +88,15 @@ namespace Momente.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bisher keine Treffer bei der Suche: Weitersuchen?.
+        /// </summary>
+        internal static string SearchLimitReachedText {
+            get {
+                return ResourceManager.GetString("SearchLimitReachedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keine weitere Übereinstimmung in dieser Richtung gefunden..
         /// </summary>
         internal static string SearchMsgNoMoreResults {

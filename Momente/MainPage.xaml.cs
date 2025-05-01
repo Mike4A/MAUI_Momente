@@ -144,7 +144,7 @@ namespace Momente
             {
                 _searchIndex = -1;
                 ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
-                if (moments!= null && moments.Count > 0)
+                if (moments != null && moments.Count > 0)
                 {
                     for (int i = moments.Count - 1; i > _lastVisibleIndex + 3; i--)
                     {
@@ -168,9 +168,16 @@ namespace Momente
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
+            int searched = 0;
             do
             {
                 _searchIndex--;
+                if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
+                {
+                    bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
+                    if (!result) { break; }
+                }
+
             } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
             if (_searchIndex == -1)
             {
@@ -194,9 +201,15 @@ namespace Momente
             _isSearching = true;
             ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
+            int searched = 0;
             do
             {
                 _searchIndex++;
+                if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
+                {
+                    bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
+                    if (!result) { break; }
+                }
                 if (_searchIndex > moments.Count - 1)
                 {
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();

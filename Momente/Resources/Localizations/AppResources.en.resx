@@ -126,6 +126,9 @@
   <data name="SaveMomentQuestion" xml:space="preserve">
     <value>Save moment?</value>
   </data>
+  <data name="SearchLimitReachedText" xml:space="preserve">
+    <value>No results found so far: Continue searching?</value>
+  </data>
   <data name="SearchMsgNoMoreResults" xml:space="preserve">
     <value>No further matches found in this direction.
 </value>

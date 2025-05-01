@@ -126,6 +126,9 @@
   <data name="SaveMomentQuestion" xml:space="preserve">
     <value>Moment speichern?</value>
   </data>
+  <data name="SearchLimitReachedText" xml:space="preserve">
+    <value>Bisher keine Treffer bei der Suche: Weitersuchen?</value>
+  </data>
   <data name="SearchMsgNoMoreResults" xml:space="preserve">
     <value>Keine weitere Übereinstimmung in dieser Richtung gefunden.</value>
   </data>
