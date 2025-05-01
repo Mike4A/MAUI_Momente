@@ -164,8 +164,6 @@ namespace Momente
             do
             {
                 _searchIndex--;
-                MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.End);
-                await Task.Delay(333);
             } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
             if (_searchIndex == -1)
             {
@@ -174,7 +172,7 @@ namespace Momente
             }
             else
             {
-                HighlightFoundMoment(moments[_searchIndex]);
+                ScrollToAndHighlight_FoundMoment(moments[_searchIndex]);
             }
         }
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
@@ -197,9 +195,7 @@ namespace Momente
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
                     if (previousMoment != null)
                     {
-                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
-                        MomentsCollectionView.ScrollTo(previousMoment, ScrollToPosition.End);  
-                        await Task.Delay(333);
+                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);                        
                     }
                     else
                     {
@@ -215,22 +211,27 @@ namespace Momente
             }
             else
             {
-                HighlightFoundMoment(moments[_searchIndex]);
+                ScrollToAndHighlight_FoundMoment(moments[_searchIndex]);
             }
         }
         private async void AlertSearchReachedEnd()
         {
             await DisplayAlert("", AppResources.SearchMsgNoMoreResults, "Ok");
         }
-        private async void HighlightFoundMoment(Moment moment)
+        private async void ScrollToAndHighlight_FoundMoment(Moment moment)
         {
-            await Task.Delay(333);
+            MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);
+            await Task.Delay(1000);
             MomentsCollectionView.SelectedItem = moment;
-            await Task.Delay(333);
+            await Task.Delay(200);
             MomentsCollectionView.SelectedItem = null;
-            await Task.Delay(333);
+            await Task.Delay(200);
             MomentsCollectionView.SelectedItem = moment;
-            await Task.Delay(333);
+            await Task.Delay(200);
+            MomentsCollectionView.SelectedItem = null;
+            await Task.Delay(200);
+            MomentsCollectionView.SelectedItem = moment;
+            await Task.Delay(200);
             MomentsCollectionView.SelectedItem = null;
             _isSearching = false;
         }

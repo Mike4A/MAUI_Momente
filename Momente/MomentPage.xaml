@@ -127,7 +127,6 @@
             </Border>
 
         </Grid>
-
         <Border
             Grid.Row="1"
             Grid.Column="0"
@@ -157,15 +156,19 @@
                             StrokeShape="RoundRectangle 1"
                             StrokeThickness="1">
 
-                            <Editor
-                                x:Name="DescriptionEditor"
-                                Grid.Row="2"
-                                Completed="DescriptionEditor_Completed"
-                                FontSize="14"
-                                HorizontalTextAlignment="Center"
-                                Placeholder="✍"
-                                Text="{Binding Description}" />
+                            <ScrollView>
 
+                                <Editor
+                                    x:Name="DescriptionEditor"
+                                    Grid.Row="2"
+                                    AutoSize="TextChanges"
+                                    Completed="DescriptionEditor_Completed"
+                                    FontSize="14"
+                                    HorizontalTextAlignment="Center"
+                                    Placeholder="✍"
+                                    Text="{Binding Description}" />
+
+                            </ScrollView>
                         </Border>
 
                     </Border>
