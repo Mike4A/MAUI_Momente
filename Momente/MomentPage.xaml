@@ -87,6 +87,7 @@
             <ScrollView Margin="8">
 
                 <Editor
+                    Margin="3"
                     x:Name="DescriptionEditor"
                     Grid.Row="2"                    
                     AutoSize="TextChanges"
