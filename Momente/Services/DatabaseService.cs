@@ -1,12 +1,6 @@
-﻿
-using SQLite;
+﻿using SQLite;
 using Momente.Resources.Localizations;
-
-<<<<<<< TODO: Unmerged change from project 'Momente (net8.0-ios)', Before:
-=======
-using Momente;
-using Momente.Services;
->>>>>>> After
+using Momente.Models;
 
 namespace Momente.Services
 {

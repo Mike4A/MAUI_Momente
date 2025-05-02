@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Momente.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Momente
+namespace Momente.Models
 {
     public class MomentPageArgs
     {

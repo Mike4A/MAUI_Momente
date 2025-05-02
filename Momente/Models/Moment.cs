@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using System.ComponentModel;
 
-namespace Momente
+namespace Momente.Models
 {
     public class Moment
     {
@@ -20,7 +20,7 @@ namespace Momente
         public string Description { get; set; } = "";
 
         [Ignore]
-        public string? HasDescriptonIcon { get => String.IsNullOrEmpty(Description) ? null : "📎"; }
+        public string? HasDescriptonIcon { get => string.IsNullOrEmpty(Description) ? null : "📎"; }
         
         public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();
 
