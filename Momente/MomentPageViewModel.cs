@@ -2,7 +2,7 @@
 
 namespace Momente
 {
-    public class MomentViewModel : INotifyPropertyChanged
+    public class MomentPageViewModel : INotifyPropertyChanged
     {
         private int _id;
         public int Id

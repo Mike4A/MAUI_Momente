@@ -15,7 +15,7 @@ namespace Momente.Drawables
         }
 
         public float Saturation { get; set; }
-        public float Luminosity { get; set; }
+        public float Luminosity { get; set; }        
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {

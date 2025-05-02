@@ -1,8 +1,9 @@
 ﻿using SQLite;
+using System.ComponentModel;
 
 namespace Momente
 {
-    public class Moment
+    public class Moment : INotifyPropertyChanged
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -19,7 +20,32 @@ namespace Momente
 
         public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();
         [Ignore]
-        public Color Color { get => Color.Parse(ColorString); set => ColorString = value.ToHex(); }
+        public Color Color
+        {
+            get => Color.Parse(ColorString);
+            set {
+                if (ColorString != value.ToHex())
+                {
+                    ColorString = value.ToHex();
+                    OnPropertyChanged(nameof(Color));
+                }   
+            }
+        }
+
+        [Ignore]
+        public Color TestColor
+        {
+            get => Color.Parse(ColorString);
+            set
+            {
+                if (ColorString != value.ToHex())
+                {
+                    ColorString = value.ToHex();
+                    OnPropertyChanged(nameof(Color));
+                }
+            }
+        }
+
         [Ignore]
         public Color GlowColor
         {
@@ -39,5 +65,11 @@ namespace Momente
         }
         [Ignore]
         public string? HasDescriptonString { get => String.IsNullOrEmpty(Description) ? null : "📎"; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        { 
+            PropertyChanged?.Invoke(propertyName, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

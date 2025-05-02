@@ -17,7 +17,7 @@ namespace Momente
         }
         private async void PopulateMomentsView()
         {
-            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
             Moment? selectedMoment = (MomentsCollectionView.SelectedItem as Moment);
             if (selectedMoment != null)
             {
@@ -51,7 +51,7 @@ namespace Momente
                     Moment? lastMoment = await DatabaseService.Instance.GetLastMomentAsync();
                     if (lastMoment != null)
                     {
-                        (BindingContext as MainViewModel)!.Moments!.Insert(0, lastMoment);
+                        (BindingContext as MainPageViewModel)!.Moments!.Insert(0, lastMoment);
                         MomentsCollectionView.ScrollTo(lastMoment);
                     }
                 }
@@ -64,7 +64,7 @@ namespace Momente
             Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
             if (previousMoment != null)
             {
-                (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+                (BindingContext as MainPageViewModel)!.Moments!.Add(previousMoment);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Momente
             await QuitButton.RotateXTo(180, 100);
             await QuitButton.RotateXTo(0, 100);
             await QuitButton.ScaleTo(1, 50);
-            Application.Current!.Quit();
+            Application.Current!.Quit();            
         }
 
         private async void SwitchThemeButton_Clicked(object sender, EventArgs e)
@@ -125,7 +125,7 @@ namespace Momente
                     string msg =
                         $"DB Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
                         $"DB Count: {await DatabaseService.Instance.GetCount()}\n" +
-                        $"Loaded Moments: {(BindingContext as MainViewModel)!.Moments!.Count}";
+                        $"Loaded Moments: {(BindingContext as MainPageViewModel)!.Moments!.Count}";
                     await DisplayAlert("", msg, "Ok");
                 }
                 _momentPageArgs = new MomentPageArgs(selectedMoment);
@@ -143,7 +143,7 @@ namespace Momente
             if (!_isSearching)
             {
                 _searchIndex = -1;
-                ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+                ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
                 if (moments != null && moments.Count > 0)
                 {
                     for (int i = moments.Count - 1; i > _lastVisibleIndex + 3; i--)
@@ -167,7 +167,7 @@ namespace Momente
             SearchEntry.IsEnabled = false;
             SearchEntry.IsEnabled = true;
             _isSearching = true;
-            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
             int searched = 0;
             do
@@ -178,7 +178,7 @@ namespace Momente
                     if (_searchIndex > -1)
                     {
                         MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);
-                    }                    
+                    }
                     bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
                     if (!result) { break; }
                 }
@@ -204,18 +204,18 @@ namespace Momente
             SearchEntry.IsEnabled = false;
             SearchEntry.IsEnabled = true;
             _isSearching = true;
-            ObservableCollection<Moment> moments = (BindingContext as MainViewModel)!.Moments!;
+            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
             if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
             int searched = 0;
             do
             {
-                _searchIndex++;                
+                _searchIndex++;
                 if (_searchIndex > moments.Count - 1)
                 {
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
                     if (previousMoment != null)
                     {
-                        (BindingContext as MainViewModel)!.Moments!.Add(previousMoment);
+                        (BindingContext as MainPageViewModel)!.Moments!.Add(previousMoment);
                         if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
                         {
                             MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);

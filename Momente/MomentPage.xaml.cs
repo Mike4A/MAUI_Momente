@@ -10,7 +10,7 @@ public partial class MomentPage : ContentPage
     {
         InitializeComponent();
         _args = args;
-        _viewModel = (BindingContext as MomentViewModel)!;
+        BindingContext = _viewModel = new MomentPageViewModel();
         float hue = args.Moment.Color.GetHue();
         float saturation = args.Moment.Color.GetSaturation();
         float luminosity = args.Moment.Color.GetLuminosity();
@@ -26,7 +26,7 @@ public partial class MomentPage : ContentPage
         _viewModel.Color = SlidedColor = args.Moment.Color;
     }
 
-    private MomentViewModel _viewModel;
+    private MomentPageViewModel _viewModel;
 
 
     private MomentPageArgs _args;
@@ -178,9 +178,9 @@ public partial class MomentPage : ContentPage
     }
     private void UpdateViewModelColor()
     {
-        if ((BindingContext as MomentViewModel)!.Color != SlidedColor)
+        if ((BindingContext as MomentPageViewModel)!.Color != SlidedColor)
         {
-            (BindingContext as MomentViewModel)!.Color = SlidedColor;
+            (BindingContext as MomentPageViewModel)!.Color = SlidedColor;
         }
     }
 
