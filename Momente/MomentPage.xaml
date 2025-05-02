@@ -10,7 +10,7 @@
                                       Dark={StaticResource Black}}"
     Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="80,*,128,55">
+    <Grid RowDefinitions="84,*,128,55">
 
         <Grid ColumnDefinitions="80,*">
 
