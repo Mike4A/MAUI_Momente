@@ -27,7 +27,7 @@
 
             <CollectionView
                 x:Name="MomentsCollectionView"
-                ItemsSource="{Binding Moments}"
+                ItemsSource="{Binding MomentItems}"
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Scrolled="MomentsCollectionView_Scrolled"

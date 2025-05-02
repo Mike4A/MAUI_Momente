@@ -17,42 +17,38 @@ namespace Momente
         }
         private async void PopulateMomentsView()
         {
-            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
-            Moment? selectedMoment = (MomentsCollectionView.SelectedItem as Moment);
-            if (selectedMoment != null)
+            ObservableCollection<MomentItemViewModel> momentItems = (BindingContext as MainPageViewModel)!.MomentItems!;
+            MomentItemViewModel? selectedMomentItem = MomentsCollectionView.SelectedItem as MomentItemViewModel;
+            if (selectedMomentItem != null)
             {
                 //Handle updated or deleted moment
-                int selectedIndex = moments.IndexOf(selectedMoment);
+                int selectedIndex = momentItems.IndexOf(selectedMomentItem);
                 if (_momentPageArgs.Action is MomentAction.Deleted)
                 {
-                    moments.Remove(selectedMoment!);
+                    momentItems.Remove(selectedMomentItem!);
 
                 }
                 if (_momentPageArgs.Action == MomentAction.Updated)
 
                 {
-                    moments.Remove(selectedMoment!);
-                    moments.Insert(selectedIndex, _momentPageArgs.Moment);
-                    MomentsCollectionView.ScrollTo(_momentPageArgs.Moment);
-                    //Moment? updatedMoment = await DatabaseService.Instance.GetMomentByIdAsync(selectedMoment.Id);
-                    //if (updatedMoment != null)
-                    //{
-                    //    moments.Insert(selectedIndex, updatedMoment);
-                    //    MomentsCollectionView.ScrollTo(updatedMoment);
-                    //}
+                    MomentItemViewModel updatedMomentItem = new MomentItemViewModel(_momentPageArgs.Moment);
+                    momentItems[selectedIndex] =updatedMomentItem;
+                    MomentsCollectionView.ScrollTo(updatedMomentItem);
                 }
                 MomentsCollectionView.SelectedItem = null;
             }
             else
             {
                 //Populate list if empty or add created moment                
-                if (moments.Count == 0 || _momentPageArgs.Action == MomentAction.Created)
+                if (momentItems.Count == 0 || _momentPageArgs.Action == MomentAction.Created)
                 {
                     Moment? lastMoment = await DatabaseService.Instance.GetLastMomentAsync();
                     if (lastMoment != null)
                     {
-                        (BindingContext as MainPageViewModel)!.Moments!.Insert(0, lastMoment);
-                        MomentsCollectionView.ScrollTo(lastMoment);
+                        MomentItemViewModel lastMomentItem = new MomentItemViewModel(lastMoment);
+                        (BindingContext as MainPageViewModel)!.MomentItems!.Insert(0, lastMomentItem);
+                        var items = (BindingContext as MainPageViewModel)!.MomentItems!;
+                        MomentsCollectionView.ScrollTo(lastMomentItem);
                     }
                 }
             }
@@ -64,7 +60,7 @@ namespace Momente
             Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
             if (previousMoment != null)
             {
-                (BindingContext as MainPageViewModel)!.Moments!.Add(previousMoment);
+                (BindingContext as MainPageViewModel)!.MomentItems!.Add(new MomentItemViewModel(previousMoment));
             }
         }
 
@@ -74,7 +70,7 @@ namespace Momente
             await QuitButton.RotateXTo(180, 100);
             await QuitButton.RotateXTo(0, 100);
             await QuitButton.ScaleTo(1, 50);
-            Application.Current!.Quit();            
+            Application.Current!.Quit();
         }
 
         private async void SwitchThemeButton_Clicked(object sender, EventArgs e)
@@ -119,16 +115,16 @@ namespace Momente
         {
             if (!_isSearching && MomentsCollectionView.SelectedItem != null)
             {
-                Moment selectedMoment = (MomentsCollectionView.SelectedItem as Moment)!;
-                if (selectedMoment.Headline == MauiProgram.DEV_CHEAT_CODE && selectedMoment.Color.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
+                MomentItemViewModel selectedMomentItem = (MomentsCollectionView.SelectedItem as MomentItemViewModel)!;
+                if (selectedMomentItem.Headline == MauiProgram.DEV_CHEAT_CODE && selectedMomentItem.Color!.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
                 {
                     string msg =
                         $"DB Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
                         $"DB Count: {await DatabaseService.Instance.GetCount()}\n" +
-                        $"Loaded Moments: {(BindingContext as MainPageViewModel)!.Moments!.Count}";
+                        $"Loaded Moments: {(BindingContext as MainPageViewModel)!.MomentItems!.Count}";
                     await DisplayAlert("", msg, "Ok");
                 }
-                _momentPageArgs = new MomentPageArgs(selectedMoment);
+                _momentPageArgs = new MomentPageArgs((await DatabaseService.Instance.GetMomentByIdAsync(selectedMomentItem.Id))!);
                 await Navigation.PushAsync(new MomentPage(_momentPageArgs));
             }
         }
@@ -143,13 +139,14 @@ namespace Momente
             if (!_isSearching)
             {
                 _searchIndex = -1;
-                ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
-                if (moments != null && moments.Count > 0)
+                ObservableCollection<MomentItemViewModel> momenttems = (BindingContext as MainPageViewModel)!.MomentItems!;
+                if (momenttems != null && momenttems.Count > 0)
                 {
-                    for (int i = moments.Count - 1; i > _lastVisibleIndex + 3; i--)
+                    //Drop invisible items
+                    for (int i = momenttems.Count - 1; i > _lastVisibleIndex + 3; i--)
                     {
-                        moments.Remove(moments[i]);
-                        DatabaseService.Instance.IdCounter = moments[i - 1].Id;
+                        momenttems.Remove(momenttems[i]);
+                        DatabaseService.Instance.IdCounter = momenttems[i - 1].Id;
                     }
                 }
             }
@@ -167,7 +164,7 @@ namespace Momente
             SearchEntry.IsEnabled = false;
             SearchEntry.IsEnabled = true;
             _isSearching = true;
-            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
+            ObservableCollection<MomentItemViewModel> momentItems = (BindingContext as MainPageViewModel)!.MomentItems!;
             if (_searchIndex == -1) { _searchIndex = _lastVisibleIndex + 1; }
             int searched = 0;
             do
@@ -177,13 +174,13 @@ namespace Momente
                 {
                     if (_searchIndex > -1)
                     {
-                        MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);
+                        MomentsCollectionView.ScrollTo(momentItems[_searchIndex], ScrollToPosition.MakeVisible);
                     }
                     bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
                     if (!result) { break; }
                 }
 
-            } while (_searchIndex > -1 && !MomentMatchesSearchPatter(moments[_searchIndex]));
+            } while (_searchIndex > -1 && !MomentItemMatchesSearchPatter(momentItems[_searchIndex]));
             if (_searchIndex == -1)
             {
                 AlertSearchReachedEnd();
@@ -191,7 +188,7 @@ namespace Momente
             }
             else
             {
-                ScrollToAndHighlight_FoundMoment(moments[_searchIndex]);
+                ScrollToAndHighlight_FoundMoment(momentItems[_searchIndex]);
             }
         }
         private async void FindPreviousButton_Clicked(object sender, EventArgs e)
@@ -204,21 +201,21 @@ namespace Momente
             SearchEntry.IsEnabled = false;
             SearchEntry.IsEnabled = true;
             _isSearching = true;
-            ObservableCollection<Moment> moments = (BindingContext as MainPageViewModel)!.Moments!;
+            ObservableCollection<MomentItemViewModel> momentItems = (BindingContext as MainPageViewModel)!.MomentItems!;
             if (_searchIndex == -1) { _searchIndex = _firstVisibleIndex - 1; }
             int searched = 0;
             do
             {
                 _searchIndex++;
-                if (_searchIndex > moments.Count - 1)
+                if (_searchIndex > momentItems.Count - 1)
                 {
                     Moment? previousMoment = await DatabaseService.Instance.GetPreviousMomentAsync();
                     if (previousMoment != null)
                     {
-                        (BindingContext as MainPageViewModel)!.Moments!.Add(previousMoment);
+                        (BindingContext as MainPageViewModel)!.MomentItems!.Add(new MomentItemViewModel(previousMoment));
                         if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
                         {
-                            MomentsCollectionView.ScrollTo(moments[_searchIndex], ScrollToPosition.MakeVisible);
+                            MomentsCollectionView.ScrollTo(momentItems[_searchIndex], ScrollToPosition.MakeVisible);
                             bool result = await DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No);
                             if (!result) { break; }
                         }
@@ -229,7 +226,7 @@ namespace Momente
                         break;
                     }
                 }
-            } while (!MomentMatchesSearchPatter(moments[_searchIndex]));
+            } while (!MomentItemMatchesSearchPatter(momentItems[_searchIndex]));
             if (_searchIndex == -1)
             {
                 AlertSearchReachedEnd();
@@ -237,41 +234,45 @@ namespace Momente
             }
             else
             {
-                ScrollToAndHighlight_FoundMoment(moments[_searchIndex]);
+                ScrollToAndHighlight_FoundMoment(momentItems[_searchIndex]);
             }
         }
         private async void AlertSearchReachedEnd()
         {
             await DisplayAlert("", AppResources.SearchMsgNoMoreResults, "Ok");
         }
-        private async void ScrollToAndHighlight_FoundMoment(Moment moment)
+        private async void ScrollToAndHighlight_FoundMoment(MomentItemViewModel momentItem)
         {
-            MomentsCollectionView.ScrollTo(moment, ScrollToPosition.End);
+            MomentsCollectionView.ScrollTo(momentItem, ScrollToPosition.End);
             await Task.Delay(1000);
-            MomentsCollectionView.SelectedItem = moment;
+            MomentsCollectionView.SelectedItem = momentItem;
             await Task.Delay(200);
             MomentsCollectionView.SelectedItem = null;
             await Task.Delay(200);
-            MomentsCollectionView.SelectedItem = moment;
+            MomentsCollectionView.SelectedItem = momentItem;
             await Task.Delay(200);
             MomentsCollectionView.SelectedItem = null;
             await Task.Delay(200);
-            MomentsCollectionView.SelectedItem = moment;
+            MomentsCollectionView.SelectedItem = momentItem;
             await Task.Delay(200);
             MomentsCollectionView.SelectedItem = null;
             _isSearching = false;
         }
-        private bool MomentMatchesSearchPatter(Moment moment)
+        private bool MomentItemMatchesSearchPatter(MomentItemViewModel momentItem)
         {
             string[] filters = SearchEntry.Text.Split(",");
             foreach (string filter in filters)
             {
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    if (moment.Icon.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-                        moment.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-                        moment.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-                        moment.Description.Contains(filter, StringComparison.OrdinalIgnoreCase))
+                    if ((momentItem.Icon != null && 
+                        momentItem.Icon.Contains(filter, StringComparison.OrdinalIgnoreCase)) ||
+                        (momentItem.CreatedAtString != null && 
+                        momentItem.CreatedAtString.Contains(filter, StringComparison.OrdinalIgnoreCase)) ||
+                        (momentItem.Headline != null 
+                        && momentItem.Headline.Contains(filter, StringComparison.OrdinalIgnoreCase)) ||
+                        (momentItem.Description != null && 
+                        momentItem.Description.Contains(filter, StringComparison.OrdinalIgnoreCase)))
                     {
                         return true;
                     }

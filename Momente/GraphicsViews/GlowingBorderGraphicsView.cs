@@ -15,7 +15,7 @@ namespace Momente.GraphicsViews
             get => (Color)GetValue(BackgroundColorProperty);
             set => SetValue(BackgroundColorProperty, value);
         }
-        public static readonly BindableProperty BackgroundColorProperty =
+        public static new readonly BindableProperty BackgroundColorProperty =
             BindableProperty.Create(
                 nameof(BackgroundColor),
                 typeof(Color),
