@@ -1,6 +1,8 @@
 
 using Momente.Drawables;
 using Momente.Resources.Localizations;
+using Momente.Services;
+using Momente.ViewModels;
 
 namespace Momente;
 
@@ -28,30 +30,22 @@ public partial class MomentPage : ContentPage
 
     private MomentPageViewModel _viewModel;
 
-
     private MomentPageArgs _args;
 
     private void IconEntry_Focused(object sender, FocusEventArgs e) { SelectIconLabelText(); }
+    
     private void IconEntry_TextChanged(object sender, TextChangedEventArgs e) { SelectIconLabelText(); }
+   
     private void SelectIconLabelText()
     {
-        try
-        {
-            Dispatcher.Dispatch(() =>
+          Dispatcher.Dispatch(() =>
             {
                 if (!String.IsNullOrEmpty(IconEntry.Text))
                 {
                     IconEntry.CursorPosition = 0;
                     IconEntry.SelectionLength = IconEntry.Text.Length;
                 }
-            });
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-
-        }
-
+            });    
     }
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)
@@ -71,7 +65,8 @@ public partial class MomentPage : ContentPage
         }
         else
         {
-
+            _args.Action = MomentAction.None;
+            await Navigation.PopAsync();
         }
     }
 
@@ -82,7 +77,7 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
         _args.Action = MomentAction.None;
-        //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation DB sync props
+        //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation and DB sync props
         if (ChangesMadeToMoment() && await DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
         {
             SaveChangesAndPop();
@@ -92,6 +87,7 @@ public partial class MomentPage : ContentPage
             await Navigation.PopAsync();
         }
     }
+
     private bool ChangesMadeToMoment()
     {
         if (_args.Moment.Icon != _viewModel.Icon)

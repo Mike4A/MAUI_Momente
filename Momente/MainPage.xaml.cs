@@ -1,4 +1,6 @@
 ﻿using Momente.Resources.Localizations;
+using Momente.Services;
+using Momente.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace Momente
@@ -83,7 +85,7 @@ namespace Momente
             Application.Current!.UserAppTheme = theme;
             Preferences.Set("Theme", (int)theme);
 #if DEBUG
-            _ = Debugger.WriteMomentEntries();
+            _ = DebugService.WriteMomentEntries();
 #endif
         }
 

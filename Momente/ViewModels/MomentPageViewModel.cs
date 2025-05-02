@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Momente
+namespace Momente.ViewModels
 {
     public class MomentPageViewModel : INotifyPropertyChanged
     {

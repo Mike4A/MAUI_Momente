@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Momente
+namespace Momente.ViewModels
 {
     public class MomentItemViewModel : INotifyPropertyChanged
     {

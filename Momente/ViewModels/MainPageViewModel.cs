@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Momente
+namespace Momente.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {

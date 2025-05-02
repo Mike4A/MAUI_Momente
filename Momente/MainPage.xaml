@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:drawables="clr-namespace:Momente.Drawables"
     xmlns:graphicsViews="clr-namespace:Momente.GraphicsViews"
+    xmlns:viewModels="clr-namespace:Momente.ViewModels"
     xmlns:local="clr-namespace:Momente"
     Title="MainPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource White},
@@ -12,7 +13,7 @@
     Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
-        <local:MainPageViewModel />
+        <viewModels:MainPageViewModel />
     </ContentPage.BindingContext>
 
     <Grid RowDefinitions="*,55">

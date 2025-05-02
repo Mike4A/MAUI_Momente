@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Momente
+namespace Momente.Services
 {
-    class Debugger
+    static class DebugService
     {
         public static async Task WriteMomentEntries()
         {
