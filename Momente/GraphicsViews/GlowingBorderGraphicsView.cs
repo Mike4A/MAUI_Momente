@@ -9,6 +9,24 @@ namespace Momente.GraphicsViews
             Drawable = this;
         }
 
+        private static Color DEFAULT_BACKGROUND_COLOR = Colors.Black;
+        public new Color BackgroundColor
+        {
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
+        }
+        public static readonly BindableProperty BackgroundColorProperty =
+            BindableProperty.Create(
+                nameof(BackgroundColor),
+                typeof(Color),
+                typeof(GlowingBorderGraphicsView),
+                DEFAULT_BACKGROUND_COLOR,
+                propertyChanged: OnBackgroundColorChanged);
+        static void OnBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as GlowingBorderGraphicsView)!.Invalidate();
+        }
+
         private static Color DEFAULT_GLOW_COLOR = Color.FromRgb(127, 128, 128);
         public Color GlowColor
         {
@@ -77,11 +95,20 @@ namespace Momente.GraphicsViews
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
-            //canvas.StrokeSize = 10f;
-            //canvas.StrokeColor = Colors.Black;
-            //canvas.DrawRectangle(dirtyRect);
+            float strokeSize = 1f;
+            canvas.StrokeSize = strokeSize;
+            canvas.FillColor = BackgroundColor;
+            canvas.FillRoundedRectangle(
+               dirtyRect.X + strokeSize / 2 + 2,
+               dirtyRect.Y + strokeSize / 2 + 2,
+               dirtyRect.Width - strokeSize - 4,
+               dirtyRect.Height - strokeSize - 4,
+               float.Parse(CornerRadii[0]),
+               float.Parse(CornerRadii[1]),
+               float.Parse(CornerRadii[2]),
+               float.Parse(CornerRadii[3]));
 
-            float strokeSize = 6f;
+            strokeSize = 6f;
             canvas.StrokeSize = strokeSize;
             canvas.StrokeColor = GlowColor.WithLuminosity(GlowColor.GetLuminosity() - GlowOffset);
             canvas.DrawRoundedRectangle(

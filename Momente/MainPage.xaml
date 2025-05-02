@@ -46,6 +46,8 @@
                             <Grid Margin="1,2,1,2">
 
                                 <graphicsViews:GlowingBorderGraphicsView
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                                      Dark={StaticResource Gray900}}"
                                     CornerRadius="25,5,25,5"
                                     GlowColor="{Binding Color}"
                                     InputTransparent="True" />
@@ -63,6 +65,8 @@
                             <Grid Grid.Column="1" Margin="1,2,1,2">
 
                                 <graphicsViews:GlowingBorderGraphicsView
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                                      Dark={StaticResource Gray900}}"
                                     CornerRadius="5,25,5,25"
                                     GlowColor="{Binding Color}"
                                     InputTransparent="True" />

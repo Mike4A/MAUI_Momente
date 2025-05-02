@@ -17,6 +17,8 @@
             <Grid Margin="3,3,1,1">
 
                 <graphicsViews:GlowingBorderGraphicsView
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                      Dark={StaticResource Gray900}}"
                     CornerRadius="25,5,5,5"
                     GlowColor="{Binding Color}"
                     InputTransparent="True" />
@@ -41,6 +43,8 @@
             <Grid Grid.Column="1" Margin="1,3,3,1">
 
                 <graphicsViews:GlowingBorderGraphicsView
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                      Dark={StaticResource Gray900}}"
                     CornerRadius="5,25,5,5"
                     GlowColor="{Binding Color}"
                     InputTransparent="True" />
@@ -74,16 +78,17 @@
         <Grid Grid.Row="1" Margin="3,1,3,1">
 
             <graphicsViews:GlowingBorderGraphicsView
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                  Dark={StaticResource Gray900}}"
                 CornerRadius="5,5,5,5"
                 GlowColor="{Binding Color}"
                 InputTransparent="True" />
 
-            <ScrollView>
+            <ScrollView Margin="8">
 
                 <Editor
                     x:Name="DescriptionEditor"
-                    Grid.Row="2"
-                    Margin="5"
+                    Grid.Row="2"                    
                     AutoSize="TextChanges"
                     Completed="DescriptionEditor_Completed"
                     FontSize="14"
@@ -98,11 +103,16 @@
         <Grid Grid.Row="2" Margin="3,1,3,3">
 
             <graphicsViews:GlowingBorderGraphicsView
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
+                                                  Dark={StaticResource Gray900}}"
                 CornerRadius="5,5,25,25"
                 GlowColor="{Binding Color}"
                 InputTransparent="True" />
 
-            <Grid Margin="9" Grid.Column="1" RowDefinitions="*,*,*">
+            <Grid
+                Grid.Column="1"
+                Margin="9"
+                RowDefinitions="*,*,*">
 
                 <Border
                     Grid.Row="0"
