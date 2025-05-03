@@ -91,10 +91,10 @@
                                         <Label
                                             x:Name="PeakLabel"
                                             Grid.Column="1"
-                                            Margin="0,3,3,3"
+                                            Margin="0,3,18,3"
                                             FontAttributes="Italic"
                                             FontSize="14"
-                                            HorizontalTextAlignment="Center"
+                                            HorizontalTextAlignment="End"
                                             Text="{Binding PeakString}"
                                             TextColor="{StaticResource Gray500}"
                                             VerticalTextAlignment="End" />

@@ -95,7 +95,7 @@ namespace Momente.ViewModels
             }
         }
 
-        public string? PeakString { get => string.IsNullOrEmpty(Description) ? null : Description.Length.ToString(); }
+        public string? PeakString { get => string.IsNullOrEmpty(Description) ? null : Description.Length.ToString() + " "; }
 
         private string _colorString;
 
