@@ -1,9 +1,5 @@
-
 using Momente.Drawables;
-using Momente.Enums;
 using Momente.Models;
-using Momente.Resources.Localizations;
-using Momente.Services;
 using Momente.ViewModels;
 
 namespace Momente;
@@ -23,7 +19,7 @@ public partial class MomentPage : ContentPage
         //LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);        
     }
 
-    private MomentPageViewModel _viewModel;
+    private readonly MomentPageViewModel _viewModel;
 
     public MomentPageArgs _args;
 

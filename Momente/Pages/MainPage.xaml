@@ -5,16 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:drawables="clr-namespace:Momente.Drawables"
     xmlns:graphicsViews="clr-namespace:Momente.GraphicsViews"
-    xmlns:viewModels="clr-namespace:Momente.ViewModels"
     xmlns:local="clr-namespace:Momente"
+    xmlns:viewModels="clr-namespace:Momente.ViewModels"
     Title="MainPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource White},
                                       Dark={StaticResource Black}}"
+    NavigatedTo="MainPage_NavigatedTo"
     Shell.NavBarIsVisible="False">
-
-    <ContentPage.BindingContext>
-        <viewModels:MainPageViewModel />
-    </ContentPage.BindingContext>
 
     <Grid RowDefinitions="*,55">
 
@@ -32,7 +29,8 @@
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Scrolled="MomentsCollectionView_Scrolled"
-                SelectionChanged="MomentsCollectionView_SelectionChanged"
+                SelectedItem="{Binding SelectedItem}"                
+                SelectionChangedCommand="{Binding MomentItemsSelectionChangedCommand}"
                 SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>
@@ -151,6 +149,7 @@
                 Margin="4"
                 Padding="0"
                 Clicked="SearchMomentsButton_Clicked"
+                Command="{Binding SearchMomentButtonCommand}"
                 FontSize="24"
                 Text="🔎" />
 
@@ -160,6 +159,7 @@
                 Margin="4"
                 Padding="0"
                 Clicked="AddMomentButton_Clicked"
+                Command="{Binding AddButtonCommand}"
                 FontSize="24"
                 Text="➕" />
 
@@ -193,9 +193,21 @@
                     Focused="SearchEntry_Focused"
                     HorizontalTextAlignment="Center"
                     Placeholder="✍"
+                    Text="{Binding SearchFilter}"
                     Unfocused="SearchEntry_Unfocused"
-                    VerticalTextAlignment="End" />
-
+                    VerticalTextAlignment="End" >
+                    
+                    <Entry.Triggers>
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsSearching}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Entry" Binding="{Binding IsSearching}" Value="False">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                    
+                </Entry>
+                
             </Border>
 
             <Button

@@ -2,7 +2,6 @@
 using Momente.Models;
 using Momente.Resources.Localizations;
 using Momente.Services;
-using SQLite;
 using System.ComponentModel;
 using System.Windows.Input;
 
