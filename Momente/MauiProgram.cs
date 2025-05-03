@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Momente.Models;
 using Momente.Services;
 
 namespace Momente
@@ -10,14 +11,14 @@ namespace Momente
 
         public const float MOMENT_LUMINOSITY_SHADOW = -0.1f;
         public const float MOMENT_LUMINOSITY_GLOW = 0.1f;
-        public const string DEV_CHEAT_CODE  = "DevCheat";
+        public const string DEV_CHEAT_CODE = "DevCheat";
         public const string DEV_CHEAT_COlOR = "#000000";
-        public const int SEARCH_PROMPT_LIMIT  = 100;
+        public const int SEARCH_PROMPT_LIMIT = 100;
         public const string DATE_FORMAT_STRING = "dddd, dd. MMMM yyyy, HH:mm";
 
         public static MauiApp CreateMauiApp()
         {
-            AddWelcomeEntry();
+            TryToAddWelcomeEntry();
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -32,10 +33,14 @@ namespace Momente
             return builder.Build();
         }
 
-        private static async void AddWelcomeEntry()
+        private static async void TryToAddWelcomeEntry()
         {
-            await DatabaseService.Instance.AddWelcomeMomentIfEmptyAsync();
-            await Task.Delay(1000);
+            if (await DatabaseService.Instance.GetCount() == 0)
+            {
+                await DatabaseService.Instance.AddMomentAsync(Moment.CreateWelcomeMoment());
+                while (DatabaseService.Instance.GetLastMomentAsync() == null)
+                { await Task.Delay(500); }
+            }
         }
     }
 }

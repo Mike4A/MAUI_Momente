@@ -101,20 +101,6 @@ namespace Momente.Services
             return lastOrDefault;
         }
 
-        internal async Task AddWelcomeMomentIfEmptyAsync()
-        {
-            if (await GetLastMomentAsync() == null)
-            {
-                await AddMomentAsync(new Moment
-                {
-                    Icon = "👋",
-                    Headline = AppResources.WelcomeMomentHeadline,
-                    Description = AppResources.WelcomeMomentDescription,
-                    ColorString = Colors.DarkCyan.ToHex()
-                });
-            }
-        }
-
         internal async Task<int> GetCount()
         {
             return await _database.Table<Moment>().CountAsync();

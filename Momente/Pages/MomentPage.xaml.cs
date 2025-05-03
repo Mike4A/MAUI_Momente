@@ -58,58 +58,6 @@ public partial class MomentPage : ContentPage
         await SaveButton.RotateXTo(0, 100);
         await SaveButton.ScaleTo(1, 50);
     }
-
-    //public Color SlidedColor
-    //{
-    //    get => Color.FromHsla(HueSlider.Value, SaturationSlider.Value, LuminositySlider.Value);
-    //    set
-    //    {
-    //        Color newColor = value;
-    //        if ((float)HueSlider.Value != newColor.GetHue())
-    //            HueSlider.Value = newColor.GetHue();
-    //        if ((float)SaturationSlider.Value != newColor.GetSaturation())
-    //            SaturationSlider.Value = newColor.GetSaturation();
-    //        if ((float)LuminositySlider.Value != newColor.GetLuminosity())
-    //            LuminositySlider.Value = newColor.GetLuminosity();
-    //    }
-    //}
-
-    private HueDrawable _hueDrawable;
-    private SaturationDrawable _saturationDrawable;
-    private LuminosityDrawable _luminosityDrawable;
-    private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-        //_saturationDrawable.Hue = (float)HueSlider.Value;
-        //SaturationGraphicsView.Invalidate();
-        //_luminosityDrawable.Hue = (float)HueSlider.Value;
-        //LuminosityGraphicsView.Invalidate();
-        //UpdateViewModelColor();
-    }
-    private void SaturationSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-        //var x = SlidedColor;
-        //_hueDrawable.Saturation = (float)SaturationSlider.Value;
-        //HueGraphicsView.Invalidate();
-        //_luminosityDrawable.Saturation = (float)SaturationSlider.Value;
-        //LuminosityGraphicsView.Invalidate();
-        //UpdateViewModelColor();
-    }
-    private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-        //_hueDrawable.Luminosity = (float)LuminositySlider.Value;
-        //HueGraphicsView.Invalidate();
-        //_saturationDrawable.Luminosity = (float)LuminositySlider.Value;
-        //SaturationGraphicsView.Invalidate();
-        //UpdateViewModelColor();
-    }
-    private void UpdateViewModelColor()
-    {
-        //if ((BindingContext as MomentPageViewModel)!.Color != SlidedColor)
-        //{
-        //    (BindingContext as MomentPageViewModel)!.Color = SlidedColor;
-        //}
-    }
-
     private void IconEntry_Completed(object sender, EventArgs e)
     {
         IconEntry.Unfocus();

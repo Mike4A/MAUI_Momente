@@ -1,4 +1,6 @@
-﻿using SQLite;
+﻿using Momente.Resources.Localizations;
+using Momente.Services;
+using SQLite;
 using System.ComponentModel;
 
 namespace Momente.Models
@@ -10,12 +12,23 @@ namespace Momente.Models
 
         public string Icon { get; set; } = "";
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;    
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public string Headline { get; set; } = "";
 
-        public string Description { get; set; } = "";        
-        
-        public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();       
+        public string Description { get; set; } = "";
+
+        public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();
+
+        internal static Moment CreateWelcomeMoment()
+        {
+            return new Moment
+            {
+                Icon = "👋",
+                Headline = AppResources.WelcomeMomentHeadline,
+                Description = AppResources.WelcomeMomentDescription,
+                ColorString = Colors.DarkCyan.ToHex()
+            };
+        }
     }
 }
