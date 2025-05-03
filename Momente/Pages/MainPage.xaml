@@ -28,7 +28,7 @@
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Scrolled="MomentsCollectionView_Scrolled"
-                SelectedItem="{Binding SelectedMomentItem}"                
+                SelectedItem="{Binding SelectedMomentItem}"
                 SelectionChangedCommand="{Binding MomentItemsSelectionChangedCommand}"
                 SelectionMode="Single">
 
@@ -69,26 +69,26 @@
                                     GlowColor="{Binding Color}"
                                     InputTransparent="True" />
 
-                                <Grid Padding="3,0,3,0" RowDefinitions="*,*">
+                                <Grid Padding="3,0,3,0" RowDefinitions="1.1*,*">
 
-                                    <Grid Padding="0" ColumnDefinitions="*,0.15*">
+                                    <Grid Padding="0" ColumnDefinitions="*,0.2*">
 
                                         <Label
                                             x:Name="CreatedAtLabel"
                                             Padding="6,3,6,3"
                                             FontSize="10"
                                             Text="{Binding CreatedAtString}"
-                                            TextColor="{AppThemeBinding Light={StaticResource Gray500},
+                                            TextColor="{AppThemeBinding Light={StaticResource Gray600},
                                                                         Dark={StaticResource Gray400}}"
                                             VerticalTextAlignment="Center" />
 
                                         <Label
-                                            x:Name="HasDescriptionLabel"
+                                            x:Name="PeakLabel"
                                             Grid.Column="1"
-                                            Margin="3,3,6,3"
+                                            Margin="3,3,9,3"
                                             FontSize="14"
-                                            HorizontalTextAlignment="End"
-                                            Text="{Binding HasDescriptonIcon}"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding PeakString}"
                                             TextColor="{StaticResource Gray500}"
                                             VerticalTextAlignment="Center" />
 
@@ -97,7 +97,7 @@
                                     <Label
                                         x:Name="HeadlineLabel"
                                         Grid.Row="1"
-                                        Padding="6,0,6,3"
+                                        Padding="6,0,6,6"
                                         FontSize="14"
                                         Text="{Binding Headline}"
                                         VerticalTextAlignment="Center" />
@@ -194,19 +194,25 @@
                     Placeholder="✍"
                     Text="{Binding SearchFilter}"
                     Unfocused="SearchEntry_Unfocused"
-                    VerticalTextAlignment="End" >
-                    
+                    VerticalTextAlignment="End">
+
                     <Entry.Triggers>
-                        <DataTrigger TargetType="Entry" Binding="{Binding IsSearching}" Value="True">
+                        <DataTrigger
+                            Binding="{Binding IsSearching}"
+                            TargetType="Entry"
+                            Value="True">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Entry" Binding="{Binding IsSearching}" Value="False">
+                        <DataTrigger
+                            Binding="{Binding IsSearching}"
+                            TargetType="Entry"
+                            Value="False">
                             <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
                     </Entry.Triggers>
-                    
+
                 </Entry>
-                
+
             </Border>
 
             <Button

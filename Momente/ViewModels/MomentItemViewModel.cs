@@ -95,7 +95,7 @@ namespace Momente.ViewModels
             }
         }
 
-        public string? HasDescriptonIcon { get => string.IsNullOrEmpty(Description) ? null : "📎"; }
+        public string? PeakString { get => string.IsNullOrEmpty(Description) ? null : Description.Length.ToString(); }
 
         private string _colorString;
 
