@@ -37,6 +37,7 @@
                     <DataTemplate>
 
                         <Grid
+                            Margin="0,1,0,1"
                             ColumnDefinitions="74,*"
                             Rotation="0"
                             RowDefinitions="76">
@@ -85,7 +86,7 @@
                                         <Label
                                             x:Name="PeakLabel"
                                             Grid.Column="1"
-                                            Margin="3,3,9,3"
+                                            Margin="0,3,12,3"
                                             FontSize="14"
                                             HorizontalTextAlignment="Center"
                                             Text="{Binding PeakString}"
