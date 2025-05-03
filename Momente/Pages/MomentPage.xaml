@@ -185,6 +185,7 @@
                 Margin="4"
                 Padding="0"
                 Clicked="CancelButton_Clicked"
+                Command="{Binding CancelButtonCommand}"
                 FontSize="24"
                 Text="🔙" />
 
@@ -204,7 +205,7 @@
                 Margin="4"
                 Padding="0"
                 Clicked="SaveButton_Clicked"
-                Command="{Binding SaveMomentCommand}"
+                Command="{Binding SaveButtonCommand}"
                 FontSize="24"
                 Text="✓" />
 

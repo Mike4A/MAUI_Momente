@@ -2,6 +2,7 @@
 using Momente.Models;
 using Momente.Resources.Localizations;
 using Momente.Services;
+using SQLite;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -14,15 +15,14 @@ namespace Momente.ViewModels
             _momentPage = momentPage;
             _args = args;
             _id = _args.Moment.Id;
-            _createdAtString = args.Moment.CreatedAtString;
+            _createdAt = _args.Moment.CreatedAt;
             _icon = args.Moment.Icon;
             _headline = args.Moment.Headline;
             _description = args.Moment.Description;
-            _color = args.Moment.Color;
+            _colorString = args.Moment.ColorString;
             DeleteButtonCommand = new Command(async () => await DeleteButton_Clicked());
-            DeleteButtonCommand = new Command(async () => await CancelButton_Clicked());
+            CancelButtonCommand = new Command(async () => await CancelButton_Clicked());
             SaveButtonCommand = new Command(async () => await SaveButton_Clicked());
-
         }
 
 
@@ -31,12 +31,14 @@ namespace Momente.ViewModels
         private MomentPageArgs _args;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private int _id;
+
         public int Id
         {
             get => _id;
@@ -50,62 +52,83 @@ namespace Momente.ViewModels
             }
         }
 
-        private string? _createdAtString;
+        private DateTime _createdAt;
+
         public string CreatedAtString
         {
-            get => _createdAtString!;
+            get => _createdAt.ToString(MauiProgram.DATE_FORMAT_STRING);
             set
             {
-                _createdAtString = value;
-                OnPropertyChanged(nameof(CreatedAtString));
+                if (_createdAt != DateTime.Parse(value))
+                {
+                    _createdAt = DateTime.Parse(value);
+                    OnPropertyChanged(nameof(CreatedAtString));
+                }                
             }
         }
 
         private string _icon = "";
+
         public string Icon
         {
             get => _icon;
             set
             {
-                _icon = value;
-                OnPropertyChanged(nameof(Icon));
+                if (_icon != value)
+                {
+                    _icon = value;
+                    OnPropertyChanged(nameof(Icon));
+                }
             }
         }
 
         private string _headline = "";
+
         public string Headline
         {
             get => _headline;
             set
             {
-                _headline = value;
-                OnPropertyChanged(nameof(Headline));
+                if (_headline != value)
+                {
+                    _headline = value;
+                    OnPropertyChanged(nameof(Headline));
+                }
             }
         }
 
         private string _description = "";
+
         public string Description
         {
             get => _description;
             set
             {
-                _description = value;
-                OnPropertyChanged(nameof(Description));
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
             }
         }
 
-        private Color _color = MauiProgram.MOMENT_DEFAULT_COLOR;
+        private string _colorString;
+
         public Color Color
         {
-            get => _color;
+            get => Color.Parse(_colorString);
             set
             {
-                _color = value;
-                OnPropertyChanged(nameof(Color));
+                if (_colorString != value.ToHex())
+                {
+                    _colorString = value.ToHex();
+                    OnPropertyChanged(nameof(_colorString));
+                }
             }
         }
 
         public ICommand DeleteButtonCommand { get; }
+
         private async Task DeleteButton_Clicked()
         {
             await Task.Delay(300);
@@ -129,6 +152,7 @@ namespace Momente.ViewModels
 
         private async Task CancelButton_Clicked()
         {
+            await Task.Delay(300);
             _args.Action = MomentAction.None;
             //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation and DB sync props
             if (ChangesMadeToMoment() && await _momentPage.DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
@@ -154,20 +178,22 @@ namespace Momente.ViewModels
             return false;
         }
 
-        public ICommand SaverButtonCommand { get; }
+        public ICommand SaveButtonCommand { get; }
 
         private async Task SaveButton_Clicked()
         {
+            await Task.Delay(300);
             await SaveChangesAndPop();
         }
+
         private async Task SaveChangesAndPop()
         {
-            _args.Moment.Id = Id;
-            _args.Moment.CreatedAtString = CreatedAtString;
-            _args.Moment.Icon = Icon;
-            _args.Moment.Headline = Headline;
-            _args.Moment.Description = Description;
-            _args.Moment.Color = Color;
+            _args.Moment.Id = _id;
+            _args.Moment.CreatedAt = _createdAt;
+            _args.Moment.Icon = _icon;
+            _args.Moment.Headline = _headline;
+            _args.Moment.Description = _description;
+            _args.Moment.ColorString =  _colorString;
             if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
             {
                 await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);

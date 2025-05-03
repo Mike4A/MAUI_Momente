@@ -13,11 +13,11 @@ namespace Momente.ViewModels
         public MomentItemViewModel(Moment moment)
         {
             _id = moment.Id;
+            _createdAt = moment.CreatedAt;
             _icon = moment.Icon;
-            _createdAtString = moment.CreatedAtString;
             _headline = moment.Headline;
             _description = moment.Description;
-            _color = moment.Color;
+            _colorString = moment.ColorString;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -27,6 +27,7 @@ namespace Momente.ViewModels
         }
 
         private int _id;
+
         public int Id
         {
             get => _id;
@@ -40,8 +41,24 @@ namespace Momente.ViewModels
             }
         }
 
-        private string? _icon;
-        public string? Icon
+        private DateTime _createdAt;
+
+        public string CreatedAtString
+        {
+            get => _createdAt.ToString(MauiProgram.DATE_FORMAT_STRING);
+            set
+            {
+                if (_createdAt != DateTime.Parse(value))
+                {
+                    _createdAt = DateTime.Parse(value);
+                    OnPropertyChanged(nameof(CreatedAtString));
+                }
+            }
+        }
+
+        private string _icon = "";
+
+        public string Icon
         {
             get => _icon;
             set
@@ -54,22 +71,9 @@ namespace Momente.ViewModels
             }
         }
 
-        private string? _createdAtString;
-        public string? CreatedAtString
-        {
-            get => _createdAtString;
-            set
-            {
-                if (_createdAtString != value)
-                {
-                    _createdAtString = value;
-                    OnPropertyChanged(nameof(CreatedAtString));
-                }
-            }
-        }
+        private string _headline = "";
 
-        private string? _headline;
-        public string? Headline
+        public string Headline
         {
             get => _headline;
             set
@@ -82,8 +86,9 @@ namespace Momente.ViewModels
             }
         }
 
-        private string? _description;
-        public string? Description
+        private string _description = "";
+
+        public string Description
         {
             get => _description;
             set
@@ -96,31 +101,19 @@ namespace Momente.ViewModels
             }
         }
 
-        private string? _hasDescriptionIcon;
-        public string? HasDescriptionIcon
+        public string? HasDescriptonIcon { get => string.IsNullOrEmpty(Description) ? null : "📎"; }
+
+        private string _colorString;
+
+        public Color Color
         {
-            get => _hasDescriptionIcon;
+            get => Color.Parse(_colorString);
             set
             {
-                if (_hasDescriptionIcon != value)
+                if (_colorString != value.ToHex())
                 {
-                    _hasDescriptionIcon = value;
-                    OnPropertyChanged(nameof(HasDescriptionIcon));
-                }
-            }
-        }
-
-        private Color? _color;
-
-        public Color? Color
-        {
-            get => _color;
-            set
-            {
-                if (_color != value)
-                {
-                    _color = value;
-                    OnPropertyChanged(nameof(Color));
+                    _colorString = value.ToHex();
+                    OnPropertyChanged(nameof(_colorString));
                 }
             }
         }

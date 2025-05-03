@@ -10,34 +10,12 @@ namespace Momente.Models
 
         public string Icon { get; set; } = "";
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [Ignore]
-        public string CreatedAtString { 
-            get => CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
-            set => CreatedAt = DateTime.Parse(value);
-        }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;    
 
         public string Headline { get; set; } = "";
 
-        public string Description { get; set; } = "";
-
-        [Ignore]
-        public string? HasDescriptonIcon { get => string.IsNullOrEmpty(Description) ? null : "📎"; }
+        public string Description { get; set; } = "";        
         
-        public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();
-
-        [Ignore]
-        public Color Color
-        {
-            get => Color.Parse(ColorString);
-            set
-            {
-                if (ColorString != value.ToHex())
-                {
-                    ColorString = value.ToHex();
-                }
-            }
-        }
+        public string ColorString { get; set; } = MauiProgram.MOMENT_DEFAULT_COLOR.ToHex();       
     }
 }

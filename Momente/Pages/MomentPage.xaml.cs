@@ -15,12 +15,12 @@ public partial class MomentPage : ContentPage
         InitializeComponent();
         _args = args;
         BindingContext = _viewModel = new MomentPageViewModel(this, args);
-        float hue = args.Moment.Color.GetHue();
-        float saturation = args.Moment.Color.GetSaturation();
-        float luminosity = args.Moment.Color.GetLuminosity();
-        HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
-        SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
-        LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);        
+        //float hue = args.Moment.Color.GetHue();
+        //float saturation = args.Moment.Color.GetSaturation();
+        //float luminosity = args.Moment.Color.GetLuminosity();
+        //HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
+        //SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
+        //LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);        
     }
 
     private MomentPageViewModel _viewModel;

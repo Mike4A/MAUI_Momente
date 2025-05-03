@@ -13,6 +13,7 @@ namespace Momente
         public const string DEV_CHEAT_CODE  = "DevCheat";
         public const string DEV_CHEAT_COlOR = "#000000";
         public const int SEARCH_PROMPT_LIMIT  = 100;
+        public const string DATE_FORMAT_STRING = "dddd, dd. MMMM yyyy, HH:mm";
 
         public static MauiApp CreateMauiApp()
         {
