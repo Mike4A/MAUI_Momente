@@ -120,11 +120,20 @@
   <data name="DeleteMomentQuestion" xml:space="preserve">
     <value>Moment löschen?</value>
   </data>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Schreibe einen kurzen Text...</value>
+  </data>
+  <data name="HeadlinePlaceholder" xml:space="preserve">
+    <value>Überschrift...</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Nein</value>
   </data>
   <data name="SaveMomentQuestion" xml:space="preserve">
     <value>Moment speichern?</value>
+  </data>
+  <data name="SearchfilterPlaceholder" xml:space="preserve">
+    <value>Suche nach...</value>
   </data>
   <data name="SearchLimitReachedText" xml:space="preserve">
     <value>Bisher keine Treffer bei der Suche: Weitersuchen?</value>

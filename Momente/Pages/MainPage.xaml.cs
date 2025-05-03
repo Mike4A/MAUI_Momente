@@ -10,6 +10,7 @@ namespace Momente
         {
             InitializeComponent();
             BindingContext = _viewModel = new MainPageViewModel(this);
+            SearchEntry.Placeholder = AppResources.SearchfilterPlaceholder;
         }
 
         private readonly MainPageViewModel _viewModel;

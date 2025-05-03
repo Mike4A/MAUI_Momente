@@ -70,6 +70,24 @@ namespace Momente.Resources.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schreibe einen kurzen Text....
+        /// </summary>
+        internal static string DescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Überschrift....
+        /// </summary>
+        internal static string HeadlinePlaceholder {
+            get {
+                return ResourceManager.GetString("HeadlinePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nein.
         /// </summary>
         internal static string No {
@@ -84,6 +102,15 @@ namespace Momente.Resources.Localizations {
         internal static string SaveMomentQuestion {
             get {
                 return ResourceManager.GetString("SaveMomentQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suche nach....
+        /// </summary>
+        internal static string SearchfilterPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchfilterPlaceholder", resourceCulture);
             }
         }
         

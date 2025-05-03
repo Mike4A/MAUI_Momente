@@ -65,7 +65,6 @@
                         Margin="5"
                         Completed="HeadlineEntry_Completed"
                         FontSize="14"
-                        Placeholder="✍"
                         Text="{Binding Headline}"
                         VerticalTextAlignment="Center" />
 

@@ -1,5 +1,5 @@
-using Momente.Drawables;
 using Momente.Models;
+using Momente.Resources.Localizations;
 using Momente.ViewModels;
 
 namespace Momente;
@@ -11,6 +11,8 @@ public partial class MomentPage : ContentPage
         InitializeComponent();
         _args = args;
         BindingContext = _viewModel = new MomentPageViewModel(this, args);
+        HeadlineEntry.Placeholder = AppResources.HeadlinePlaceholder;
+        DescriptionEditor.Placeholder = AppResources.DescriptionPlaceholder;
     }
 
     private readonly MomentPageViewModel _viewModel;
