@@ -17,6 +17,7 @@ public partial class MomentPage : ContentPage
         HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
         SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
         LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);
+        SlidedColor = Color.Parse(args.Moment.ColorString);
     }
 
     private readonly MomentPageViewModel _viewModel;
