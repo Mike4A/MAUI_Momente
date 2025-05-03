@@ -45,11 +45,13 @@
                             <Grid Margin="1,2,1,2">
 
                                 <customViews:GlowingBorderView
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                                      Dark={StaticResource Gray900}}"
                                     CornerRadius="25,5,25,5"
                                     GlowColor="{Binding Color}"
-                                    InputTransparent="True" />
+                                    InputTransparent="True">
+                                    <customViews:GlowingBorderView.BackgroundLuminosity>
+                                        <AppThemeBinding Dark="0.1" Light="0.9" />
+                                    </customViews:GlowingBorderView.BackgroundLuminosity>
+                                </customViews:GlowingBorderView>
 
                                 <Label
                                     x:Name="IconLabel"
@@ -64,12 +66,14 @@
                             <Grid Grid.Column="1" Margin="1,2,1,2">
 
                                 <customViews:GlowingBorderView
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100},
-                                                                      Dark={StaticResource Gray900}}"
                                     CornerRadius="5,25,5,25"
                                     GlowColor="{Binding Color}"
-                                    InputTransparent="True" />
-
+                                    InputTransparent="True">
+                                    <customViews:GlowingBorderView.BackgroundLuminosity>
+                                        <AppThemeBinding Dark="0.1" Light="0.9" />
+                                    </customViews:GlowingBorderView.BackgroundLuminosity>
+                                </customViews:GlowingBorderView>
+                                
                                 <Grid Padding="3,0,3,0" RowDefinitions="1.1*,*">
 
                                     <Grid Padding="0" ColumnDefinitions="*,0.2*">

@@ -9,23 +9,23 @@ namespace Momente.CustomViews
             Drawable = this;
         }
 
-        public new Color BackgroundColor
-        {
-            get => (Color)GetValue(BackgroundColorProperty);
-            set => SetValue(BackgroundColorProperty, value);
+        public float BackgroundLuminosity
+        {            
+            get => (float)GetValue(BackgroundLuminosityProperty);
+            set => SetValue(BackgroundLuminosityProperty, value);
         }
 
-        public static new readonly BindableProperty BackgroundColorProperty =
+        public static readonly BindableProperty BackgroundLuminosityProperty =
             BindableProperty.Create(
-                nameof(BackgroundColor),
-                typeof(Color),
+                nameof(BackgroundLuminosity),
+                typeof(float),
                 typeof(GlowingBorderView),
-                Colors.Magenta,
-                propertyChanged: OnBackgroundColorChanged);
+                0.5f,
+                propertyChanged: OnBackgroundLuminosityChanged);
 
-        static void OnBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+        static void OnBackgroundLuminosityChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderView)!.Invalidate();
+            (bindable as GlowingBorderView)!.Invalidate();            
         }
 
         public Color GlowColor
@@ -102,7 +102,7 @@ namespace Momente.CustomViews
         {
             float strokeSize = 1f;
             canvas.StrokeSize = strokeSize;
-            canvas.FillColor = BackgroundColor;
+            canvas.FillColor = GlowColor.WithLuminosity(BackgroundLuminosity);
             canvas.FillRoundedRectangle(
                dirtyRect.X + strokeSize / 2 + 2,
                dirtyRect.Y + strokeSize / 2 + 2,
