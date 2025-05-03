@@ -13,7 +13,10 @@ namespace Momente.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [Ignore]
-        public string CreatedAtString { get => CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm"); }
+        public string CreatedAtString { 
+            get => CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
+            set => CreatedAt = DateTime.Parse(value);
+        }
 
         public string Headline { get; set; } = "";
 

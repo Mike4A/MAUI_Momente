@@ -14,25 +14,18 @@ public partial class MomentPage : ContentPage
     {
         InitializeComponent();
         _args = args;
-        BindingContext = _viewModel = new MomentPageViewModel();
+        BindingContext = _viewModel = new MomentPageViewModel(this, args);
         float hue = args.Moment.Color.GetHue();
         float saturation = args.Moment.Color.GetSaturation();
         float luminosity = args.Moment.Color.GetLuminosity();
         HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
         SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
-        LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);
-        _viewModel.Id = args.Moment.Id;
-        _viewModel.CreatedAt = args.Moment.CreatedAt;
-        _viewModel.CreatedAtString = args.Moment.CreatedAt.ToString("dddd, dd. MMMM yyyy, HH:mm");
-        _viewModel.Icon = args.Moment.Icon;
-        _viewModel.Headline = args.Moment.Headline;
-        _viewModel.Description = args.Moment.Description;
-        _viewModel.Color = SlidedColor = args.Moment.Color;
+        LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);        
     }
 
     private MomentPageViewModel _viewModel;
 
-    private MomentPageArgs _args;
+    public MomentPageArgs _args;
 
     private void IconEntry_Focused(object sender, FocusEventArgs e) { SelectIconLabelText(); }
     
@@ -56,20 +49,6 @@ public partial class MomentPage : ContentPage
         await DeleteButton.RotateXTo(180, 100);
         await DeleteButton.RotateXTo(0, 100);
         await DeleteButton.ScaleTo(1, 50);
-        if (_viewModel.Id != 0)
-        {
-            if (await DisplayAlert("", AppResources.DeleteMomentQuestion, AppResources.Yes, AppResources.No))
-            {
-                await DatabaseService.Instance.DeleteMomentAsync(_viewModel.Id);
-                _args.Action = MomentAction.Deleted;
-                await Navigation.PopAsync();
-            }
-        }
-        else
-        {
-            _args.Action = MomentAction.None;
-            await Navigation.PopAsync();
-        }
     }
 
     private async void CancelButton_Clicked(object sender, EventArgs e)
@@ -78,29 +57,6 @@ public partial class MomentPage : ContentPage
         await CancelButton.RotateXTo(180, 100);
         await CancelButton.RotateXTo(0, 100);
         await CancelButton.ScaleTo(1, 50);
-        _args.Action = MomentAction.None;
-        //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation and DB sync props
-        if (ChangesMadeToMoment() && await DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
-        {
-            SaveChangesAndPop();
-        }
-        else
-        {
-            await Navigation.PopAsync();
-        }
-    }
-
-    private bool ChangesMadeToMoment()
-    {
-        if (_args.Moment.Icon != _viewModel.Icon)
-        { return true; }
-        if (_args.Moment.Headline != _viewModel.Headline)
-        { return true; }
-        if (_args.Moment.Description != _viewModel.Description)
-        { return true; }
-        if (_args.Moment.Color.ToHex() != _viewModel.Color.ToHex())
-        { return true; }
-        return false;
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -109,27 +65,6 @@ public partial class MomentPage : ContentPage
         await SaveButton.RotateXTo(180, 100);
         await SaveButton.RotateXTo(0, 100);
         await SaveButton.ScaleTo(1, 50);
-        SaveChangesAndPop();
-    }
-    private async void SaveChangesAndPop()
-    {
-        _args.Moment.Id = _viewModel.Id;
-        _args.Moment.CreatedAt = _viewModel.CreatedAt;
-        _args.Moment.Icon = _viewModel.Icon;
-        _args.Moment.Headline = _viewModel.Headline;
-        _args.Moment.Description = _viewModel.Description;
-        _args.Moment.Color = _viewModel.Color;
-        if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
-        {
-            await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
-            _args.Action = MomentAction.Updated;
-        }
-        else
-        {
-            await DatabaseService.Instance.AddMomentAsync(_args.Moment);
-            _args.Action = MomentAction.Created;
-        }
-        await Navigation.PopAsync();
     }
 
     public Color SlidedColor
@@ -146,6 +81,7 @@ public partial class MomentPage : ContentPage
                 LuminositySlider.Value = newColor.GetLuminosity();
         }
     }
+
     private HueDrawable _hueDrawable;
     private SaturationDrawable _saturationDrawable;
     private LuminosityDrawable _luminosityDrawable;

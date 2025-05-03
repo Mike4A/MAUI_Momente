@@ -194,6 +194,7 @@
                 Margin="4"
                 Padding="0"
                 Clicked="DeleteButton_Clicked"
+                Command="{Binding DeleteButtonCommand}"
                 FontSize="24"
                 Text="🚮" />
 

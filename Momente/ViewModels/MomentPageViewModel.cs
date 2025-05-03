@@ -1,9 +1,41 @@
-﻿using System.ComponentModel;
+﻿using Momente.Enums;
+using Momente.Models;
+using Momente.Resources.Localizations;
+using Momente.Services;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Momente.ViewModels
 {
     public class MomentPageViewModel : INotifyPropertyChanged
     {
+        public MomentPageViewModel(MomentPage momentPage, MomentPageArgs args)
+        {
+            _momentPage = momentPage;
+            _args = args;
+            _id = _args.Moment.Id;
+            _createdAtString = args.Moment.CreatedAtString;
+            _icon = args.Moment.Icon;
+            _headline = args.Moment.Headline;
+            _description = args.Moment.Description;
+            _color = args.Moment.Color;
+            DeleteButtonCommand = new Command(async () => await DeleteButton_Clicked());
+            DeleteButtonCommand = new Command(async () => await CancelButton_Clicked());
+            SaveButtonCommand = new Command(async () => await SaveButton_Clicked());
+
+        }
+
+
+        private MomentPage _momentPage;
+
+        private MomentPageArgs _args;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private int _id;
         public int Id
         {
@@ -18,17 +50,6 @@ namespace Momente.ViewModels
             }
         }
 
-        private DateTime _createdAt;
-        public DateTime CreatedAt
-        {
-            get => _createdAt;
-            set
-            {
-                _createdAt = value;
-                OnPropertyChanged(nameof(CreatedAt));
-            }
-        }
-
         private string? _createdAtString;
         public string CreatedAtString
         {
@@ -39,6 +60,7 @@ namespace Momente.ViewModels
                 OnPropertyChanged(nameof(CreatedAtString));
             }
         }
+
         private string _icon = "";
         public string Icon
         {
@@ -80,22 +102,83 @@ namespace Momente.ViewModels
             {
                 _color = value;
                 OnPropertyChanged(nameof(Color));
-                OnPropertyChanged(nameof(GlowColor));
             }
         }
-        public Color GlowColor
+
+        public ICommand DeleteButtonCommand { get; }
+        private async Task DeleteButton_Clicked()
         {
-            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_GLOW);
-        }
-        public Color ShadowColor
-        {
-            get => Color.WithLuminosity(Color.GetLuminosity() + MauiProgram.MOMENT_LUMINOSITY_SHADOW);
+            await Task.Delay(300);
+            if (Id != 0)
+            {
+                if (await _momentPage.DisplayAlert("", AppResources.DeleteMomentQuestion, AppResources.Yes, AppResources.No))
+                {
+                    await DatabaseService.Instance.DeleteMomentAsync(Id);
+                    _args.Action = MomentAction.Deleted;
+                    await _momentPage.Navigation.PopAsync();
+                }
+            }
+            else
+            {
+                _args.Action = MomentAction.None;
+                await _momentPage.Navigation.PopAsync();
+            }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public ICommand CancelButtonCommand { get; }
+
+        private async Task CancelButton_Clicked()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _args.Action = MomentAction.None;
+            //Already tried to do this on NavigatedFrom event too, but it fails due to not being able to cancel the navigation and DB sync props
+            if (ChangesMadeToMoment() && await _momentPage.DisplayAlert("", AppResources.SaveMomentQuestion, AppResources.Yes, AppResources.No))
+            {
+                await SaveChangesAndPop();
+            }
+            else
+            {
+                await _momentPage.Navigation.PopAsync();
+            }
+        }
+
+        private bool ChangesMadeToMoment()
+        {
+            if (_args.Moment.Icon != Icon)
+            { return true; }
+            if (_args.Moment.Headline != Headline)
+            { return true; }
+            if (_args.Moment.Description != Description)
+            { return true; }
+            if (_args.Moment.ColorString != Color.ToHex())
+            { return true; }
+            return false;
+        }
+
+        public ICommand SaverButtonCommand { get; }
+
+        private async Task SaveButton_Clicked()
+        {
+            await SaveChangesAndPop();
+        }
+        private async Task SaveChangesAndPop()
+        {
+            _args.Moment.Id = Id;
+            _args.Moment.CreatedAtString = CreatedAtString;
+            _args.Moment.Icon = Icon;
+            _args.Moment.Headline = Headline;
+            _args.Moment.Description = Description;
+            _args.Moment.Color = Color;
+            if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
+            {
+                await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);
+                _args.Action = MomentAction.Updated;
+            }
+            else
+            {
+                await DatabaseService.Instance.AddMomentAsync(_args.Moment);
+                _args.Action = MomentAction.Created;
+            }
+            await _momentPage.Navigation.PopAsync();
         }
     }
 }
