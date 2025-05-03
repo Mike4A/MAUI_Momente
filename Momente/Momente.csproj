@@ -65,7 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="ContentViews\ColorSliderView.xaml">
+	  <MauiXaml Update="CustomViews\ColorSliderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\MomentPage.xaml">

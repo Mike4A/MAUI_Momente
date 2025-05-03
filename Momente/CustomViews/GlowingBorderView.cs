@@ -1,67 +1,71 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Momente.GraphicsViews
+namespace Momente.CustomViews
 {
-    public class GlowingBorderGraphicsView : GraphicsView, IDrawable
+    public class GlowingBorderView : GraphicsView, IDrawable
     {
-        public GlowingBorderGraphicsView()
+        public GlowingBorderView()
         {
             Drawable = this;
         }
 
-        private static Color DEFAULT_BACKGROUND_COLOR = Colors.Black;
         public new Color BackgroundColor
         {
             get => (Color)GetValue(BackgroundColorProperty);
             set => SetValue(BackgroundColorProperty, value);
         }
+
         public static new readonly BindableProperty BackgroundColorProperty =
             BindableProperty.Create(
                 nameof(BackgroundColor),
                 typeof(Color),
-                typeof(GlowingBorderGraphicsView),
-                DEFAULT_BACKGROUND_COLOR,
+                typeof(GlowingBorderView),
+                Colors.Magenta,
                 propertyChanged: OnBackgroundColorChanged);
+
         static void OnBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderGraphicsView)!.Invalidate();
+            (bindable as GlowingBorderView)!.Invalidate();
         }
 
-        private static Color DEFAULT_GLOW_COLOR = Color.FromRgb(127, 128, 128);
         public Color GlowColor
         {
             get => (Color)GetValue(GlowColorProperty);
             set => SetValue(GlowColorProperty, value);
         }
+
         public static readonly BindableProperty GlowColorProperty =
             BindableProperty.Create(
                 nameof(GlowColor),
                 typeof(Color),
-                typeof(GlowingBorderGraphicsView),
-                DEFAULT_GLOW_COLOR,
+                typeof(GlowingBorderView),
+                 Color.FromRgb(127, 128, 128),
                 propertyChanged: OnGlowColorChanged);
+
         static void OnGlowColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderGraphicsView)!.Invalidate();
+            (bindable as GlowingBorderView)!.Invalidate();
         }
 
-        private const string DEFAULT_CORNER_RADIUS = "0";
         public string CornerRadius
         {
             get => (string)GetValue(CornerRadiusProperty);
             set => SetValue(CornerRadiusProperty, value);
         }
+
         public static readonly BindableProperty CornerRadiusProperty =
             BindableProperty.Create(
                 nameof(CornerRadius),
                 typeof(string),
-                typeof(GlowingBorderGraphicsView),
-                DEFAULT_CORNER_RADIUS,
+                typeof(GlowingBorderView),
+                "0",
                 propertyChanged: OnCornerRadiusChanged);
+
         static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderGraphicsView)!.Invalidate();
+            (bindable as GlowingBorderView)!.Invalidate();
         }
+
         private string[] CornerRadii
         {
             get
@@ -75,22 +79,23 @@ namespace Momente.GraphicsViews
             }
         }
 
-        private const float DEFAULT_GLOW_OFFSET = 0.1f;
         public float GlowOffset
         {
             get => (float)GetValue(GlowOffsetProperty);
             set => SetValue(GlowOffsetProperty, value);
         }
+
         public static readonly BindableProperty GlowOffsetProperty =
             BindableProperty.Create(
                 nameof(CornerRadius),
                 typeof(float),
-                typeof(GlowingBorderGraphicsView),
-                DEFAULT_GLOW_OFFSET,
+                typeof(GlowingBorderView),
+                0.1f,
                 propertyChanged: OnGlowOffsetPropertyChanged);
+
         static void OnGlowOffsetPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderGraphicsView)!.Invalidate();
+            (bindable as GlowingBorderView)!.Invalidate();
         }
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
