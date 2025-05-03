@@ -57,8 +57,9 @@
 
                     <Label
                         x:Name="CreatedAtLabel"
-                        Margin="7"
+                        Margin="9,9,0,0"
                         FontSize="10"
+                        FontAttributes="Bold"
                         Text="{Binding CreatedAtString}"
                         TextColor="{StaticResource Gray500}"
                         VerticalTextAlignment="Center" />
