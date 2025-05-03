@@ -18,7 +18,7 @@ namespace Momente.ViewModels
             _icon = args.Moment.Icon;
             _headline = args.Moment.Headline;
             _description = args.Moment.Description;
-            _colorString = args.Moment.ColorString;
+            _colorString = args.Moment.ColorString;            
             DeleteButtonCommand = new Command(async () => await DeleteButton_Clicked());
             CancelButtonCommand = new Command(async () => await CancelButton_Clicked());
             SaveButtonCommand = new Command(async () => await SaveButton_Clicked());
@@ -121,7 +121,7 @@ namespace Momente.ViewModels
                 if (_colorString != value.ToHex())
                 {
                     _colorString = value.ToHex();
-                    OnPropertyChanged(nameof(_colorString));
+                    OnPropertyChanged(nameof(Color));
                 }
             }
         }

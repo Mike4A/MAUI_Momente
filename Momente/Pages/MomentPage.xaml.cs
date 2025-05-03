@@ -11,12 +11,12 @@ public partial class MomentPage : ContentPage
         InitializeComponent();
         _args = args;
         BindingContext = _viewModel = new MomentPageViewModel(this, args);
-        //float hue = args.Moment.Color.GetHue();
-        //float saturation = args.Moment.Color.GetSaturation();
-        //float luminosity = args.Moment.Color.GetLuminosity();
-        //HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
-        //SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
-        //LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);        
+        float hue = Color.Parse(args.Moment.ColorString).GetHue();
+        float saturation = Color.Parse(args.Moment.ColorString).GetSaturation();
+        float luminosity = Color.Parse(args.Moment.ColorString).GetLuminosity();
+        HueGraphicsView.Drawable = _hueDrawable = new HueDrawable(saturation, luminosity);
+        SaturationGraphicsView.Drawable = _saturationDrawable = new SaturationDrawable(hue, luminosity);
+        LuminosityGraphicsView.Drawable = _luminosityDrawable = new LuminosityDrawable(hue, saturation);
     }
 
     private readonly MomentPageViewModel _viewModel;
@@ -24,19 +24,19 @@ public partial class MomentPage : ContentPage
     public MomentPageArgs _args;
 
     private void IconEntry_Focused(object sender, FocusEventArgs e) { SelectIconLabelText(); }
-    
+
     private void IconEntry_TextChanged(object sender, TextChangedEventArgs e) { SelectIconLabelText(); }
-   
+
     private void SelectIconLabelText()
     {
-          Dispatcher.Dispatch(() =>
-            {
-                if (!String.IsNullOrEmpty(IconEntry.Text))
-                {
-                    IconEntry.CursorPosition = 0;
-                    IconEntry.SelectionLength = IconEntry.Text.Length;
-                }
-            });    
+        Dispatcher.Dispatch(() =>
+          {
+              if (!String.IsNullOrEmpty(IconEntry.Text))
+              {
+                  IconEntry.CursorPosition = 0;
+                  IconEntry.SelectionLength = IconEntry.Text.Length;
+              }
+          });
     }
 
     private async void DeleteButton_Clicked(object sender, EventArgs e)

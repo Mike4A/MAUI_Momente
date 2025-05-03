@@ -29,7 +29,7 @@
                 RemainingItemsThreshold="1"
                 RemainingItemsThresholdReached="MomentsCollectionView_RemainingItemsThresholdReached"
                 Scrolled="MomentsCollectionView_Scrolled"
-                SelectedItem="{Binding SelectedItem}"                
+                SelectedItem="{Binding SelectedMomentItem}"                
                 SelectionChangedCommand="{Binding MomentItemsSelectionChangedCommand}"
                 SelectionMode="Single">
 
@@ -89,7 +89,7 @@
                                             Margin="3,3,6,3"
                                             FontSize="14"
                                             HorizontalTextAlignment="End"
-                                            Text="{Binding HasDescriptonString}"
+                                            Text="{Binding HasDescriptonIcon}"
                                             TextColor="{StaticResource Gray500}"
                                             VerticalTextAlignment="Center" />
 
