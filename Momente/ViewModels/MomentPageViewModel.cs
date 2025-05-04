@@ -137,13 +137,13 @@ namespace Momente.ViewModels
                 {
                     await DatabaseService.Instance.DeleteMomentAsync(Id);
                     _args.Action = MomentAction.Deleted;
-                    await _momentPage.Navigation.PopAsync();
+                    await _momentPage.Navigation.PopModalAsync();
                 }
             }
             else
             {
                 _args.Action = MomentAction.None;
-                await _momentPage.Navigation.PopAsync();
+                await _momentPage.Navigation.PopModalAsync();
             }
         }
 
@@ -160,7 +160,7 @@ namespace Momente.ViewModels
             }
             else
             {
-                await _momentPage.Navigation.PopAsync();
+                await _momentPage.Navigation.PopModalAsync();
             }
         }
 
@@ -203,7 +203,7 @@ namespace Momente.ViewModels
                 await DatabaseService.Instance.AddMomentAsync(_args.Moment);
                 _args.Action = MomentAction.Created;
             }
-            await _momentPage.Navigation.PopAsync();
+            await _momentPage.Navigation.PopModalAsync();
         }
     }
 }

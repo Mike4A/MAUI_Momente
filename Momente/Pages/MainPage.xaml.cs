@@ -152,5 +152,11 @@ namespace Momente
         {
             MomentsCollectionView.SelectedItem = null;
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Application.Current!.Quit();
+            return true;
+        }
     }
 }

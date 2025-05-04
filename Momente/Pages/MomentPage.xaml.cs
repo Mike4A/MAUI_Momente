@@ -70,4 +70,10 @@ public partial class MomentPage : ContentPage
     {
         DescriptionEditor.Unfocus();
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        _viewModel.CancelButtonCommand.Execute(this);
+        return true;
+    }
 }

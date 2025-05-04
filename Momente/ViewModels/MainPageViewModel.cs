@@ -123,7 +123,7 @@ namespace Momente.ViewModels
         {
             await Task.Delay(300);
             _mainPage.ResetItemSelection();
-            await _mainPage.Navigation.PushAsync(new MomentPage(_momentPageArgs));
+            await _mainPage.Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
         }
 
         public ICommand MomentItemsSelectionChangedCommand { get; }
@@ -141,7 +141,7 @@ namespace Momente.ViewModels
                     await _mainPage.DisplayAlert("", msg, "Ok");
                 }
                 _momentPageArgs = new MomentPageArgs((await DatabaseService.Instance.GetMomentByIdAsync(SelectedMomentItem.Id))!);
-                await _mainPage.Navigation.PushAsync(new MomentPage(_momentPageArgs));
+                await _mainPage.Navigation.PushModalAsync(new MomentPage(_momentPageArgs));
             }
         }
 
