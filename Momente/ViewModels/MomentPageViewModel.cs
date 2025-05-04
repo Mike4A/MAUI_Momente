@@ -18,7 +18,7 @@ namespace Momente.ViewModels
             _icon = args.Moment.Icon;
             _headline = args.Moment.Headline;
             _description = args.Moment.Description;
-            _colorString = args.Moment.ColorString;            
+            _color = Color.Parse(args.Moment.ColorString);
             DeleteButtonCommand = new Command(async () => await DeleteButton_Clicked());
             CancelButtonCommand = new Command(async () => await CancelButton_Clicked());
             SaveButtonCommand = new Command(async () => await SaveButton_Clicked());
@@ -62,7 +62,7 @@ namespace Momente.ViewModels
                 {
                     _createdAt = DateTime.Parse(value);
                     OnPropertyChanged(nameof(CreatedAtString));
-                }                
+                }
             }
         }
 
@@ -111,16 +111,16 @@ namespace Momente.ViewModels
             }
         }
 
-        private string _colorString;
+        private Color _color;
 
         public Color Color
         {
-            get => Color.Parse(_colorString);
+            get => _color;
             set
             {
-                if (_colorString != value.ToHex())
+                if (_color != value)
                 {
-                    _colorString = value.ToHex();
+                    _color = value;
                     OnPropertyChanged(nameof(Color));
                 }
             }
@@ -192,7 +192,7 @@ namespace Momente.ViewModels
             _args.Moment.Icon = _icon;
             _args.Moment.Headline = _headline;
             _args.Moment.Description = _description;
-            _args.Moment.ColorString =  _colorString;
+            _args.Moment.ColorString = _color.ToString();
             if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
             {
                 await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);

@@ -55,14 +55,14 @@ public partial class ColorSliderView : ContentView
                 view.LuminositySlider.Value = view.Color.GetLuminosity();
             }
         }
-        view.HueGraphicsView.Saturation = (float)view.SaturationSlider.Value;
-        view.HueGraphicsView.Luminosity = (float)view.LuminositySlider.Value;
+        view.HueGraphicsView.Saturation = view.SaturationSlider.Value;
+        view.HueGraphicsView.Luminosity = view.LuminositySlider.Value;
         view.HueGraphicsView.Invalidate();
-        view.SaturationGraphicsView.Hue = (float)view.HueSlider.Value;
-        view.SaturationGraphicsView.Luminosity = (float)view.LuminositySlider.Value;
+        view.SaturationGraphicsView.Hue = view.HueSlider.Value;
+        view.SaturationGraphicsView.Luminosity = view.LuminositySlider.Value;
         view.SaturationGraphicsView.Invalidate();
-        view.LuminosityGraphicsView.Saturation = (float)view.SaturationSlider.Value;
-        view.LuminosityGraphicsView.Hue = (float)view.HueSlider.Value;
+        view.LuminosityGraphicsView.Saturation = view.SaturationSlider.Value;
+        view.LuminosityGraphicsView.Hue = view.HueSlider.Value;
         view.LuminosityGraphicsView.Invalidate();
     }
 

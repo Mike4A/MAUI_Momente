@@ -6,11 +6,11 @@ namespace Momente.CustomViews
     {
         public ColorChannel ColorChannel { get; set; }
 
-        public float Hue { get; set; }
+        public double Hue { get; set; }
         
-        public float Saturation { get; set; }
+        public double Saturation { get; set; }
         
-        public float Luminosity { get; set; }
+        public double Luminosity { get; set; }
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
