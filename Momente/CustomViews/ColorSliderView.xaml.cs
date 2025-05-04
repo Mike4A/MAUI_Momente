@@ -17,13 +17,14 @@ public partial class ColorSliderView : ContentView
     }
 
     private bool _ignoreColorChanges = false;
+    private bool _applyingColorToSliders = false;
 
     public Color Color
     {
         get => (Color)GetValue(ColorProperty);
         set
         {
-            if (ColorService.IsColorSimilar(Color, value))
+            if (ColorService.IsColorSimilar(Color, value) || _applyingColorToSliders)
             { return; }
             SetValue(ColorProperty, value);
         }
@@ -39,10 +40,11 @@ public partial class ColorSliderView : ContentView
             propertyChanged: OnColorChanged);
 
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
-    {
+    {        
         if (ColorService.IsColorSimilar((Color)oldValue, (Color)newValue))
         { return; }
         ColorSliderView view = (ColorSliderView)bindable;
+        view._applyingColorToSliders = true;
         if (!view._ignoreColorChanges)
         {
             if (view.Color.GetSaturation() != 0 && view.Color.GetLuminosity() != 0 && view.Color.GetLuminosity() != 1)
@@ -67,6 +69,7 @@ public partial class ColorSliderView : ContentView
         view.LuminosityGraphicsView.Saturation = view.SaturationSlider.Value;
         view.LuminosityGraphicsView.Hue = view.HueSlider.Value;
         view.LuminosityGraphicsView.Invalidate();
+        view._applyingColorToSliders = false;   
     }
 
     private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
