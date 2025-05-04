@@ -1,4 +1,5 @@
 using Momente.Enums;
+using Momente.Services;
 
 namespace Momente.CustomViews;
 
@@ -22,7 +23,8 @@ public partial class ColorSliderView : ContentView
         get => (Color)GetValue(ColorProperty);
         set
         {
-            if (Color == value) { return; }
+            if (ColorService.IsColorSimilar(Color, value))
+            { return; }
             SetValue(ColorProperty, value);
         }
     }
@@ -38,7 +40,8 @@ public partial class ColorSliderView : ContentView
 
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (oldValue == newValue) { return; }
+        if (ColorService.IsColorSimilar((Color)oldValue, (Color)newValue))
+        { return; }
         ColorSliderView view = (ColorSliderView)bindable;
         if (!view._ignoreColorChanges)
         {

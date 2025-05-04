@@ -13,12 +13,12 @@ namespace Momente.ViewModels
         {
             _momentPage = momentPage;
             _args = args;
-            _id = _args.Moment.Id;
-            _createdAt = _args.Moment.CreatedAt;
+            _id = args.Moment.Id;
+            _createdAt = args.Moment.CreatedAt;
             _icon = args.Moment.Icon;
             _headline = args.Moment.Headline;
             _description = args.Moment.Description;
-            _colorString = args.Moment.ColorString;            
+            _color = Color.Parse(args.Moment.ColorString);
             DeleteButtonCommand = new Command(async () => await DeleteButton_Clicked());
             CancelButtonCommand = new Command(async () => await CancelButton_Clicked());
             SaveButtonCommand = new Command(async () => await SaveButton_Clicked());
@@ -62,7 +62,7 @@ namespace Momente.ViewModels
                 {
                     _createdAt = DateTime.Parse(value);
                     OnPropertyChanged(nameof(CreatedAtString));
-                }                
+                }
             }
         }
 
@@ -111,18 +111,17 @@ namespace Momente.ViewModels
             }
         }
 
-        private string _colorString;
+        private Color _color;
 
         public Color Color
         {
-            get => Color.Parse(_colorString);
+            get => _color;
             set
             {
-                if (_colorString != value.ToHex())
-                {
-                    _colorString = value.ToHex();
-                    OnPropertyChanged(nameof(Color));
-                }
+                if (ColorService.IsColorSimilar(_color, value))
+                { return; }
+                _color = value;
+                OnPropertyChanged(nameof(Color));
             }
         }
 
@@ -166,15 +165,10 @@ namespace Momente.ViewModels
 
         private bool ChangesMadeToMoment()
         {
-            if (_args.Moment.Icon != Icon)
-            { return true; }
-            if (_args.Moment.Headline != Headline)
-            { return true; }
-            if (_args.Moment.Description != Description)
-            { return true; }
-            if (_args.Moment.ColorString != Color.ToHex())
-            { return true; }
-            return false;
+            return _args.Moment.Icon != Icon ||
+                   _args.Moment.Headline != Headline ||
+                   _args.Moment.Description != Description ||
+                   !ColorService.IsColorSimilar(Color.Parse(_args.Moment.ColorString), Color);
         }
 
         public ICommand SaveButtonCommand { get; }
@@ -192,7 +186,7 @@ namespace Momente.ViewModels
             _args.Moment.Icon = _icon;
             _args.Moment.Headline = _headline;
             _args.Moment.Description = _description;
-            _args.Moment.ColorString =  _colorString;
+            _args.Moment.ColorString = _color.ToHex();
             if (await DatabaseService.Instance.GetMomentByIdAsync(_args.Moment.Id) != null)
             {
                 await DatabaseService.Instance.UpdateMomentAsync(_args.Moment);

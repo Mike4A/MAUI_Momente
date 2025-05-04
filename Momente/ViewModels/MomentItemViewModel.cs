@@ -1,4 +1,5 @@
 ﻿using Momente.Models;
+using Momente.Services;
 using System.ComponentModel;
 namespace Momente.ViewModels
 {
@@ -104,11 +105,10 @@ namespace Momente.ViewModels
             get => Color.Parse(_colorString);
             set
             {
-                if (_colorString != value.ToHex())
-                {
-                    _colorString = value.ToHex();
-                    OnPropertyChanged(nameof(_colorString));
-                }
+                if (ColorService.IsColorSimilar(Color.Parse(_colorString), Color.Parse(value.ToHex())))
+                { return; }
+                _colorString = value.ToHex();
+                OnPropertyChanged(nameof(_colorString));
             }
         }
     }

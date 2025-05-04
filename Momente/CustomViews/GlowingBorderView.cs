@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Momente.Services;
+using System.Runtime.CompilerServices;
 
 namespace Momente.CustomViews
 {
@@ -31,7 +32,12 @@ namespace Momente.CustomViews
         public Color GlowColor
         {
             get => (Color)GetValue(GlowColorProperty);
-            set => SetValue(GlowColorProperty, value);
+            set 
+            {
+                if (ColorService.IsColorSimilar(GlowColor, value))
+                { return; }
+                SetValue(GlowColorProperty, value);
+            }
         }
 
         public static readonly BindableProperty GlowColorProperty =
@@ -44,6 +50,8 @@ namespace Momente.CustomViews
 
         static void OnGlowColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            if (ColorService.IsColorSimilar((Color)oldValue, (Color)newValue))
+            { return; }
             (bindable as GlowingBorderView)!.Invalidate();
         }
 

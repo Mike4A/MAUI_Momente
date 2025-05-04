@@ -132,7 +132,8 @@ namespace Momente.ViewModels
         {
             if (!IsSearching && SelectedMomentItem != null)
             {
-                if (SelectedMomentItem.Headline == MauiProgram.DEV_CHEAT_CODE && SelectedMomentItem.Color!.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
+                if (SelectedMomentItem.Headline == MauiProgram.DEV_CHEAT_CODE &&
+                    ColorService.IsColorSimilar(SelectedMomentItem.Color!, MauiProgram.DEV_CHEAT_COlOR))
                 {
                     string msg =
                         $"DB Path: {DatabaseService.Instance.NewDbPath}\n" +
