@@ -8,13 +8,33 @@ namespace Momente.Services
     {
         private DatabaseService()
         {
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
-            _database = new SQLiteAsyncConnection(dbPath);
+            string storageDirectory;
+#if ANDROID
+            //Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDcim);
+            storageDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DataDirectory!.ToString())!.AbsoluteFile.Path;
+            if (string.IsNullOrEmpty(storageDirectory)) { storageDirectory = FileSystem.AppDataDirectory; }
+#else
+            storageDirectory = FileSystem.AppDataDirectory;
+#endif
+            string oldDbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
+            NewDbPath = Path.Combine(storageDirectory, "moments.db");
+            if (NewDbPath != oldDbPath)
+            {
+                if (File.Exists(oldDbPath) && !File.Exists(NewDbPath))
+                {
+                    File.Copy(oldDbPath, NewDbPath);
+                    File.Delete(oldDbPath);
+                }
+            }
+            _database = new SQLiteAsyncConnection(NewDbPath);
             _database.CreateTableAsync<Moment>().Wait();
             ResetIdCounter();
         }
 
+        public string NewDbPath { get; private set; }
+
         private static DatabaseService? _instance;
+
         public static DatabaseService Instance
         {
             get

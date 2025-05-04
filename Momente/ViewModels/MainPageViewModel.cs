@@ -135,7 +135,7 @@ namespace Momente.ViewModels
                 if (SelectedMomentItem.Headline == MauiProgram.DEV_CHEAT_CODE && SelectedMomentItem.Color!.ToHex() == MauiProgram.DEV_CHEAT_COlOR)
                 {
                     string msg =
-                        $"DB Path: {Path.Combine(FileSystem.AppDataDirectory)}\n" +
+                        $"DB Path: {DatabaseService.Instance.NewDbPath}\n" +
                         $"DB Count: {await DatabaseService.Instance.GetCount()}\n" +
                         $"Loaded Moments: {MomentItems.Count}";
                     await _mainPage.DisplayAlert("", msg, "Ok");
@@ -189,7 +189,6 @@ namespace Momente.ViewModels
                         if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
                         {
                             _mainPage.ScrollTo(MomentItems[_searchIndex], animate: false);
-
                             if (!await _mainPage.DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No))
                             { break; }
                         }
