@@ -15,7 +15,7 @@ public partial class ColorSliderView : ContentView
         LuminosityGraphicsView.Drawable = LuminosityGraphicsView;
     }
 
-    private bool _isApplyingColorToSliders = false;
+    private bool _ignoreColorChanges = false;
 
     public Color Color
     {
@@ -38,32 +38,53 @@ public partial class ColorSliderView : ContentView
 
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (oldValue == newValue) { return; }
         ColorSliderView view = (ColorSliderView)bindable;
-        view._isApplyingColorToSliders = true;
-        view.HueSlider.Value = view.Color.GetHue();
-        view.SaturationSlider.Value = view.Color.GetSaturation();
-        view.LuminositySlider.Value = view.Color.GetLuminosity();
-        view._isApplyingColorToSliders = false;
+        if (!view._ignoreColorChanges)
+        {
+            if (view.Color.GetSaturation() != 0 && view.Color.GetLuminosity() != 0 && view.Color.GetLuminosity() != 1)
+            {
+                view.HueSlider.Value = view.Color.GetHue();
+            }
+            if (view.Color.GetLuminosity() != 0 && view.Color.GetLuminosity() != 1)
+            {
+                view.SaturationSlider.Value = view.Color.GetSaturation();
+            }
+            if (view.Color.GetSaturation() != 0)
+            {
+                view.LuminositySlider.Value = view.Color.GetLuminosity();
+            }
+        }
+        view.HueGraphicsView.Saturation = (float)view.SaturationSlider.Value;
+        view.HueGraphicsView.Luminosity = (float)view.LuminositySlider.Value;
+        view.HueGraphicsView.Invalidate();
+        view.SaturationGraphicsView.Hue = (float)view.HueSlider.Value;
+        view.SaturationGraphicsView.Luminosity = (float)view.LuminositySlider.Value;
+        view.SaturationGraphicsView.Invalidate();
+        view.LuminosityGraphicsView.Saturation = (float)view.SaturationSlider.Value;
+        view.LuminosityGraphicsView.Hue = (float)view.HueSlider.Value;
+        view.LuminosityGraphicsView.Invalidate();
     }
 
     private void HueSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        ApplySliderChanges();
+        ApplySlidedColor();
     }
 
     private void SaturationSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        ApplySliderChanges();
+        ApplySlidedColor();
     }
 
     private void LuminositySlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        ApplySliderChanges();
+        ApplySlidedColor();
     }
 
-    private void ApplySliderChanges()
+    private void ApplySlidedColor()
     {
-        if (_isApplyingColorToSliders) { return; }
-        Color = Color.FromHsla(HueSlider.Value, SaturationSlider.Value, LuminositySlider.Value, 1);
+        _ignoreColorChanges = true;
+        Color = Color.FromHsla(HueSlider.Value, SaturationSlider.Value, LuminositySlider.Value);
+        _ignoreColorChanges = false;
     }
 }

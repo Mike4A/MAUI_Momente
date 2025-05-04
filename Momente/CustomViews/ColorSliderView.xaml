@@ -19,10 +19,7 @@
 
                 <Grid>
 
-                    <customViews:ColorSliderBackgroundView
-                        x:Name="HueGraphicsView"
-                        Margin="12,0,12,0"
-                        Color="{Binding Color}" />
+                    <customViews:ColorSliderBackgroundView x:Name="HueGraphicsView" Margin="12,0,12,0" />
 
                     <Slider
                         x:Name="HueSlider"
@@ -40,10 +37,7 @@
 
                 <Grid>
 
-                    <customViews:ColorSliderBackgroundView
-                        x:Name="SaturationGraphicsView"
-                        Margin="12,0,12,0"
-                        Color="{Binding Color}" />
+                    <customViews:ColorSliderBackgroundView x:Name="SaturationGraphicsView" Margin="12,0,12,0" />
 
                     <Slider
                         x:Name="SaturationSlider"
@@ -61,10 +55,7 @@
 
                 <Grid>
 
-                    <customViews:ColorSliderBackgroundView
-                        x:Name="LuminosityGraphicsView"
-                        Margin="12,0,12,0"
-                        Color="{Binding Color}" />
+                    <customViews:ColorSliderBackgroundView x:Name="LuminosityGraphicsView" Margin="12,0,12,0" />
 
                     <Slider
                         x:Name="LuminositySlider"

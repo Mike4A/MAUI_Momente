@@ -11,27 +11,11 @@ namespace Momente.CustomViews
     {
         public ColorChannel ColorChannel { get; set; }
 
-        public Color Color
-        {
-            get => (Color)GetValue(ColorProperty);
-            set { 
-                if (Color == value) { return; }
-                SetValue(ColorProperty, value); }
-        }
-
-        public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create(
-                nameof(Color),
-                typeof(Color),
-                typeof(GlowingBorderView),
-                Colors.Magenta,
-                BindingMode.TwoWay,
-                propertyChanged: OnColorChanged);
-
-        private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            ((ColorSliderBackgroundView)bindable).Invalidate();    
-        }
+        public float Hue { get; set; }
+        
+        public float Saturation { get; set; }
+        
+        public float Luminosity { get; set; }
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
@@ -45,13 +29,13 @@ namespace Momente.CustomViews
                 switch (ColorChannel)
                 {
                     case ColorChannel.Hue:
-                        canvas.StrokeColor = Color.FromHsla(channelValue, Color.GetSaturation(), Color.GetLuminosity());
+                        canvas.StrokeColor = Color.FromHsla(channelValue, Saturation, Luminosity);
                         break;
                     case ColorChannel.Saturation:
-                        canvas.StrokeColor = Color.FromHsla(Color.GetHue(), channelValue, Color.GetLuminosity());
+                        canvas.StrokeColor = Color.FromHsla(Hue, channelValue, Luminosity);
                         break;
                     case ColorChannel.Luminosity:
-                        canvas.StrokeColor = Color.FromHsla(Color.GetHue(), Color.GetSaturation(), channelValue);
+                        canvas.StrokeColor = Color.FromHsla(Hue, Saturation, channelValue);
                         break;
                     case ColorChannel.None:
                     default:
