@@ -4,7 +4,7 @@ using Momente.Services;
 
 namespace Momente
 {
-    //v0.12
+    //v0.13
     public static class MauiProgram
     {
         public static Color MOMENT_DEFAULT_COLOR { get; } = Color.FromRgb(127, 128, 128);
