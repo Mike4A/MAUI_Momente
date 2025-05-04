@@ -1,18 +1,36 @@
 ﻿using SQLite;
-using Momente.Resources.Localizations;
 using Momente.Models;
 
 namespace Momente.Services
 {
     public class DatabaseService
     {
-        private DatabaseService()
+                private DatabaseService()
         {
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
-            _database = new SQLiteAsyncConnection(dbPath);
+            string storageDirectory;
+#if ANDROID
+            //Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDcim);
+            storageDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DataDirectory!.ToString())!.AbsoluteFile.Path;
+            if (string.IsNullOrEmpty(storageDirectory)) { storageDirectory = FileSystem.AppDataDirectory; }
+#else
+            storageDirectory = FileSystem.AppDataDirectory;
+#endif
+            string oldDbPath = Path.Combine(FileSystem.AppDataDirectory, "moments.db");
+            NewDbPath = Path.Combine(storageDirectory, "moments.db");
+            if (NewDbPath != oldDbPath)
+            {
+                if (File.Exists(oldDbPath) && !File.Exists(NewDbPath))
+                {
+                    File.Copy(oldDbPath, NewDbPath);
+                    File.Delete(oldDbPath);
+                }
+            }
+            _database = new SQLiteAsyncConnection(NewDbPath);
             _database.CreateTableAsync<Moment>().Wait();
             ResetIdCounter();
         }
+
+        public string NewDbPath { get; private set; }
 
         private static DatabaseService? _instance;
         public static DatabaseService Instance
@@ -33,7 +51,7 @@ namespace Momente.Services
 
         private readonly SQLiteAsyncConnection _database;
 
-        public int IdCounter;        
+        public int IdCounter;
 
         public async void ResetIdCounter()
         {
@@ -44,7 +62,7 @@ namespace Momente.Services
                 IdCounter = lastMoment.Id;
             }
         }
-        
+
         public async Task<int> AddMomentAsync(Moment moment)
         {
             return await _database.InsertAsync(moment);
@@ -54,7 +72,7 @@ namespace Momente.Services
         {
             return await _database.Table<Moment>().OrderByDescending(m => m.Id).ToListAsync();
         }
-        
+
         public async Task<int> UpdateMomentAsync(Moment moment)
         {
             return await _database.UpdateAsync(moment);

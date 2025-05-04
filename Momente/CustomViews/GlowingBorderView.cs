@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Momente.CustomViews
+﻿namespace Momente.CustomViews
 {
     public class GlowingBorderView : GraphicsView, IDrawable
     {

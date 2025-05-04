@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Momente.Models;
+﻿using Momente.Models;
 using Momente.Services;
 
 namespace Momente

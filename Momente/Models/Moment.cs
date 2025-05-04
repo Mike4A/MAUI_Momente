@@ -1,7 +1,5 @@
 ﻿using Momente.Resources.Localizations;
-using Momente.Services;
 using SQLite;
-using System.ComponentModel;
 
 namespace Momente.Models
 {
