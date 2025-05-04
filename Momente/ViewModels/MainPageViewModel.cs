@@ -188,7 +188,7 @@ namespace Momente.ViewModels
                         MomentItems.Add(new MomentItemViewModel(previousMoment));
                         if (++searched % MauiProgram.SEARCH_PROMPT_LIMIT == 0)
                         {
-                            _mainPage.ScrollTo(MomentItems[_searchIndex]);
+                            _mainPage.ScrollTo(MomentItems[_searchIndex], animate: false);
 
                             if (!await _mainPage.DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No))
                             { break; }
@@ -225,7 +225,7 @@ namespace Momente.ViewModels
                 {
                     if (_searchIndex > -1)
                     {
-                        _mainPage.ScrollTo(MomentItems[_searchIndex]);
+                        _mainPage.ScrollTo(MomentItems[_searchIndex], animate: false);
                     }
 
                     if (!await _mainPage.DisplayAlert("", AppResources.SearchLimitReachedText, AppResources.Yes, AppResources.No))
@@ -246,7 +246,7 @@ namespace Momente.ViewModels
 
         public bool MomentItemMatchesSearchPatter(MomentItemViewModel momentItem)
         {
-            if (string.IsNullOrEmpty(SearchFilter)) { return false; }            
+            if (string.IsNullOrEmpty(SearchFilter)) { return false; }
             string[] filters = SearchFilter.Split(",");
             foreach (string filter in filters)
             {

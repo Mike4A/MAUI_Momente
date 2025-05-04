@@ -143,9 +143,9 @@ namespace Momente
             SearchEntry.IsEnabled = true;
         }
 
-        internal void ScrollTo(MomentItemViewModel updatedMomentItem, ScrollToPosition scrollToPosition = ScrollToPosition.MakeVisible)
+        internal void ScrollTo(MomentItemViewModel updatedMomentItem, ScrollToPosition scrollToPosition = ScrollToPosition.MakeVisible, bool animate = true)
         {
-            MomentsCollectionView.ScrollTo(updatedMomentItem, scrollToPosition);
+            MomentsCollectionView.ScrollTo(updatedMomentItem, null, scrollToPosition, animate);
         }
 
         internal void ResetItemSelection()
