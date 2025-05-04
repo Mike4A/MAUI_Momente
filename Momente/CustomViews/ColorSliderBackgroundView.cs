@@ -23,9 +23,9 @@ namespace Momente.CustomViews
             canvas.StrokeSize = strokeSize;
             canvas.Antialias = false;
             canvas.BlendMode = BlendMode.Overlay;
-            for (float x = -12; x < dirtyRect.Width + 12; x += strokeSize)
+            for (double x = -12; x < dirtyRect.Width + 12; x += strokeSize)
             {
-                float channelValue = (x + 1) / dirtyRect.Width;
+                double channelValue = (x + 1) / dirtyRect.Width;
                 switch (ColorChannel)
                 {
                     case ColorChannel.Hue:
@@ -41,7 +41,7 @@ namespace Momente.CustomViews
                     default:
                         break;
                 }
-                canvas.DrawLine(x, 0, x, dirtyRect.Height - 1);
+                canvas.DrawLine((float)x, 0, (float)x, dirtyRect.Height - 1);
             }
         }
     }
