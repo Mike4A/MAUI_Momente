@@ -10,9 +10,9 @@ namespace Momente.Services
         {
             string storageDirectory;
 #if ANDROID
-            //Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDcim);
             storageDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DataDirectory!.ToString())!.AbsoluteFile.Path;
-            if (string.IsNullOrEmpty(storageDirectory)) { storageDirectory = FileSystem.AppDataDirectory; }
+            if (string.IsNullOrEmpty(storageDirectory)) 
+            { storageDirectory = FileSystem.AppDataDirectory; }
 #else
             storageDirectory = FileSystem.AppDataDirectory;
 #endif
