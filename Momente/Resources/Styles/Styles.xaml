@@ -145,7 +145,7 @@
     <Style TargetType="customViews:GlowingBorderView">
         <Setter Property="BackgroundLuminosity">
             <Setter.Value>
-                <AppThemeBinding Light="0.9" Dark="0.1" />
+                <AppThemeBinding Light="0.95" Dark="0.1" />
             </Setter.Value>
         </Setter>
     </Style>
