@@ -47,11 +47,7 @@
                                 <customViews:GlowingBorderView
                                     CornerRadius="25,5,25,5"
                                     GlowColor="{Binding Color}"
-                                    InputTransparent="True">
-                                    <customViews:GlowingBorderView.BackgroundLuminosity>
-                                        <AppThemeBinding Dark="0.05" Light="0.95" />
-                                    </customViews:GlowingBorderView.BackgroundLuminosity>
-                                </customViews:GlowingBorderView>
+                                    InputTransparent="True" />
 
                                 <Label
                                     x:Name="IconLabel"
@@ -69,11 +65,7 @@
                                 <customViews:GlowingBorderView
                                     CornerRadius="5,25,5,25"
                                     GlowColor="{Binding Color}"
-                                    InputTransparent="True">
-                                    <customViews:GlowingBorderView.BackgroundLuminosity>
-                                        <AppThemeBinding Dark="0.05" Light="0.95" />
-                                    </customViews:GlowingBorderView.BackgroundLuminosity>
-                                </customViews:GlowingBorderView>
+                                    InputTransparent="True" />
 
                                 <Grid Padding="3,0,3,0" RowDefinitions="1.1*,*">
 

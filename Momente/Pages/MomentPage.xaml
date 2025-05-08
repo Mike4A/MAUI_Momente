@@ -19,11 +19,7 @@
                 <customViews:GlowingBorderView
                     CornerRadius="25,5,5,5"
                     GlowColor="{Binding Color}"
-                    InputTransparent="True">
-                    <customViews:GlowingBorderView.BackgroundLuminosity>
-                        <AppThemeBinding Dark="0.05" Light="0.95" />
-                    </customViews:GlowingBorderView.BackgroundLuminosity>
-                </customViews:GlowingBorderView>
+                    InputTransparent="True"/>
 
                 <Entry
                     x:Name="IconEntry"
@@ -47,11 +43,7 @@
                 <customViews:GlowingBorderView
                     CornerRadius="5,25,5,5"
                     GlowColor="{Binding Color}"
-                    InputTransparent="True">
-                    <customViews:GlowingBorderView.BackgroundLuminosity>
-                        <AppThemeBinding Dark="0.05" Light="0.95" />
-                    </customViews:GlowingBorderView.BackgroundLuminosity>
-                </customViews:GlowingBorderView>
+                    InputTransparent="True"/>
 
                 <Grid Padding="3,1,3,0" RowDefinitions="*,1.6*">
 
@@ -84,12 +76,8 @@
             <customViews:GlowingBorderView
                 CornerRadius="5,5,5,5"
                 GlowColor="{Binding Color}"
-                InputTransparent="True">
-                <customViews:GlowingBorderView.BackgroundLuminosity>
-                    <AppThemeBinding Dark="0.05" Light="0.95" />
-                </customViews:GlowingBorderView.BackgroundLuminosity>
-            </customViews:GlowingBorderView>
-
+                InputTransparent="True"/>
+            
             <ScrollView Margin="8">
 
                 <Editor
@@ -112,11 +100,7 @@
             <customViews:GlowingBorderView
                 CornerRadius="5,5,25,25"
                 GlowColor="{Binding Color}"
-                InputTransparent="True">
-                <customViews:GlowingBorderView.BackgroundLuminosity>
-                    <AppThemeBinding Dark="0.05" Light="0.95" />
-                </customViews:GlowingBorderView.BackgroundLuminosity>
-            </customViews:GlowingBorderView>
+                InputTransparent="True"/>
 
             <customViews:ColorSliderView Color="{Binding Color}" />
 
