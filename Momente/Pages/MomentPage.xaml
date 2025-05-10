@@ -17,7 +17,7 @@
             <Grid Margin="3,3,1,1">
 
                 <customViews:GlowingBorderView
-                    CornerRadius="25,5,5,5"
+                    CornerRadius="40,5,20,5"
                     GlowColor="{Binding Color}"
                     InputTransparent="True"/>
 
@@ -25,7 +25,7 @@
                     x:Name="IconEntry"
                     Grid.Row="0"
                     Grid.Column="0"
-                    Margin="5"
+                    Margin="10,5,5,5"
                     Completed="IconEntry_Completed"
                     Focused="IconEntry_Focused"
                     FontSize="36"
@@ -41,7 +41,7 @@
             <Grid Grid.Column="1" Margin="1,3,3,1">
 
                 <customViews:GlowingBorderView
-                    CornerRadius="5,25,5,5"
+                    CornerRadius="5,40,5,20"
                     GlowColor="{Binding Color}"
                     InputTransparent="True"/>
 
@@ -59,7 +59,7 @@
                     <Entry
                         x:Name="HeadlineEntry"
                         Grid.Row="1"
-                        Margin="5"
+                        Margin="5,5,10,5"
                         Completed="HeadlineEntry_Completed"
                         FontSize="14"
                         Text="{Binding Headline}"
@@ -74,7 +74,7 @@
         <Grid Grid.Row="1" Margin="3,1,3,1">
 
             <customViews:GlowingBorderView
-                CornerRadius="5,5,5,5"
+                CornerRadius="20,20,20,20"
                 GlowColor="{Binding Color}"
                 InputTransparent="True"/>
             
@@ -98,7 +98,7 @@
         <Grid Grid.Row="2" Margin="3,1,3,3">
 
             <customViews:GlowingBorderView
-                CornerRadius="5,5,25,25"
+                CornerRadius="20,20,20,20"
                 GlowColor="{Binding Color}"
                 InputTransparent="True"/>
 
