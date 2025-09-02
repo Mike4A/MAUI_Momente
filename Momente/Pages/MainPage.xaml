@@ -165,7 +165,7 @@
 
         <Grid
             x:Name="SearchControlsGrid"
-            Grid.Row="3"
+            Grid.Row="1"
             Margin="3,0,3,4"
             Padding="0"
             ColumnDefinitions="*,3*,*,*"

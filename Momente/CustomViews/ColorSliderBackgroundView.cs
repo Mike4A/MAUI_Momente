@@ -9,6 +9,11 @@ namespace Momente.CustomViews
 {
     internal class ColorSliderBackgroundView : GraphicsView, IDrawable
     {
+        public ColorSliderBackgroundView()
+        {
+            Drawable = this;
+            InputTransparent = true;
+        }
         public ColorChannel ColorChannel { get; set; }
 
         public double Hue { get; set; }

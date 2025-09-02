@@ -11,7 +11,7 @@ namespace Momente.CustomViews
         }
 
         public float BackgroundLuminosity
-        {            
+        {
             get => (float)GetValue(BackgroundLuminosityProperty);
             set => SetValue(BackgroundLuminosityProperty, value);
         }
@@ -26,13 +26,13 @@ namespace Momente.CustomViews
 
         static void OnBackgroundLuminosityChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as GlowingBorderView)!.Invalidate();            
+            (bindable as GlowingBorderView)!.Invalidate();
         }
 
         public Color GlowColor
         {
             get => (Color)GetValue(GlowColorProperty);
-            set 
+            set
             {
                 if (ColorService.IsColorSimilar(GlowColor, value))
                 { return; }
@@ -55,36 +55,23 @@ namespace Momente.CustomViews
             (bindable as GlowingBorderView)!.Invalidate();
         }
 
-        public string CornerRadius
+        public CornerRadius CornerRadius
         {
-            get => (string)GetValue(CornerRadiusProperty);
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
             set => SetValue(CornerRadiusProperty, value);
         }
 
         public static readonly BindableProperty CornerRadiusProperty =
             BindableProperty.Create(
                 nameof(CornerRadius),
-                typeof(string),
+                typeof(CornerRadius),
                 typeof(GlowingBorderView),
-                "0",
+                new CornerRadius(0),
                 propertyChanged: OnCornerRadiusChanged);
 
         static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
         {
             (bindable as GlowingBorderView)!.Invalidate();
-        }
-
-        private string[] CornerRadii
-        {
-            get
-            {
-                string[] cornerRadii = CornerRadius.Split(',');
-                if (cornerRadii.Length == 1)
-                {
-                    cornerRadii = new string[] { cornerRadii[0], cornerRadii[0], cornerRadii[0], cornerRadii[0] };
-                }
-                return cornerRadii;
-            }
         }
 
         public float GlowOffset
@@ -95,7 +82,7 @@ namespace Momente.CustomViews
 
         public static readonly BindableProperty GlowOffsetProperty =
             BindableProperty.Create(
-                nameof(CornerRadius),
+                nameof(GlowOffset),
                 typeof(float),
                 typeof(GlowingBorderView),
                 0.1f,
@@ -116,10 +103,10 @@ namespace Momente.CustomViews
                dirtyRect.Y + strokeSize / 2 + 2,
                dirtyRect.Width - strokeSize - 4,
                dirtyRect.Height - strokeSize - 4,
-               float.Parse(CornerRadii[0]),
-               float.Parse(CornerRadii[1]),
-               float.Parse(CornerRadii[2]),
-               float.Parse(CornerRadii[3]));
+               (float)CornerRadius.TopLeft,
+               (float)CornerRadius.TopRight,
+               (float)CornerRadius.BottomLeft,
+               (float)CornerRadius.BottomRight);
 
             strokeSize = 6f;
             canvas.StrokeSize = strokeSize;
@@ -129,10 +116,10 @@ namespace Momente.CustomViews
                 dirtyRect.Y + strokeSize / 2,
                 dirtyRect.Width - strokeSize,
                 dirtyRect.Height - strokeSize,
-                float.Parse(CornerRadii[0]),
-                float.Parse(CornerRadii[1]),
-                float.Parse(CornerRadii[2]),
-                float.Parse(CornerRadii[3]));
+                (float)CornerRadius.TopLeft,
+                (float)CornerRadius.TopRight,
+                (float)CornerRadius.BottomLeft,
+                (float)CornerRadius.BottomRight);
 
             strokeSize = 4f;
             canvas.StrokeSize = strokeSize;
@@ -142,10 +129,10 @@ namespace Momente.CustomViews
                 dirtyRect.Y + strokeSize / 2 + 1,
                 dirtyRect.Width - strokeSize - 2,
                 dirtyRect.Height - strokeSize - 2,
-                float.Parse(CornerRadii[0]),
-                float.Parse(CornerRadii[1]),
-                float.Parse(CornerRadii[2]),
-                float.Parse(CornerRadii[3]));
+                (float)CornerRadius.TopLeft,
+                (float)CornerRadius.TopRight,
+                (float)CornerRadius.BottomLeft,
+                (float)CornerRadius.BottomRight);
 
             strokeSize = 2f;
             canvas.StrokeSize = strokeSize;
@@ -155,10 +142,10 @@ namespace Momente.CustomViews
                 dirtyRect.Y + strokeSize / 2 + 2,
                 dirtyRect.Width - strokeSize - 4,
                 dirtyRect.Height - strokeSize - 4,
-                float.Parse(CornerRadii[0]),
-                float.Parse(CornerRadii[1]),
-                float.Parse(CornerRadii[2]),
-                float.Parse(CornerRadii[3]));
+                (float)CornerRadius.TopLeft,
+                (float)CornerRadius.TopRight,
+                (float)CornerRadius.BottomLeft,
+                (float)CornerRadius.BottomRight);
         }
     }
 }

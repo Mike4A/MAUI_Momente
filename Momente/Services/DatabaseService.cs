@@ -35,12 +35,13 @@ namespace Momente.Services
 
         private static DatabaseService? _instance;
 
+        private static readonly object _sync = new();
+
         public static DatabaseService Instance
         {
             get
-            {
-                object x = new object();
-                lock (x)
+            {                
+                lock (_sync)
                 {
                     if (_instance == null)
                     {
